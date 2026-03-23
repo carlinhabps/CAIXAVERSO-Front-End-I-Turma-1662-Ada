@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+}
+
+nav {
+    background-color: #cecece;
+    padding: 16px 0;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+}
+
+.item {
+    background: transparent;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.item.active {
+    background: #5b5b5b;
+}
