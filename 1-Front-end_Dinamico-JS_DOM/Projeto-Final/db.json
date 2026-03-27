@@ -1,0 +1,30 @@
+{
+  "clientes": [
+    {
+      "idCliente": 1,
+      "nome": "João Silva",
+      "cpf": "12345678900",
+      "email": "joao@email.com"
+    }
+  ],
+  "contas": [
+    {
+      "idConta": 1,
+      "idCliente": 1,
+      "numeroConta": 1001,
+      "tipoConta": "Corrente",
+      "saldo": 5000,
+      "status": "Ativa"
+    }
+  ],
+  "transacoes": [
+    {
+      "idTransacao": 1,
+      "idConta": 1,
+      "tipoTransacao": "Depósito",
+      "valorTransacao": 1000,
+      "novoSaldo": 5000,
+      "dataTransacao": "2026-03-16"
+    }
+  ]
+}

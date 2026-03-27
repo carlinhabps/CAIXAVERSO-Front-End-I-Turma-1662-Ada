@@ -1,13 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Bancário - Carla Beatriz</title>
-</head>
-<body>
-  <header></header>
-  <main></main>
-  <footer></footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <title>Sistema Bancário - Carla Beatriz</title>
+  </head>
+  <body>
+    <header>
+      <img src="./img/logo.png" alt="Logo do banco" />
+      <nav>
+        <p>quando clicar em uma opção > ocultar as demais</p>
+        <ul>
+          <li>Gestão de Clientes</li>
+          <li>Gestão de Contas</li>
+          <li>Transações</li>
+        </ul>
+      </nav>
+      <hr />
+    </header>
+
+    <main>
+      <h1>Funcionalidades Obrigatórias</h1>
+      <h2>1. Gestão de Clientes</h2>
+      <ul>
+        <li>Listar clientes (tabela com Nome, CPF, Email)</li>
+        <li>Criar novo cliente (Nome, CPF, Email)</li>
+        <li>Editar cliente</li>
+        <li>Deletar cliente</li>
+        <li>Validar: campos vazios, email com @</li>
+      </ul>
+
+      <h2>2. Gestão de Contas</h2>
+      <ul>
+        <li>Listar contas (Número, Cliente, Tipo, Saldo)</li>
+        <li>
+          Criar conta (selecionar cliente, tipo: Corrente/Poupança, saldo
+          inicial 0)
+        </li>
+        <li>Editar status da conta (Ativa/Inativa)</li>
+        <li>Deletar conta</li>
+      </ul>
+
+      <h2>3. Transações</h2>
+      <ul>
+        <li>Registrar depósito (conta, valor, atualizar saldo)</li>
+        <li>Registrar saque (conta, valor, validar saldo suficiente)</li>
+        <li>Listar histórico de transações (Data, Tipo, Valor, Saldo Novo)</li>
+      </ul>
+    </main>
+
+    <footer>
+      <hr />
+      <p>2026 | App Bancário</p>
+      <p>© Carla Beatriz | CAIXAVERSO | Dev Front-end</p>
+      <p>AdaTech | Turma 1662 | Front-end Dinâmico (JS DOM)</p>
+    </footer>
+
+    <script src="./js/validacao.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/ui.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
