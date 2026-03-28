@@ -1,8 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Jersey+25&family=Julius+Sans+One&family=Kite+One&family=Limelight&family=Permanent+Marker&family=Playwrite+DE+Grund:wght@100..400&family=Playwrite+NO:wght@100..400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Segoe UI", sans-serif;
+  /* font-family: "Julius Sans One", sans-serif; */
+  font-size: 12px;
+
+  --primary: #cfe2e8;
+  --secundary: #968248;
+  --bg: #f4fffe;
+  --text: #14213d;
+
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+:root {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+
+  width: 100%;
+  max-width: 98%;
+  padding: 20px;
+
+  /* display: flex;
+  flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}
+
+.app-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  padding: 20px;
+}
+
 .hiddenContent {
   display: none;
 }
 
 img {
+  height: 60px;
+}
+
+/* ! HEADER */
+
+header {
+  padding-bottom: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav p {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--secundary);
+  font-family: "Julius Sans One", sans-serif;
+}
+
+/* ! MAIN */
+
+/* ! SECTION WELCOME */
+
+h1,
+h2 {
+  font-weight: 600;
+  font-family: "Julius Sans One", sans-serif;
+}
+
+#container-welcome {
+  min-height: 550px;
   height: 100%;
-  width: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container-btn-welcome {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container-btn-welcome img {
+  height: 150px;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.38));
+}
+
+.btnMenu {
+  transition: ease-in-out 500ms;
+}
+
+.btnMenu:hover {
+  transform: scale(1.2);
+}
+
+.container-btn-welcome p {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "Julius Sans One", sans-serif;
+}
+
+/* ! SECTION CLIENTS */
+
+.btn-outline-secondary {
+  font-weight: 600;
+
+  --bs-btn-color: var(--secundary);
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: transparent;
+
+  --bs-btn-hover-color: var(--bg);
+  --bs-btn-hover-bg: var(--secundary);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-color: var(--bg);
+  --bs-btn-active-bg: var(--secundary);
+}
+
+/* ! FOOTER */
+
+footer {
+  padding-top: 20px;
+  text-align: center;
 }
