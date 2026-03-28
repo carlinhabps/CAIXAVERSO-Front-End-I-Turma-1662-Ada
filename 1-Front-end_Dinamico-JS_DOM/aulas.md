@@ -2,7 +2,6 @@
 marp: true
 math: mathjax
 ---
-
 # FE-JS-004 - Frontend Dinâmico (JS DOM)
 
 ## Manipulação de DOM e Interatividade
@@ -30,11 +29,11 @@ Ao final das aulas, o aluno será capaz de:
 
 Na web moderna, usamos três tecnologias principais:
 
-| Tecnologia | Função              |
-| ---------- | ------------------- |
+| Tecnologia | Função             |
+| ---------- | -------------------- |
 | HTML       | estrutura da página |
 | CSS        | aparência           |
-| JavaScript | comportamento       |
+| JavaScript | comportamento        |
 
 ---
 
@@ -209,12 +208,12 @@ document.querySelector("main h1.titulo");
 
 ### Tabela Comparativa
 
-| Método                   | Retorno        | Flexibilidade         | Sintaxe Exemplo     |
-| ------------------------ | -------------- | --------------------- | ------------------- |
-| `getElementById`         | 1 Elemento     | Baixa (apenas ID)     | `('header')`        |
+| Método                    | Retorno        | Flexibilidade          | Sintaxe Exemplo       |
+| -------------------------- | -------------- | ---------------------- | --------------------- |
+| `getElementById`         | 1 Elemento     | Baixa (apenas ID)      | `('header')`        |
 | `getElementsByClassName` | HTMLCollection | Média (apenas Classe) | `('btn-blue')`      |
-| `querySelector`          | 1 Elemento     | Alta (Seletores CSS)  | `('div > p.intro')` |
-| `querySelectorAll`       | NodeList       | Alta (Seletores CSS)  | `('ul li.item')`    |
+| `querySelector`          | 1 Elemento     | Alta (Seletores CSS)   | `('div > p.intro')` |
+| `querySelectorAll`       | NodeList       | Alta (Seletores CSS)   | `('ul li.item')`    |
 
 ---
 
@@ -412,18 +411,18 @@ botao.addEventListener("click", () => {
 
 ### Eventos Comuns
 
-| Evento    | Quando ocorre        |
-| --------- | -------------------- |
-| `click`   | Clique do mouse      |
-| `change`  | Valor de input muda  |
+| Evento      | Quando ocorre          |
+| ----------- | ---------------------- |
+| `click`   | Clique do mouse        |
+| `change`  | Valor de input muda    |
 | `submit`  | Formulário é enviado |
-| `keydown` | Tecla é pressionada  |
-| `keyup`   | Tecla é liberada     |
+| `keydown` | Tecla é pressionada   |
+| `keyup`   | Tecla é liberada      |
 
 ---
 
-| Evento      | Quando ocorre                |
-| ----------- | ---------------------------- |
+| Evento        | Quando ocorre                |
+| ------------- | ---------------------------- |
 | `mouseover` | Mouse passa sobre elemento   |
 | `mouseout`  | Mouse sai do elemento        |
 | `input`     | Enquanto digita (tempo real) |
@@ -623,13 +622,13 @@ container.appendChild(novoParagrafo);
 
 ### Comparação
 
-| Aspecto               | innerHTML                  | createElement        |
-| --------------------- | -------------------------- | -------------------- |
-| **Facilidade**        | Muito fácil                | Um pouco mais código |
-| **Performance**       | Mais lenta (grande volume) | Mais rápida          |
-| **Segurança**         | Risco (injeção de código)  | Segura               |
-| **Conteúdo Complexo** | Prática                    | Trabalhoso           |
-| **Uso Recomendado**   | Prototipagem               | Produção             |
+| Aspecto                      | innerHTML                    | createElement         |
+| ---------------------------- | ---------------------------- | --------------------- |
+| **Facilidade**         | Muito fácil                 | Um pouco mais código |
+| **Performance**        | Mais lenta (grande volume)   | Mais rápida          |
+| **Segurança**         | Risco (injeção de código) | Segura                |
+| **Conteúdo Complexo** | Prática                     | Trabalhoso            |
+| **Uso Recomendado**    | Prototipagem                 | Produção            |
 
 ---
 
@@ -796,11 +795,12 @@ const fotos = [
 **Requisitos:**
 
 1. **Formulário de Adicionar:**
+
    - Nome do produto
    - Preço
    - Categoria (select com opções: Eletrônicos, Alimentos, Roupas)
-
 2. **Lista de Produtos:**
+
    - Exibir todos os produtos adicionados
    - Mostrar nome, preço e categoria
    - Cada produto tem botões: "Destaque", "Remover"
@@ -808,15 +808,16 @@ const fotos = [
 ---
 
 3. **Filtro por Categoria:**
+
    - Botões para filtrar por categoria
    - Mostrar contagem de itens por categoria
-
 4. **Manipulação Dinâmica:**
+
    - Produtos destacados aparecem com fundo amarelo
    - Remover produto remove da lista
    - Validar campos antes de adicionar
-
 5. **Desafio Extra:**
+
    - Calcular e exibir preço total
    - Salvar lista no localStorage (se souber)
    - Categorias aparecem automaticamente (sem hardcode)
@@ -867,11 +868,11 @@ const fotos = [
 
 ## Revisão da Aula 2
 
-| Tópico           | O que vimos                                   |
-| ---------------- | --------------------------------------------- |
-| Eventos          | `addEventListener`, `onclick`, objeto `event` |
-| Formulários      | `.value`, `submit`, `event.preventDefault()`  |
-| Estilos          | `.style.propriedade`, `.classList`            |
+| Tópico             | O que vimos                                         |
+| ------------------- | --------------------------------------------------- |
+| Eventos             | `addEventListener`, `onclick`, objeto `event` |
+| Formulários        | `.value`, `submit`, `event.preventDefault()`  |
+| Estilos             | `.style.propriedade`, `.classList`              |
 | Criação dinâmica | `createElement`, `appendChild`, `innerHTML`   |
 
 **Problema herdado das aulas anteriores:**
@@ -904,10 +905,10 @@ Para dados que **sobrevivem ao recarregamento**, precisamos de um mecanismo de p
 
 ## 2. Onde persistir dados no Frontend?
 
-| Mecanismo              | Onde fica     | Dura até                |
-| ---------------------- | ------------- | ----------------------- |
-| **Variável JS**        | Memória RAM   | Aba fechar / recarregar |
-| **sessionStorage**     | Navegador     | Aba fechar              |
+| Mecanismo                    | Onde fica     | Dura até                |
+| ---------------------------- | ------------- | ------------------------ |
+| **Variável JS**       | Memória RAM  | Aba fechar / recarregar  |
+| **sessionStorage**     | Navegador     | Aba fechar               |
 | **localStorage**       | Navegador     | Usuário apagar / limpar |
 | **Arquivo / Servidor** | Disco / Banco | Decisão do servidor     |
 
@@ -1074,13 +1075,13 @@ Os dados são **apagados quando a janela é fechada**. Não persistem entre sess
 
 ### Comparação Final
 
-|                            | Variável JS    | sessionStorage                  | localStorage      |
-| -------------------------- | -------------- | ------------------------------- | ----------------- |
-| **Duração**                | Até recarregar | Até fechar instância do browser | Indefinida        |
-| **Capacidade**             | RAM            | ~5 MB                           | ~5–10 MB          |
+|                                  | Variável JS    | sessionStorage                    | localStorage        |
+| -------------------------------- | --------------- | --------------------------------- | ------------------- |
+| **Duração**              | Até recarregar | Até fechar instância do browser | Indefinida          |
+| **Capacidade**             | RAM             | ~5 MB                             | ~5–10 MB           |
 | **API**                    | —              | `setItem/getItem`               | `setItem/getItem` |
-| **Compartilha entre abas** | Não            | Não                             | Sim               |
-| **Tipo de dado**           | Qualquer       | Apenas string                   | Apenas string     |
+| **Compartilha entre abas** | Não            | Não                              | Sim                 |
+| **Tipo de dado**           | Qualquer        | Apenas string                     | Apenas string       |
 
 ---
 
@@ -1454,8 +1455,8 @@ http://localhost:3000/produtos
 
 ### Endpoints gerados automaticamente
 
-| Método   | Endpoint        | Ação                   |
-| -------- | --------------- | ---------------------- |
+| Método    | Endpoint          | Ação                 |
+| ---------- | ----------------- | ---------------------- |
 | `GET`    | `/produtos`     | Listar todos           |
 | `GET`    | `/produtos/:id` | Buscar por ID          |
 | `POST`   | `/produtos`     | Criar                  |
@@ -1688,13 +1689,13 @@ await criarERecarregar();
 
 ## 6. Comparação: Promises vs Async/Await
 
-| Aspecto          | Promises (`.then/.catch`) | Async/Await           |
-| ---------------- | ------------------------- | --------------------- |
-| **Legibilidade** | Encadeamento (mental)     | Sequencial (clara)    |
+| Aspecto                | Promises (`.then/.catch`) | Async/Await              |
+| ---------------------- | --------------------------- | ------------------------ |
+| **Legibilidade** | Encadeamento (mental)       | Sequencial (clara)       |
 | **Erro**         | `.catch` no final         | `try/catch` explícito |
-| **Debugging**    | Mais complexo             | Stack trace claro     |
-| **Browser**      | Compatível (ES6)          | Moderno (ES8)         |
-| **Performance**  | Idêntica                  | Idêntica              |
+| **Debugging**    | Mais complexo               | Stack trace claro        |
+| **Browser**      | Compatível (ES6)           | Moderno (ES8)            |
+| **Performance**  | Idêntica                   | Idêntica                |
 
 **Resumo:** Ambas são idênticas por baixo (async/await é apenas sintaxe sobre Promises), mas `async/await` é mais legível.
 
@@ -2149,14 +2150,14 @@ Promise.race([
 
 ## 8. Referência Rápida: Quando Usar Promises vs Async/Await
 
-| Situação                          | Recomendação                |
-| --------------------------------- | --------------------------- |
-| **Iniciante**                     | Comece com Promises         |
-| **Encadeamento simples** (2-3)    | Promises OK                 |
-| **Lógica complexa**               | Async/Await                 |
+| Situação                                 | Recomendação                |
+| ------------------------------------------ | ----------------------------- |
+| **Iniciante**                        | Comece com Promises           |
+| **Encadeamento simples** (2-3)       | Promises OK                   |
+| **Lógica complexa**                 | Async/Await                   |
 | **Múltiplas operações paralelas** | `Promise.all` + async/await |
-| **Timeouts**                      | `Promise.race`              |
-| **Novo código**                   | Async/Await                 |
+| **Timeouts**                         | `Promise.race`              |
+| **Novo código**                     | Async/Await                   |
 
 ---
 

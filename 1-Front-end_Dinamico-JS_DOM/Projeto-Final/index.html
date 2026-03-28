@@ -18,37 +18,181 @@
     <header>
       <img src="./img/logo.png" alt="Logo do banco" />
       <nav>
-        <p>quando clicar em uma opção > ocultar as demais</p>
-        <ul>
-          <li>Gestão de Clientes</li>
-          <li>Gestão de Contas</li>
-          <li>Transações</li>
-        </ul>
+        <p>Gerenciamento Bancário</p>
       </nav>
       <hr />
     </header>
 
     <main>
-      <h1>Funcionalidades Obrigatórias</h1>
-      <h2>1. Gestão de Clientes</h2>
-      <ul>
-        <li>Listar clientes (tabela com Nome, CPF, Email)</li>
-        <li>Criar novo cliente (Nome, CPF, Email)</li>
-        <li>Editar cliente</li>
-        <li>Deletar cliente</li>
-        <li>Validar: campos vazios, email com @</li>
-      </ul>
+      <div>
+        <ul>
+          <li class="clients">
+            <img src="./img/Cliente1.png" alt="Clientes" />
+            Clientes
+          </li>
+          <li class="account">
+            <img src="./img/Contas.png" alt="Contas" />Contas
+          </li>
+          <li class="transactions">Transações</li>
+        </ul>
+      </div>
+      <h1 id="title">Gestão de Clientes</h1>
+      <div class="container-clients">
+        <form>
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+              </tr>
+              <tr class="table-group-divider">
+                <th>
+                  <input type="text" placeholder="Digite o nome completo" />
+                </th>
+                <th>
+                  <input
+                    type="number"
+                    name="cpfInput"
+                    id="cpfInput"
+                    placeholder="Digite o CPF (somente números)"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="email"
+                    name="emailInput"
+                    id="emailInput"
+                    placeholder="Digite o e-mail"
+                  />
+                </th>
+              </tr>
+            </thead>
+            <tbody class="clientsList">
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+              <tr>
+                <td>aaaa</td>
+                <td>aaaaaa</td>
+                <td>aaaaaaaaa</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <button type="submit">Cadastrar</button>
+          <button type="submit">Editar</button>
+          <button type="submit">Deletar</button>
+        </form>
+        <!-- <li>Listar clientes (tabela com Nome, CPF, Email)</li> -->
+        <!-- <li>Criar novo cliente (Nome, CPF, Email)</li> -->
+        <!-- <li>Editar cliente</li> -->
+        <!-- <li>Deletar cliente</li> -->
+        <!--! <li>Validar: campos vazios, email com @</li> -->
+      </div>
 
-      <h2>2. Gestão de Contas</h2>
-      <ul>
-        <li>Listar contas (Número, Cliente, Tipo, Saldo)</li>
-        <li>
+      <div class="container-accounts">
+        <form>
+          <table>
+            <thead>
+              <tr>
+                <th>Conta</th>
+                <th>Cliente</th>
+                <th>Tipo</th>
+                <th>Saldo</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <th>
+                  <input
+                    type="text"
+                    placeholder="Conta gerada automaticamente"
+                    disabled
+                  />
+                </th>
+                <th>
+                  <select name="chooseClient" id="chooseClient" required>
+                    <option value="" selected disabled>
+                      Selecione o(a) cliente
+                    </option>
+                    <option value=""></option>
+                  </select>
+                </th>
+                <th>
+                  <select name="accountType" id="accountType" required>
+                    <option value="" selected disabled hidden>
+                      Tipo da Conta
+                    </option>
+                    <option value="corrente">Corrente</option>
+                    <option value="poupanca">Poupança</option>
+                  </select>
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    placeholder="Saldo zerado na abertura da conta"
+                    disabled
+                  />
+                </th>
+                <th>
+                  <select name="accountStatus" id="accountStatus" required>
+                    <option value="" selected disabled hidden>
+                      Status da Conta
+                    </option>
+                    <option value="ativa">Ativa</option>
+                    <option value="inativa">Inativa</option>
+                  </select>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="accountList"></tbody>
+          </table>
+
+          <button type="submit">Cadastrar</button>
+          <button type="submit">Ativar/Inativar</button>
+          <button type="submit">Deletar</button>
+        </form>
+
+        <!-- <li>Listar contas (Número, Cliente, Tipo, Saldo)</li> -->
+        <!-- <li>
           Criar conta (selecionar cliente, tipo: Corrente/Poupança, saldo
           inicial 0)
-        </li>
-        <li>Editar status da conta (Ativa/Inativa)</li>
-        <li>Deletar conta</li>
-      </ul>
+        </li> -->
+        <!-- <li>Editar status da conta (Ativa/Inativa)</li> -->
+        <!-- <li>Deletar conta</li> -->
+      </div>
 
       <h2>3. Transações</h2>
       <ul>

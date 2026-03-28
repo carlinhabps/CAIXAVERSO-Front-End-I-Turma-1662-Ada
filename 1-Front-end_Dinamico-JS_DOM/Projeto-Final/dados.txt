@@ -1,0 +1,19 @@
+Index:
+http://localhost:3000/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://localhost:3000/clientes
+http://localhost:3000/contas
+http://localhost:3000/transacoes
+
+
+Cores
+
+#cfe2e8
+
+#968248
+
+fundo #f4fffe
