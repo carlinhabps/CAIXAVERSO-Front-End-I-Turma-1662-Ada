@@ -52,10 +52,6 @@ p {
   padding: 20px;
 }
 
-.hiddenContent {
-  display: none;
-}
-
 img {
   height: 60px;
 }
@@ -66,16 +62,58 @@ header {
   padding-bottom: 20px;
 
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hiddenNavBar {
+  justify-content: center;
+}
+
+.logo {
+  padding-left: 30px;
+
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-nav p {
+.logo p {
   padding-left: 20px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--secundary);
   font-family: "Julius Sans One", sans-serif;
+}
+
+nav {
+  width: 20%;
+}
+
+.container-navBar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-navBar p {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: "Julius Sans One", sans-serif;
+
+  text-align: center;
+}
+.container-navBar li {
+  transition: ease-in-out 500ms;
+}
+
+.container-navBar li:hover {
+  transform: scale(1.1);
 }
 
 /* ! MAIN */
@@ -88,7 +126,7 @@ h2 {
   font-family: "Julius Sans One", sans-serif;
 }
 
-#container-welcome {
+.container-welcome {
   min-height: 550px;
   height: 100%;
 
@@ -144,4 +182,8 @@ h2 {
 footer {
   padding-top: 20px;
   text-align: center;
+}
+
+.hiddenContent {
+  display: none;
 }

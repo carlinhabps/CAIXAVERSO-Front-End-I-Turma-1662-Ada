@@ -15,34 +15,54 @@
     <title>Sistema Bancário - Carla Beatriz</title>
   </head>
   <body>
-    <header>
-      <img src="./img/logo.png" alt="Logo do banco" />
-      <nav>
+    <!-- <header class="hiddenNavBar"> -->
+    <header class="">
+      <div class="logo">
+        <img src="./img/logo.png" alt="Logo do banco" />
         <p>Gerenciamento Bancário</p>
+      </div>
+
+      <!-- ! INICIA COM A class="hiddenContent" EM <nav> -->
+      <!-- <nav class="hiddenContent"> -->
+      <nav class="">
+        <ul class="container-navBar">
+          <li>
+            <img src="./img/Cliente1.png" alt="Clientes" />
+            <p>Clientes</p>
+          </li>
+          <li>
+            <img src="./img/Contas.png" alt="Contas" />
+            <p>Contas</p>
+          </li>
+          <li>
+            <img src="./img/Transacoes2.png" alt="Transações" />
+            <p>Transações</p>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <main class="app-container">
-      <section id="container-welcome">
+      <section id="container-welcome" class="container-welcome hiddenContent">
         <h1 id="title">Seja Bem-vindo(a)!</h1>
 
         <div class="container-btn-welcome">
-          <button class="btn btnMenu">
+          <button id="btn-client" class="btn btnMenu">
             <img src="./img/Cliente1.png" alt="Clientes" />
             <p>Clientes</p>
           </button>
-          <button class="btn btnMenu">
+          <button id="btn-account" class="btn btnMenu">
             <img src="./img/Contas.png" alt="Contas" />
             <p>Contas</p>
           </button>
-          <button class="btn btnMenu">
+          <button id="btn-transactions" class="btn btnMenu">
             <img src="./img/Transacoes2.png" alt="Transações" />
             <p>Transações</p>
           </button>
         </div>
       </section>
 
-      <section id="container-clients" class="hiddenContent">
+      <section id="container-clients" class="container-clients">
         <h2 class="subtitle">Gestão de Clientes</h2>
         <form>
           <table class="table table-hover table-sm">
@@ -90,7 +110,7 @@
         <!-- Deletar cliente -->
         <!--! Validar: campos vazios, email com @ -->
       </section>
-      <section id="container-accounts" class="hiddenContent">
+      <section id="container-accounts" class="container-accounts hiddenContent">
         <h2 class="subtitle">Gestão de Contas</h2>
         <form>
           <table class="table table-hover table-sm">
@@ -158,7 +178,10 @@
         <!-- Editar status da conta (Ativa/Inativa) -->
         <!-- Deletar conta -->
       </section>
-      <section id="container-transactions" class="hiddenContent">
+      <section
+        id="container-transactions"
+        class="container-transactions hiddenContent"
+      >
         <h2 class="subtitle">Transações</h2>
         <h3 class="clientName">Nome do Cliente</h3>
         <form>

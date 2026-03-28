@@ -17,3 +17,34 @@ Cores
 #968248
 
 fundo #f4fffe
+
+
+
+ações pra serem implementadas:
+
+
+- quando clicar em:
+
+  id="btn-client",
+  id="btn-account"
+ou 
+  id="btn-transactions",
+
+vai:
+INSERIR class="hiddenContent" na section id="container-welcome",
+RETIRAR class="hiddenContent" de <nav>
+RETIRAR class="hiddenNavBar" de <header>
+
+
+
+- quando clicar em:
+
+  XX,
+  XX
+ou 
+  XX
+
+vai:
+INSERIR class="hiddenContent" na section id="container-welcome",
+RETIRAR class="hiddenContent" de <nav>
+RETIRAR class="hiddenNavBar" de <header>
