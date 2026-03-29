@@ -3,6 +3,7 @@
 const doc = (select) => document.querySelector(select);
 
 // id
+const navBarContainer = doc("#navBarContainer");
 const homeLogo = doc("#homeLogo");
 const navClients = doc("#navClients");
 const navAccounts = doc("#navAccounts");
@@ -31,6 +32,7 @@ const btnConsultAccount = doc("#btnConsultAccount");
 const btnEditAccount = doc("#btnEditAccount");
 const btnDeleteAccount = doc("#btnDeleteAccount");
 const containerTransactions = doc("#containerTransactions");
+const clientName = doc("#clientName");
 const selectClientName = doc("#selectClientName");
 const selectClientAccount = doc("#selectClientAccount");
 const transactionsList = doc("#transactionsList");
@@ -39,6 +41,9 @@ const transactionsList = doc("#transactionsList");
 const errorMensageClient = doc(".errorMensageClient");
 const errorMensageAccount = doc(".errorMensageAccount");
 const errorMensageTransaction = doc(".errorMensageTransaction");
+
+// tag
+const nav = doc("nav");
 
 // Funções
 

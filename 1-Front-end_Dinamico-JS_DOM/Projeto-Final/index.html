@@ -15,8 +15,8 @@
     <title>Sistema Bancário - Carla Beatriz</title>
   </head>
   <body>
-    <header class="navBar-container hiddenNavBar">
-      <!-- <header class="navBar-container"> -->
+    <header id="navBarContainer" class="navBar-container hiddenNavBar">
+      <!-- <header id="navBarContainer" class="navBar-container"> -->
       <!-- ! INICIA COM A class="hiddenNavBar" EM <header> -->
       <div id="homeLogo" class="logo">
         <img src="./img/logo.png" alt="Logo do banco" />
@@ -63,7 +63,7 @@
         </div>
       </section>
 
-      <section id="containerClients" class="containerClients">
+      <section id="containerClients" class="containerClients hiddenContent">
         <h2 class="subtitle">Gestão de Clientes</h2>
         <form id="newClientForm">
           <table class="table table-hover table-sm">
@@ -163,7 +163,7 @@
         <!-- Deletar cliente -->
       </section>
 
-      <section id="containerAccounts" class="containerAccounts">
+      <section id="containerAccounts" class="containerAccounts hiddenContent">
         <h2 class="subtitle">Gestão de Contas</h2>
 
         <form id="newAccountForm">
@@ -294,10 +294,13 @@
         <!-- Deletar conta -->
       </section>
 
-      <section id="containerTransactions" class="containerTransactions">
+      <section
+        id="containerTransactions"
+        class="containerTransactions hiddenContent"
+      >
         <h2 class="subtitle">Transações</h2>
 
-        <h3 id="client-name" class="clientName">Nome do Cliente</h3>
+        <h3 id="clientName" class="clientName">Nome do Cliente</h3>
 
         <form>
           <select

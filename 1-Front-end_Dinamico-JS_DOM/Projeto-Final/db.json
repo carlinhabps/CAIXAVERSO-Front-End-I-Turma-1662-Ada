@@ -1,5 +1,5 @@
 {
-  "clientes": [
+  "clients": [
     {
       "idCliente": 1,
       "nome": "João Silva",
@@ -7,7 +7,7 @@
       "email": "joao@email.com"
     }
   ],
-  "contas": [
+  "accounts": [
     {
       "idConta": 1,
       "idCliente": 1,
@@ -17,7 +17,7 @@
       "status": "Ativa"
     }
   ],
-  "transacoes": [
+  "transactions": [
     {
       "idTransacao": 1,
       "idConta": 1,

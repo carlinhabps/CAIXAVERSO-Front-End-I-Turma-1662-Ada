@@ -63,10 +63,12 @@ img {
 
 .hiddenNavBar {
   justify-content: center;
+  cursor: none;
 }
 
 .logo {
   padding-left: var(--margin);
+  cursor: pointer;
 
   display: flex;
   justify-content: center;
@@ -101,10 +103,11 @@ img {
 }
 .navBar-container-ul li {
   transition: ease-in-out 500ms;
+  cursor: pointer;
 }
 
 .navBar-container-ul li:hover {
-  transform: scale(1.1);
+  transform: scale(1.01);
 }
 
 /* ! MAIN */
@@ -156,7 +159,7 @@ h2 {
 }
 
 .btnMenu:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .container-btn-welcome p {
@@ -286,6 +289,26 @@ h3 {
 footer {
   padding-top: 20px;
   text-align: center;
+}
+
+/* ! TRANSIÇÕES */
+
+.hiddenContentTransition {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  pointer-events: none;
+}
+
+.showContentTransition {
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  pointer-events: auto;
+}
+
+.hiddenNavBar.showContentTransition {
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  pointer-events: auto;
 }
 
 .hiddenContent {
