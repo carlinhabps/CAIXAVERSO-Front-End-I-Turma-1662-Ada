@@ -50,7 +50,14 @@ newClientForm.addEventListener("submit", (event) => {
   const email = inputClientEmail.value;
 
   if (name === "" || cpf === "" || email === "") {
-    errorMensageClient.innerText = "Há campo obrigatório não preenchido!";
+    errorMensageClient.innerText = "Há campo obrigatório não preenchido";
+    errorMensageClient.classList.remove("hiddenContent");
+    errorMensageClient.classList.add("errorMensageClient");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    errorMensageClient.innerText = "Digite um e-mail válido";
     errorMensageClient.classList.remove("hiddenContent");
     errorMensageClient.classList.add("errorMensageClient");
     return;
