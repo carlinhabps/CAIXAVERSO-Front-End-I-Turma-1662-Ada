@@ -33,11 +33,9 @@ body {
 
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
 }
 
-p,
-.navBar-container-ul {
+p {
   margin: 0;
 }
 
@@ -48,19 +46,19 @@ img {
 /* ! HEADER */
 
 .navBar-container {
-  padding-bottom: 20px;
+  padding-top: 10px;
   background-color: var(--bg);
 
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   max-width: 1200px;
   z-index: 999;
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .hiddenNavBar {
@@ -86,6 +84,7 @@ img {
 .navBar-container-ul {
   list-style: none;
   padding-left: 0;
+  margin: 0;
   padding-right: var(--margin);
 
   display: flex;
@@ -166,20 +165,110 @@ h2 {
   font-family: "Julius Sans One", sans-serif;
 }
 
-/* ! SECTION CLIENTS */
+/* ! SECTION CLIENTS / CONTAS / TRANSAÇÕES */
+
+.container-clients,
+.container-accounts,
+.container-transactions {
+  padding: 15px 0;
+}
+
+.subtitle {
+  margin: 0;
+  padding: 0 0 10px 15px;
+}
+
+.table th {
+  color: var(--secundary);
+  font-weight: 700;
+}
+
+.table td {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.table-group-divider {
+  border-top-color: var(--text);
+}
+
+.form-control {
+  color: var(--text);
+  text-align: left;
+  background-color: var(--bs-body-bg);
+}
+
+.form-control:disabled {
+  background-color: #efefef;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input,
+select {
+  vertical-align: middle;
+}
+
+.form-control,
+.form-select {
+  margin: 10px 0;
+  color: var(--text);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--text);
+  outline: none;
+  box-shadow: 0 0 3px var(--text);
+  /*  */
+}
+
+.btnActions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.container-clients .btn,
+.container-accounts .btn,
+.container-transactions .btn {
+  box-shadow: 2px 2px 2px 0 rgba(20, 33, 61, 0.41);
+}
 
 .btn-outline-secondary {
-  font-weight: 600;
-
   --bs-btn-color: var(--secundary);
   --bs-btn-bg: var(--primary);
   --bs-btn-border-color: transparent;
-
   --bs-btn-hover-color: var(--bg);
   --bs-btn-hover-bg: var(--secundary);
   --bs-btn-hover-border-color: transparent;
   --bs-btn-active-color: var(--bg);
   --bs-btn-active-bg: var(--secundary);
+
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 111px;
+  min-height: 30px;
+}
+
+h3 {
+  font-size: 18px;
+  margin: 0;
+  padding-top: 7px;
+  padding-left: 15px;
+}
+
+.container-transactions form {
+  padding: 10px 0;
+  margin: 0;
 }
 
 /* ! FOOTER */

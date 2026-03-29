@@ -15,26 +15,27 @@
     <title>Sistema Bancário - Carla Beatriz</title>
   </head>
   <body>
-    <!-- <header class="hiddenNavBar"> -->
-    <header class="navBar-container">
-      <div class="logo">
+    <header class="navBar-container hiddenNavBar">
+      <!-- <header class="navBar-container"> -->
+      <!-- ! INICIA COM A class="hiddenNavBar" EM <header> -->
+      <div id="home" class="logo">
         <img src="./img/logo.png" alt="Logo do banco" />
         <p>Gerenciamento Bancário</p>
       </div>
 
-      <!-- ! INICIA COM A class="hiddenContent" EM <nav> -->
-      <!-- <nav class="hiddenContent"> -->
-      <nav class="">
+      <nav class="hiddenContent">
+        <!-- <nav> -->
+        <!-- ! INICIA COM A class="hiddenContent" EM <nav> -->
         <ul class="navBar-container-ul">
-          <li>
+          <li id="nav-client">
             <img src="./img/Cliente1.png" alt="Clientes" />
             <p>Clientes</p>
           </li>
-          <li>
+          <li id="nav-accounts">
             <img src="./img/Contas.png" alt="Contas" />
             <p>Contas</p>
           </li>
-          <li>
+          <li id="nav-transactions">
             <img src="./img/Transacoes2.png" alt="Transações" />
             <p>Transações</p>
           </li>
@@ -43,7 +44,7 @@
     </header>
 
     <main class="app-container">
-      <section id="container-welcome" class="container-welcome hiddenContent">
+      <section id="container-welcome" class="container-welcome">
         <h1 id="title">Seja Bem-vindo(a)!</h1>
 
         <div class="container-btn-welcome">
@@ -74,34 +75,84 @@
               </tr>
               <tr class="table-group-divider">
                 <th>
-                  <input type="text" placeholder=" Digite o nome completo" />
+                  <input
+                    type="text"
+                    name="input-client-name"
+                    id="input-client-name"
+                    class="form-control"
+                    placeholder=" Digite o nome completo"
+                  />
                 </th>
                 <th>
                   <input
                     type="number"
-                    name="cpfInput"
-                    id="cpfInput"
+                    name="input-client-cpf"
+                    id="input-client-cpf"
+                    class="form-control"
                     placeholder=" Digite o CPF (somente números)"
                   />
                 </th>
                 <th>
                   <input
                     type="email"
-                    name="emailInput"
-                    id="emailInput"
+                    name="input-client-email"
+                    id="input-client-email"
+                    class="form-control"
                     placeholder=" nome@exemplo.com"
                   />
                 </th>
               </tr>
             </thead>
+
             <tbody class="clientsList">
               <!-- ! As linhas serão inseridas aqui via JS -->
+              <tr>
+                <td>Nome</td>
+                <td>CPF</td>
+                <td>E-mail</td>
+              </tr>
+              <tr>
+                <td>Nome</td>
+                <td>CPF</td>
+                <td>E-mail</td>
+              </tr>
+              <tr>
+                <td>Nome</td>
+                <td>CPF</td>
+                <td>E-mail</td>
+              </tr>
             </tbody>
           </table>
+
           <div class="btnActions">
-            <button class="btn btn-outline-secondary">Cadastrar</button>
-            <button class="btn btn-outline-secondary">Editar</button>
-            <button class="btn btn-outline-secondary">Deletar</button>
+            <button
+              type="submit"
+              id="registerClient"
+              class="btn btn-outline-secondary"
+            >
+              Cadastrar
+            </button>
+            <button
+              type="button"
+              id="consultClient"
+              class="btn btn-outline-secondary"
+            >
+              Consultar
+            </button>
+            <button
+              type="button"
+              id="editClient"
+              class="btn btn-outline-secondary"
+            >
+              Editar
+            </button>
+            <button
+              type="button"
+              id="deleteClient"
+              class="btn btn-outline-secondary"
+            >
+              Deletar
+            </button>
           </div>
         </form>
         <!-- Listar clientes (tabela com Nome, CPF, Email) -->
@@ -110,8 +161,10 @@
         <!-- Deletar cliente -->
         <!--! Validar: campos vazios, email com @ -->
       </section>
+
       <section id="container-accounts" class="container-accounts hiddenContent">
         <h2 class="subtitle">Gestão de Contas</h2>
+
         <form>
           <table class="table table-hover table-sm">
             <thead>
@@ -126,20 +179,35 @@
                 <th>
                   <input
                     type="text"
-                    placeholder=" Conta gerada automaticamente"
+                    placeholder=" Nº gerado automaticamente"
+                    class="form-control"
                     disabled
                   />
                 </th>
                 <th>
-                  <select name="chooseClient" id="chooseClient" required>
+                  <select
+                    name="select-account-client"
+                    id="select-account-client"
+                    class="form-select"
+                    required
+                  >
                     <option value="" selected disabled>
                       Selecione o(a) cliente
                     </option>
-                    <option value=""></option>
+                    <option class="teste" value=""></option>
+                    <option value="">fcsda</option>
+                    <option value="">fcsda</option>
+                    <option value="">fcsda</option>
+                    <option value="">fcsda</option>
                   </select>
                 </th>
                 <th>
-                  <select name="accountType" id="accountType" required>
+                  <select
+                    name="select-account-type"
+                    id="select-account-type"
+                    class="form-select"
+                    required
+                  >
                     <option value="" selected disabled hidden>
                       Tipo da Conta
                     </option>
@@ -150,12 +218,18 @@
                 <th>
                   <input
                     type="text"
-                    placeholder=" Saldo zerado na abertura da conta"
+                    placeholder=" Saldo zerado na abertura"
+                    class="form-control"
                     disabled
                   />
                 </th>
                 <th>
-                  <select name="accountStatus" id="accountStatus" required>
+                  <select
+                    name="select-account-status"
+                    id="select-account-status"
+                    class="form-select"
+                    required
+                  >
                     <option value="" selected disabled hidden>
                       Status da Conta
                     </option>
@@ -165,49 +239,148 @@
                 </th>
               </tr>
             </thead>
+
             <tbody class="accountsList">
               <!-- ! As linhas serão inseridas aqui via JS -->
+              <tr>
+                <td>Conta</td>
+                <td>Cliente</td>
+                <td>Tipo</td>
+                <td>Saldo</td>
+                <td>Status</td>
+              </tr>
+              <tr>
+                <td>Conta</td>
+                <td>Cliente</td>
+                <td>Tipo</td>
+                <td>Saldo</td>
+                <td>Status</td>
+              </tr>
+              <tr>
+                <td>Conta</td>
+                <td>Cliente</td>
+                <td>Tipo</td>
+                <td>Saldo</td>
+                <td>Status</td>
+              </tr>
             </tbody>
           </table>
-          <button class="btn btn-outline-secondary">Cadastrar</button>
-          <button class="btn btn-outline-secondary">Ativar/Inativar</button>
-          <button class="btn btn-outline-secondary">Deletar</button>
+
+          <div class="btnActions">
+            <button id="registerAccount" class="btn btn-outline-secondary">
+              Cadastrar
+            </button>
+            <button id="consultAccount" class="btn btn-outline-secondary">
+              Consultar
+            </button>
+            <button
+              id="editAccount"
+              type="button"
+              class="btn btn-outline-secondary"
+            >
+              Ativar/Inativar
+            </button>
+            <button
+              id="deleteAccount"
+              type="button"
+              class="btn btn-outline-secondary"
+            >
+              Deletar
+            </button>
+          </div>
         </form>
         <!-- Listar contas (Número, Cliente, Tipo, Saldo) -->
         <!-- Criar conta (selecionar cliente, tipo: Corrente/Poupança, saldo inicial 0) -->
         <!-- Editar status da conta (Ativa/Inativa) -->
         <!-- Deletar conta -->
       </section>
+
       <section
         id="container-transactions"
         class="container-transactions hiddenContent"
       >
         <h2 class="subtitle">Transações</h2>
-        <h3 class="clientName">Nome do Cliente</h3>
+
+        <h3 id="client-name" class="clientName">Nome do Cliente</h3>
+
         <form>
-          <select name="accountClient" id="accountClient" required>
-            <option value="" selected disabled hidden>Selecione a conta</option>
+          <select
+            name="selectClientName"
+            id="select-client-name"
+            class="form-select"
+            required
+          >
+            <option value="" selected disabled hidden>
+              Selecione o(a) cliente...
+            </option>
+            <option value="">Todos</option>
+            <option value="">
+              <!-- ! As opções serão inseridas aqui via JS -->
+            </option>
+          </select>
+
+          <select
+            name="selectClientAccount"
+            id="select-client-account"
+            class="form-select"
+            required
+          >
+            <option value="" selected disabled hidden>
+              Selecione a conta...
+            </option>
+            <option value="allAccounts">Todas</option>
+
             <option value="">
               <!-- ! As opções serão inseridas aqui via JS -->
             </option>
           </select>
         </form>
+
         <table class="table table-hover table-sm">
           <thead>
-            <tr>
+            <tr class="rowTransactions">
               <th>Data</th>
-              <th class="hiddenContent">Conta</th>
+              <th>Nome</th>
+              <th>Conta</th>
               <th>Descrição</th>
               <th>Valor</th>
               <th>Transação</th>
             </tr>
           </thead>
+
           <tbody id="transactionsList" class="table-group-divider">
             <!-- ! As linhas serão inseridas aqui via JS -->
+            <tr class="rowTransactions">
+              <td>Data</td>
+              <td>Nome</td>
+              <td>Conta</td>
+              <td>Descrição</td>
+              <td>Valor</td>
+              <td>Transação</td>
+            </tr>
+            <tr class="rowTransactions">
+              <td>Data</td>
+              <td>Nome</td>
+              <td>Conta</td>
+              <td>Descrição</td>
+              <td>Valor</td>
+              <td>Transação</td>
+            </tr>
+            <tr class="rowTransactions">
+              <td>Data</td>
+              <td>Nome</td>
+              <td>Conta</td>
+              <td>Descrição</td>
+              <td>Valor</td>
+              <td>Transação</td>
+            </tr>
           </tbody>
         </table>
-        <button class="btn btn-outline-secondary">Depositar</button>
-        <button class="btn btn-outline-secondary">Sacar</button>
+
+        <div class="btnActions">
+          <button class="btn btn-outline-secondary">Depositar</button>
+          <button class="btn btn-outline-secondary">Sacar</button>
+        </div>
         <!-- Registrar depósito (conta, valor, atualizar saldo) -->
         <!-- Registrar saque (conta, valor, validar saldo suficiente) -->
         <!-- Listar histórico de transações (Data, Tipo, Valor, Saldo Novo) -->
