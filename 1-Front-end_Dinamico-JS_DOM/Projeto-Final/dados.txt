@@ -25,88 +25,88 @@ ações pra serem implementadas:
 
 
 - quando clicar em:
-  id="home"
+  id="homeLogo"
 vai:
   INSERIR class="hiddenNavBar" de <header>
   INSERIR class="hiddenContent" de <nav>
-  RETIRAR class="hiddenContent" na section id="container-welcome"
-  INSERIR class="hiddenContent" na section id="container-clients"
-  INSERIR class="hiddenContent" na section id="container-accounts"
-  INSERIR class="hiddenContent" na section id="container-transactions"
-  RETIRAR class="hiddenContent" na li id="nav-client"
-  RETIRAR class="hiddenContent" na li id="nav-accounts"
-  RETIRAR class="hiddenContent" na li id="nav-transactions"
+  RETIRAR class="hiddenContent" na section id="containerWelcome"
+  INSERIR class="hiddenContent" na section id="containerClients"
+  INSERIR class="hiddenContent" na section id="containerAccounts"
+  INSERIR class="hiddenContent" na section id="containerTransactions"
+  RETIRAR class="hiddenContent" na li id="navClients"
+  RETIRAR class="hiddenContent" na li id="navAccounts"
+  RETIRAR class="hiddenContent" na li id="navTransactions"
 
   
 
 
 
 - quando clicar em:
-  id="btn-client"
+  id="btnClients"
 vai:
   RETIRAR class="hiddenNavBar" de <header>
   RETIRAR class="hiddenContent" de <nav>
-  INSERIR class="hiddenContent" na li id="nav-client"
-  INSERIR class="hiddenContent" na section id="container-welcome"
-  RETIRAR class="hiddenContent" da section id="container-clients"
+  INSERIR class="hiddenContent" na li id="navClients"
+  INSERIR class="hiddenContent" na section id="containerWelcome"
+  RETIRAR class="hiddenContent" da section id="containerClients"
 
 
 
 - quando clicar em:
-  id="btn-account"
+  id="btnAccounts"
 vai:
   RETIRAR class="hiddenNavBar" de <header>
   RETIRAR class="hiddenContent" de <nav>
-  INSERIR class="hiddenContent" na li id="nav-accounts"
-  INSERIR class="hiddenContent" na section id="container-welcome"
-  RETIRAR class="hiddenContent" da section id="container-accounts"
+  INSERIR class="hiddenContent" na li id="navAccounts"
+  INSERIR class="hiddenContent" na section id="containerWelcome"
+  RETIRAR class="hiddenContent" da section id="containerAccounts"
 
 
 
 
 - quando clicar em:
-  id="btn-transactions",
+  id="btnTransactions",
 vai:
   RETIRAR class="hiddenNavBar" de <header>
   RETIRAR class="hiddenContent" de <nav>
-  INSERIR class="hiddenContent" na section id="container-welcome"
-  RETIRAR class="hiddenContent" da section id="container-transactions"
-  INSERIR class="hiddenContent" na li id="nav-transactions"
+  INSERIR class="hiddenContent" na section id="containerWelcome"
+  RETIRAR class="hiddenContent" da section id="containerTransactions"
+  INSERIR class="hiddenContent" na li id="navTransactions"
 
 
 
 - quando clicar em:
-  id="nav-client"
+  id="navClients"
 vai:
-  RETIRAR class="hiddenContent" na li id="nav-accounts"
-  RETIRAR class="hiddenContent" na li id="nav-transactions"
-  RETIRAR class="hiddenContent" da section id="container-clients"
-  INSERIR class="hiddenContent" na section id="container-accounts"
-  INSERIR class="hiddenContent" na section id="container-transactions"
+  RETIRAR class="hiddenContent" na li id="navAccounts"
+  RETIRAR class="hiddenContent" na li id="navTransactions"
+  RETIRAR class="hiddenContent" da section id="containerClients"
+  INSERIR class="hiddenContent" na section id="containerAccounts"
+  INSERIR class="hiddenContent" na section id="containerTransactions"
 
 
 
 - quando clicar em:
-  id="nav-accounts"
+  id="navAccounts"
 vai:
-  RETIRAR class="hiddenContent" na li id="nav-client"
-  RETIRAR class="hiddenContent" na li id="nav-transactions"
-  INSERIR class="hiddenContent" na section id="container-clients"
-  RETIRAR class="hiddenContent" da section id="container-accounts"
-  INSERIR class="hiddenContent" na section id="container-transactions"
+  RETIRAR class="hiddenContent" na li id="navClients"
+  RETIRAR class="hiddenContent" na li id="navTransactions"
+  INSERIR class="hiddenContent" na section id="containerClients"
+  RETIRAR class="hiddenContent" da section id="containerAccounts"
+  INSERIR class="hiddenContent" na section id="containerTransactions"
 
 
 
 - quando clicar em:
-  id="nav-transactions"
+  id="navTransactions"
 vai:
-  RETIRAR class="hiddenContent" na li id="nav-client"
-  RETIRAR class="hiddenContent" na li id="nav-accounts"
-  INSERIR class="hiddenContent" na section id="container-clients"
-  INSERIR class="hiddenContent" na section id="container-accounts"
-  RETIRAR class="hiddenContent" da section id="container-transactions"
+  RETIRAR class="hiddenContent" na li id="navClients"
+  RETIRAR class="hiddenContent" na li id="navAccounts"
+  INSERIR class="hiddenContent" na section id="containerClients"
+  INSERIR class="hiddenContent" na section id="containerAccounts"
+  RETIRAR class="hiddenContent" da section id="containerTransactions"
   INSERIR class="hiddenContent" no h3 id="client-name"
-  RETIRAR class="hiddenContent" do select id="select-client-name"
+  RETIRAR class="hiddenContent" do select id="selectClientName"
 E - incluir só se der tempo
   {
   RETIRAR class="hiddenContent" do 2º child da tr class="rowTransactions"
@@ -119,54 +119,54 @@ OU
 
 
 - quando SELECIONAR em:
-  id="input-client-name",
-  id="input-client-cpf"
+  id="inputClientName",
+  id="inputClientCpf"
 OU  
-  id="input-client-email"
+  id="inputClientEmail"
 vai:
-  RETIRAR class="hiddenContent" do button id="registerClient"
-  INSERIR class="hiddenContent" do button id="consultClient"
+  RETIRAR class="hiddenContent" do button id="btnRegisterNewClient"
+  INSERIR class="hiddenContent" do button id="btnConsultClient"
 
 
 
 - quando clicar em:
   .clientsList td
 vai:
-  INSERIR class="hiddenContent" do button id="registerClient"
-  RETIRAR class="hiddenContent" do button id="consultClient"
+  INSERIR class="hiddenContent" do button id="btnRegisterNewClient"
+  RETIRAR class="hiddenContent" do button id="btnConsultClient"
   IDENTIFICAR o cliente
 SE clicar em:
-  #consultClient
+  #btnConsultClient
 vai:
-  RETIRAR class="hiddenContent" da section id="container-accounts"
+  RETIRAR class="hiddenContent" da section id="containerAccounts"
   FILTRAR apenas as contas do cliente identificado
 
 
 
 - quando SELECIONAR em:
-  id="select-account-client",
-  id="select-account-type"
+  id="selectAccountClient",
+  id="selectAccountType"
 OU  
-  id="select-account-status"
+  id="selectAccountStatus"
 vai:
-  RETIRAR class="hiddenContent" do button id="registerAccount"
-  INSERIR class="hiddenContent" do button id="consultAccount"
+  RETIRAR class="hiddenContent" do button id="btnRegisterAccount"
+  INSERIR class="hiddenContent" do button id="btnConsultAccount"
   
 
 
 - quando clicar em:
   .accountsList td
 vai:
-  INSERIR class="hiddenContent" do button id="registerAccount"
-  RETIRAR class="hiddenContent" do button id="consultAccount"
+  INSERIR class="hiddenContent" do button id="btnRegisterAccount"
+  RETIRAR class="hiddenContent" do button id="btnConsultAccount"
   IDENTIFICAR o cliente
   IDENTIFICAR a conta
 SE clicar em:
-  #consultAccount
+  #btnConsultAccount
 vai:
-  RETIRAR class="hiddenContent" da section id="container-transactions"
+  RETIRAR class="hiddenContent" da section id="containerTransactions"
   RETIRAR class="hiddenContent" no h3 id="client-name"
-  INSERIR class="hiddenContent" do select id="select-client-name"
+  INSERIR class="hiddenContent" do select id="selectClientName"
   INFORMAR nome do cliente no h3 id="client-name"
   FILTRAR apenas as transações da conta identificada
 

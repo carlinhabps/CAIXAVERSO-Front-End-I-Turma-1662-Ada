@@ -18,7 +18,7 @@
     <header class="navBar-container hiddenNavBar">
       <!-- <header class="navBar-container"> -->
       <!-- ! INICIA COM A class="hiddenNavBar" EM <header> -->
-      <div id="home" class="logo">
+      <div id="homeLogo" class="logo">
         <img src="./img/logo.png" alt="Logo do banco" />
         <p>Gerenciamento Bancário</p>
       </div>
@@ -27,15 +27,15 @@
         <!-- <nav> -->
         <!-- ! INICIA COM A class="hiddenContent" EM <nav> -->
         <ul class="navBar-container-ul">
-          <li id="nav-client">
+          <li id="navClients">
             <img src="./img/Cliente1.png" alt="Clientes" />
             <p>Clientes</p>
           </li>
-          <li id="nav-accounts">
+          <li id="navAccounts">
             <img src="./img/Contas.png" alt="Contas" />
             <p>Contas</p>
           </li>
-          <li id="nav-transactions">
+          <li id="navTransactions">
             <img src="./img/Transacoes2.png" alt="Transações" />
             <p>Transações</p>
           </li>
@@ -44,28 +44,28 @@
     </header>
 
     <main class="app-container">
-      <section id="container-welcome" class="container-welcome">
-        <h1 id="title">Seja Bem-vindo(a)!</h1>
+      <section id="containerWelcome" class="containerWelcome">
+        <h1 id="titleH1">Seja Bem-vindo(a)!</h1>
 
         <div class="container-btn-welcome">
-          <button id="btn-client" class="btn btnMenu">
+          <button id="btnClients" class="btn btnMenu">
             <img src="./img/Cliente1.png" alt="Clientes" />
             <p>Clientes</p>
           </button>
-          <button id="btn-account" class="btn btnMenu">
+          <button id="btnAccounts" class="btn btnMenu">
             <img src="./img/Contas.png" alt="Contas" />
             <p>Contas</p>
           </button>
-          <button id="btn-transactions" class="btn btnMenu">
+          <button id="btnTransactions" class="btn btnMenu">
             <img src="./img/Transacoes2.png" alt="Transações" />
             <p>Transações</p>
           </button>
         </div>
       </section>
 
-      <section id="container-clients" class="container-clients hiddenContent">
+      <section id="containerClients" class="containerClients">
         <h2 class="subtitle">Gestão de Clientes</h2>
-        <form>
+        <form id="newClientForm">
           <table class="table table-hover table-sm">
             <thead>
               <tr>
@@ -77,8 +77,8 @@
                 <th>
                   <input
                     type="text"
-                    name="input-client-name"
-                    id="input-client-name"
+                    name="inputClientName"
+                    id="inputClientName"
                     class="form-control"
                     placeholder=" Digite o nome completo"
                   />
@@ -86,8 +86,8 @@
                 <th>
                   <input
                     type="number"
-                    name="input-client-cpf"
-                    id="input-client-cpf"
+                    name="inputClientCpf"
+                    id="inputClientCpf"
                     class="form-control"
                     placeholder=" Digite o CPF (somente números)"
                   />
@@ -95,8 +95,8 @@
                 <th>
                   <input
                     type="email"
-                    name="input-client-email"
-                    id="input-client-email"
+                    name="inputClientEmail"
+                    id="inputClientEmail"
                     class="form-control"
                     placeholder=" nome@exemplo.com"
                   />
@@ -124,31 +124,33 @@
             </tbody>
           </table>
 
+          <p class="errorMensageClient hiddenContent">Mensagem!</p>
+
           <div class="btnActions">
             <button
               type="submit"
-              id="registerClient"
+              id="btnRegisterNewClient"
               class="btn btn-outline-secondary"
             >
               Cadastrar
             </button>
             <button
               type="button"
-              id="consultClient"
+              id="btnConsultClient"
               class="btn btn-outline-secondary"
             >
               Consultar
             </button>
             <button
               type="button"
-              id="editClient"
+              id="btnEditClient"
               class="btn btn-outline-secondary"
             >
               Editar
             </button>
             <button
               type="button"
-              id="deleteClient"
+              id="btnDeleteClient"
               class="btn btn-outline-secondary"
             >
               Deletar
@@ -162,10 +164,10 @@
         <!--! Validar: campos vazios, email com @ -->
       </section>
 
-      <section id="container-accounts" class="container-accounts hiddenContent">
+      <section id="containerAccounts" class="containerAccounts">
         <h2 class="subtitle">Gestão de Contas</h2>
 
-        <form>
+        <form id="newAccountForm">
           <table class="table table-hover table-sm">
             <thead>
               <tr>
@@ -186,29 +188,25 @@
                 </th>
                 <th>
                   <select
-                    name="select-account-client"
-                    id="select-account-client"
+                    name="selectAccountClient"
+                    id="selectAccountClient"
                     class="form-select"
                     required
                   >
-                    <option value="" selected disabled>
+                    <option value="defaul" selected disabled>
                       Selecione o(a) cliente
                     </option>
-                    <option class="teste" value=""></option>
-                    <option value="">fcsda</option>
-                    <option value="">fcsda</option>
-                    <option value="">fcsda</option>
-                    <option value="">fcsda</option>
+                    <!-- ! As linhas serão inseridas aqui via JS -->
                   </select>
                 </th>
                 <th>
                   <select
-                    name="select-account-type"
-                    id="select-account-type"
+                    name="selectAccountType"
+                    id="selectAccountType"
                     class="form-select"
                     required
                   >
-                    <option value="" selected disabled hidden>
+                    <option value="defaul" selected disabled hidden>
                       Tipo da Conta
                     </option>
                     <option value="corrente">Corrente</option>
@@ -225,12 +223,12 @@
                 </th>
                 <th>
                   <select
-                    name="select-account-status"
-                    id="select-account-status"
+                    name="selectAccountStatus"
+                    id="selectAccountStatus"
                     class="form-select"
                     required
                   >
-                    <option value="" selected disabled hidden>
+                    <option value="defaul" selected disabled hidden>
                       Status da Conta
                     </option>
                     <option value="ativa">Ativa</option>
@@ -266,22 +264,24 @@
             </tbody>
           </table>
 
+          <p class="errorMensageAccount hiddenContent">Mensagem!</p>
+
           <div class="btnActions">
-            <button id="registerAccount" class="btn btn-outline-secondary">
+            <button id="btnRegisterAccount" class="btn btn-outline-secondary">
               Cadastrar
             </button>
-            <button id="consultAccount" class="btn btn-outline-secondary">
+            <button id="btnConsultAccount" class="btn btn-outline-secondary">
               Consultar
             </button>
             <button
-              id="editAccount"
+              id="btnEditAccount"
               type="button"
               class="btn btn-outline-secondary"
             >
               Ativar/Inativar
             </button>
             <button
-              id="deleteAccount"
+              id="btnDeleteAccount"
               type="button"
               class="btn btn-outline-secondary"
             >
@@ -295,10 +295,7 @@
         <!-- Deletar conta -->
       </section>
 
-      <section
-        id="container-transactions"
-        class="container-transactions hiddenContent"
-      >
+      <section id="containerTransactions" class="containerTransactions">
         <h2 class="subtitle">Transações</h2>
 
         <h3 id="client-name" class="clientName">Nome do Cliente</h3>
@@ -306,7 +303,7 @@
         <form>
           <select
             name="selectClientName"
-            id="select-client-name"
+            id="selectClientName"
             class="form-select"
             required
           >
@@ -321,7 +318,7 @@
 
           <select
             name="selectClientAccount"
-            id="select-client-account"
+            id="selectClientAccount"
             class="form-select"
             required
           >

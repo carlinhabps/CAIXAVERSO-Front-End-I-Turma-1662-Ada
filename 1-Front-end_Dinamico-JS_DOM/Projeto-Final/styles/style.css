@@ -128,7 +128,7 @@ h2 {
   font-family: "Julius Sans One", sans-serif;
 }
 
-.container-welcome {
+.containerWelcome {
   min-height: 550px;
   height: 100%;
 
@@ -167,9 +167,9 @@ h2 {
 
 /* ! SECTION CLIENTS / CONTAS / TRANSAÇÕES */
 
-.container-clients,
-.container-accounts,
-.container-transactions {
+.containerClients,
+.containerAccounts,
+.containerTransactions {
   padding: 15px 0;
 }
 
@@ -228,7 +228,17 @@ select {
   border-color: var(--text);
   outline: none;
   box-shadow: 0 0 3px var(--text);
-  /*  */
+}
+
+.errorMensageClient,
+.errorMensageAccount,
+.errorMensageTransaction {
+  color: #d20a2e;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px 0 15px 0;
+  font-size: 15px;
 }
 
 .btnActions {
@@ -237,9 +247,9 @@ select {
   justify-content: center;
 }
 
-.container-clients .btn,
-.container-accounts .btn,
-.container-transactions .btn {
+.containerClients .btn,
+.containerAccounts .btn,
+.containerTransactions .btn {
   box-shadow: 2px 2px 2px 0 rgba(20, 33, 61, 0.41);
 }
 
@@ -266,7 +276,7 @@ h3 {
   padding-left: 15px;
 }
 
-.container-transactions form {
+.containerTransactions form {
   padding: 10px 0;
   margin: 0;
 }
