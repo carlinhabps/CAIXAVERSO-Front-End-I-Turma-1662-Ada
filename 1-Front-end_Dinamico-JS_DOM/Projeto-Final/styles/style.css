@@ -8,48 +8,37 @@
   font-family: "Segoe UI", sans-serif;
   /* font-family: "Julius Sans One", sans-serif; */
   font-size: 12px;
+}
 
+:root {
   --primary: #cfe2e8;
   --secundary: #968248;
   --bg: #f4fffe;
   --text: #14213d;
+  --margin: 40px;
 
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
-}
-
-:root {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
 
-  width: 100%;
-  max-width: 98%;
-  padding: 20px;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  /* overflow: hidden; */
 
-  /* display: flex;
-  flex-direction: column; */
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
 }
 
-p {
+p,
+.navBar-container-ul {
   margin: 0;
-}
-
-.app-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-
-  padding: 20px;
 }
 
 img {
@@ -58,8 +47,16 @@ img {
 
 /* ! HEADER */
 
-header {
+.navBar-container {
   padding-bottom: 20px;
+  background-color: var(--bg);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 1200px;
+  z-index: 999;
 
   display: flex;
   justify-content: space-between;
@@ -71,7 +68,7 @@ header {
 }
 
 .logo {
-  padding-left: 30px;
+  padding-left: var(--margin);
 
   display: flex;
   justify-content: center;
@@ -86,37 +83,43 @@ header {
   font-family: "Julius Sans One", sans-serif;
 }
 
-nav {
-  width: 20%;
-}
-
-.container-navBar {
+.navBar-container-ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
-  padding-right: 30px;
+  padding-left: 0;
+  padding-right: var(--margin);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.container-navBar p {
+.navBar-container-ul p {
   font-size: 9px;
   font-weight: 700;
   font-family: "Julius Sans One", sans-serif;
 
   text-align: center;
 }
-.container-navBar li {
+.navBar-container-ul li {
   transition: ease-in-out 500ms;
 }
 
-.container-navBar li:hover {
+.navBar-container-ul li:hover {
   transform: scale(1.1);
 }
 
 /* ! MAIN */
+
+.app-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  padding: 20px;
+
+  flex-grow: 1;
+  margin-top: 75px;
+}
 
 /* ! SECTION WELCOME */
 
@@ -132,12 +135,14 @@ h2 {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 
 .container-btn-welcome {
   width: 100%;
+  padding-bottom: 60px;
+
   display: flex;
   justify-content: space-evenly;
 }
