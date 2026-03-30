@@ -4,10 +4,10 @@ const newTag = (tag) => document.createElement(tag);
 
 // ! Criar as informações na tabela
 
-function renderizarClients(object) {
+function renderizarClients(clients) {
   clientsList.innerHTML = "";
 
-  object.forEach(({ nome, cpf, email }) => {
+  clients.forEach(({ nome, cpf, email }) => {
     const row = newTag("tr");
 
     const colName = newTag("td");
@@ -23,13 +23,14 @@ function renderizarClients(object) {
   });
 }
 
-function renderizarAccounts(object) {
+async function renderizarAccounts(accounts) {
   accountsList.innerHTML = "";
 
-  object.forEach(({ numeroConta, idCliente, tipoConta, saldo, status }) => {
-    const row = newTag("tr");
+  for (const { numeroConta, idCliente, tipoConta, saldo, status } of accounts) {
+    const client = await findClientsId(idCliente);
+    const nameClient = client.nome;
 
-    // ! const nameClient = PROCURAR PELO idCliente
+    const row = newTag("tr");
 
     const colAccount = newTag("td");
     const colClientName = newTag("td");
@@ -38,51 +39,59 @@ function renderizarAccounts(object) {
     const colStatus = newTag("td");
 
     colAccount.innerText = numeroConta;
-    colClientName.innerText = idCliente; // ! ARRUMAR PRO NOME
+    colClientName.innerText = nameClient;
     colAccountType.innerText = tipoConta;
     colSaldo.innerText = saldo;
     colStatus.innerText = status;
 
     row.append(colAccount, colClientName, colAccountType, colSaldo, colStatus);
     accountsList.appendChild(row);
-  });
+  }
 }
 
-function renderizarTransactions(object) {
+async function renderizarTransactions(transactions) {
   transactionsList.innerHTML = "";
 
-  object.forEach(
-    ({ dataTransacao, idConta, tipoTransacao, valorTransacao, novoSaldo }) => {
-      const row = newTag("tr");
+  for (const {
+    dataTransacao,
+    idConta,
+    tipoTransacao,
+    valorTransacao,
+    novoSaldo,
+  } of transactions) {
+    const account = await findAccountsIdConta(idConta);
+    const numberAccount = account.numeroConta;
 
-      // ! const clientName = PROCURAR PELO idCliente
-      // ! const accountNumber = PROCURAR PELO idCliente
+    const idCliente = account.idCliente;
+    const client = await findClientsId(idCliente);
+    const nameClient = client.nome;
 
-      const colDate = newTag("td");
-      const colClientName = newTag("td");
-      const colAccount = newTag("td");
-      const colDescription = newTag("td");
-      const colValor = newTag("td");
-      const colSaldo = newTag("td");
+    const row = newTag("tr");
 
-      colDate.innerText = dataTransacao;
-      colClientName.innerText = idConta; // ! ARRUMAR PRO NOME
-      colAccount.innerText = idConta; // ! ARRUMAR PRO NOME
-      colDescription.innerText = tipoTransacao;
-      colValor.innerText = valorTransacao;
-      colSaldo.innerText = novoSaldo;
+    const colDate = newTag("td");
+    const colClientName = newTag("td");
+    const colAccount = newTag("td");
+    const colDescription = newTag("td");
+    const colValor = newTag("td");
+    const colSaldo = newTag("td");
 
-      row.append(
-        colDate,
-        colClientName,
-        colAccount,
-        colDescription,
-        colValor,
-        colSaldo,
-      );
-      transactionsList.appendChild(row);
-    },
-  );
+    colDate.innerText = dataTransacao;
+    colClientName.innerText = nameClient;
+    colAccount.innerText = numberAccount;
+    colDescription.innerText = tipoTransacao;
+    colValor.innerText = valorTransacao;
+    colSaldo.innerText = novoSaldo;
+
+    row.append(
+      colDate,
+      colClientName,
+      colAccount,
+      colDescription,
+      colValor,
+      colSaldo,
+    );
+    transactionsList.appendChild(row);
+  }
 
   const newRow = doc(".transactionsList tr");
   newRow.classList.add("rowTransactions");
@@ -102,7 +111,7 @@ async function showClients() {
 async function showAccounts() {
   try {
     const information = await findAccounts();
-    renderizarAccounts(information);
+    await renderizarAccounts(information);
   } catch (error) {
     console.log(error);
   }
