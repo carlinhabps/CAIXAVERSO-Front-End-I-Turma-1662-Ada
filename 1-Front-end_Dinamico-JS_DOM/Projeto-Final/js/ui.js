@@ -66,6 +66,11 @@ async function renderizarTransactions(transactions) {
     const client = await findClientsId(idCliente);
     const nameClient = client.nome;
 
+    function formatDate(dataISO) {
+      const [ano, mes, dia] = dataISO.split("-");
+      return `${dia}/${mes}/${ano}`;
+    }
+
     const row = newTag("tr");
 
     const colDate = newTag("td");
@@ -75,7 +80,7 @@ async function renderizarTransactions(transactions) {
     const colValor = newTag("td");
     const colSaldo = newTag("td");
 
-    colDate.innerText = dataTransacao;
+    colDate.innerText = formatDate(dataTransacao);
     colClientName.innerText = nameClient;
     colAccount.innerText = numberAccount;
     colDescription.innerText = tipoTransacao;
@@ -125,3 +130,28 @@ async function showTransactions() {
     console.log(error);
   }
 }
+
+// ! FORMULÁRIO TRANSAÇÕES
+
+const hoje = new Date().toLocaleDateString("sv-SE");
+
+today.value = hoje;
+today.min = hoje;
+today.max = hoje;
+
+selectTransactionMoviment.addEventListener("change", (event) => {
+  console.log(event);
+
+  const resposta = event.target.value;
+
+  if (resposta === "sacar") {
+    btnDeposito.classList.add("hiddenContent");
+    btnSaque.classList.remove("hiddenContent");
+  } else if (resposta === "depositar") {
+    btnDeposito.classList.remove("hiddenContent");
+    btnSaque.classList.add("hiddenContent");
+  } else {
+    btnSaque.classList.remove("hiddenContent");
+    btnDeposito.classList.remove("hiddenContent");
+  }
+});

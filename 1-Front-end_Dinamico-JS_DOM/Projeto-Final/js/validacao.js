@@ -35,6 +35,11 @@ const containerTransactions = doc("#containerTransactions");
 const clientName = doc("#clientName");
 const selectClientName = doc("#selectClientName");
 const selectClientAccount = doc("#selectClientAccount");
+const today = doc("#today");
+const selectTransactionClient = doc("#selectTransactionClient");
+const selectTransactionAccount = doc("#selectTransactionAccount");
+const selectTransactionMoviment = doc("#selectTransactionMoviment");
+const inputTransactionValor = doc("#inputTransactionValor");
 
 // classes
 const errorMensageClient = doc(".errorMensageClient");
@@ -43,6 +48,8 @@ const errorMensageTransaction = doc(".errorMensageTransaction");
 const clientsList = doc(".clientsList");
 const accountsList = doc(".accountsList");
 const transactionsList = doc(".transactionsList");
+const btnDeposito = doc(".btnDeposito");
+const btnSaque = doc(".btnSaque");
 
 // tag
 const nav = doc("nav");
@@ -50,7 +57,7 @@ const nav = doc("nav");
 // Funções
 
 newClientForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+  event.preventdefaultt();
 
   const name = inputClientName.value;
   const cpf = inputClientCpf.value;
@@ -76,13 +83,13 @@ newClientForm.addEventListener("submit", (event) => {
 });
 
 newAccountForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+  event.preventdefaultt();
 
   const cliente = selectAccountClient.value;
   const tipo = selectAccountType.value;
   const satatus = selectAccountStatus.value;
 
-  if (cliente === "defaul" || tipo === "defaul" || satatus === "defaul") {
+  if (cliente === "default" || tipo === "default" || satatus === "default") {
     errorMensageAccount.innerText = "Há campo obrigatório não preenchido!";
     errorMensageAccount.classList.remove("hiddenContent");
     errorMensageAccount.classList.add("errorMensageAccount");

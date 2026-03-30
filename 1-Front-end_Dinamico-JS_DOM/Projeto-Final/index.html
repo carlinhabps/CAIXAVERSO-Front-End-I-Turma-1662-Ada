@@ -174,10 +174,10 @@
                   <select
                     name="selectAccountClient"
                     id="selectAccountClient"
-                    class="form-select"
+                    class="form-select selectAccountClient"
                     required
                   >
-                    <option value="defaul" selected disabled>
+                    <option value="default" selected disabled>
                       Selecione o(a) cliente
                     </option>
                     <!-- ! As linhas serão inseridas aqui via JS -->
@@ -190,7 +190,7 @@
                     class="form-select"
                     required
                   >
-                    <option value="defaul" selected disabled hidden>
+                    <option value="default" selected disabled hidden>
                       Tipo da Conta
                     </option>
                     <option value="corrente">Corrente</option>
@@ -212,7 +212,7 @@
                     class="form-select"
                     required
                   >
-                    <option value="defaul" selected disabled hidden>
+                    <option value="default" selected disabled hidden>
                       Status da Conta
                     </option>
                     <option value="ativa">Ativa</option>
@@ -298,28 +298,92 @@
             </option>
           </select>
         </form>
+        <form>
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr class="rowTransactions">
+                <th>Data</th>
+                <th>Nome</th>
+                <th>Conta</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Saldo</th>
+              </tr>
+              <tr class="table-group-divider">
+                <th>
+                  <input type="date" id="today" class="form-control" disabled />
+                </th>
+                <th>
+                  <select
+                    name="selectTransactionClient"
+                    id="selectTransactionClient"
+                    class="form-select"
+                    required
+                  >
+                    <option value="default" selected disabled>
+                      Selecione o(a) cliente
+                    </option>
+                    <!-- ! As linhas serão inseridas aqui via JS -->
+                  </select>
+                </th>
+                <th>
+                  <select
+                    name="selectTransactionAccount"
+                    id="selectTransactionAccount"
+                    class="form-select"
+                    required
+                  >
+                    <option value="default" selected disabled>
+                      Selecione a conta a ser movimentada
+                    </option>
+                    <!-- ! As linhas serão inseridas aqui via JS -->
+                  </select>
+                </th>
+                <th>
+                  <select
+                    name="selectTransactionMoviment"
+                    id="selectTransactionMoviment"
+                    class="form-select"
+                    required
+                  >
+                    <option value="default" selected>Transação</option>
+                    <option value="depositar">Depositar</option>
+                    <option value="sacar">Sacar</option>
+                  </select>
+                </th>
+                <th>
+                  <input
+                    type="number"
+                    id="inputTransactionValor"
+                    class="form-control"
+                    required
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    placeholder=" "
+                    class="form-control"
+                    disabled
+                  />
+                </th>
+              </tr>
+            </thead>
 
-        <table class="table table-hover table-sm">
-          <thead>
-            <tr class="rowTransactions">
-              <th>Data</th>
-              <th>Nome</th>
-              <th>Conta</th>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Saldo</th>
-            </tr>
-          </thead>
+            <tbody class="transactionsList" class="table-group-divider">
+              <!-- ! As linhas serão inseridas aqui via JS -->
+            </tbody>
+          </table>
 
-          <tbody class="transactionsList" class="table-group-divider">
-            <!-- ! As linhas serão inseridas aqui via JS -->
-          </tbody>
-        </table>
+          <p class="errorMensageTransaction hiddenContent">Mensagem!</p>
 
-        <div class="btnActions">
-          <button class="btn btn-outline-secondary">Depositar</button>
-          <button class="btn btn-outline-secondary">Sacar</button>
-        </div>
+          <div class="btnActions">
+            <button class="btn btn-outline-secondary btnDeposito">
+              Depositar
+            </button>
+            <button class="btn btn-outline-secondary btnSaque">Sacar</button>
+          </div>
+        </form>
         <!-- Registrar depósito (conta, valor, atualizar saldo) -->
         <!-- Registrar saque (conta, valor, validar saldo suficiente) -->
         <!-- Listar histórico de transações (Data, Tipo, Valor, Saldo Novo) -->

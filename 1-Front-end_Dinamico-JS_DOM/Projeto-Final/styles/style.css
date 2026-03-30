@@ -7,7 +7,7 @@
 
   font-family: "Segoe UI", sans-serif;
   /* font-family: "Julius Sans One", sans-serif; */
-  font-size: 12px;
+  font-size: 15px;
 }
 
 :root {
@@ -184,11 +184,13 @@ h2 {
 .table th {
   color: var(--secundary);
   font-weight: 700;
+  text-indent: 8px;
 }
 
 .table td {
   color: var(--text);
   font-weight: 400;
+  text-indent: 8px;
 }
 
 .table-group-divider {
@@ -267,7 +269,7 @@ select {
   --bs-btn-active-bg: var(--secundary);
 
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   min-width: 111px;
   min-height: 30px;
 }
@@ -288,6 +290,7 @@ h3 {
 
 footer {
   padding-top: 20px;
+  font-size: 12px;
   text-align: center;
 }
 
