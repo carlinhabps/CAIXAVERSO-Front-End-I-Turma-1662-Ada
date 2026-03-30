@@ -15,6 +15,7 @@
   --secundary: #968248;
   --bg: #f4fffe;
   --text: #14213d;
+  --alert: #d20a2e;
   --margin: 40px;
 
   scroll-behavior: smooth;
@@ -238,7 +239,7 @@ select {
 .errorMensageClient,
 .errorMensageAccount,
 .errorMensageTransaction {
-  color: #d20a2e;
+  color: var(--alert);
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
@@ -286,10 +287,18 @@ h3 {
   margin: 0;
 }
 
+.closedAccount td {
+  color: var(--alert);
+  font-style: italic;
+}
+
 /* ! FOOTER */
 
-footer {
+.footer {
   padding-top: 20px;
+}
+
+.footer p {
   font-size: 12px;
   text-align: center;
 }

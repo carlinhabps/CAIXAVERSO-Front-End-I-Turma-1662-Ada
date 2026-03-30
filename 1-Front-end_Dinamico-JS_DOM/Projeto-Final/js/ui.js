@@ -10,13 +10,19 @@ function renderizarClients(clients) {
   clients.forEach(({ nome, cpf, email }) => {
     const row = newTag("tr");
 
+    const cpfNumeros = cpf.replace(/\D/g, "");
+    const cpfFormatado = cpfNumeros.replace(
+      /(\d{3})(\d{3})(\d{3})(\d{2})/,
+      "$1.$2.$3-$4",
+    );
+
     const colName = newTag("td");
     const colCpf = newTag("td");
     const colEmail = newTag("td");
 
-    colName.innerText = nome;
-    colCpf.innerText = cpf;
-    colEmail.innerText = email;
+    colName.innerText = nome.toUpperCase();
+    colCpf.innerText = cpfFormatado;
+    colEmail.innerText = email.toLowerCase();
 
     row.append(colName, colCpf, colEmail);
     clientsList.appendChild(row);
@@ -28,7 +34,13 @@ async function renderizarAccounts(accounts) {
 
   for (const { numeroConta, idCliente, tipoConta, saldo, status } of accounts) {
     const client = await findClientsId(idCliente);
-    const nameClient = client.nome;
+    const nomeFormatado = client.nome.toUpperCase();
+
+    const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    const statusFormatado = status.toUpperCase();
 
     const row = newTag("tr");
 
@@ -39,13 +51,19 @@ async function renderizarAccounts(accounts) {
     const colStatus = newTag("td");
 
     colAccount.innerText = numeroConta;
-    colClientName.innerText = nameClient;
-    colAccountType.innerText = tipoConta;
-    colSaldo.innerText = saldo;
-    colStatus.innerText = status;
+    colClientName.innerText = nomeFormatado;
+    colAccountType.innerText = tipoConta.toUpperCase();
+    colSaldo.innerText = saldoFormatado;
+    colStatus.innerText = statusFormatado;
 
     row.append(colAccount, colClientName, colAccountType, colSaldo, colStatus);
     accountsList.appendChild(row);
+
+    if (statusFormatado === "ENCERRADA") {
+      row.classList.add("closedAccount");
+    } else {
+      row.classList.remove("closedAccount");
+    }
   }
 }
 
@@ -71,6 +89,15 @@ async function renderizarTransactions(transactions) {
       return `${dia}/${mes}/${ano}`;
     }
 
+    const valorFormatado = Number(valorTransacao).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    const saldoFormatado = Number(novoSaldo).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
     const row = newTag("tr");
 
     const colDate = newTag("td");
@@ -81,11 +108,11 @@ async function renderizarTransactions(transactions) {
     const colSaldo = newTag("td");
 
     colDate.innerText = formatDate(dataTransacao);
-    colClientName.innerText = nameClient;
+    colClientName.innerText = nameClient.toUpperCase();
     colAccount.innerText = numberAccount;
-    colDescription.innerText = tipoTransacao;
-    colValor.innerText = valorTransacao;
-    colSaldo.innerText = novoSaldo;
+    colDescription.innerText = tipoTransacao.toUpperCase();
+    colValor.innerText = valorFormatado;
+    colSaldo.innerText = saldoFormatado;
 
     row.append(
       colDate,
@@ -104,32 +131,26 @@ async function renderizarTransactions(transactions) {
 
 // ! Mostrar informações na tabela
 
-async function showClients() {
+async function carregarInfo() {
   try {
-    const information = await findClients();
-    renderizarClients(information);
+    const clientes = await findClients();
+    renderizarClients(clientes);
+
+    const contas = await findAccounts();
+    await renderizarAccounts(contas);
+
+    const transacoes = await findTransactions();
+    renderizarTransactions(transacoes);
   } catch (error) {
     console.log(error);
   }
 }
 
-async function showAccounts() {
-  try {
-    const information = await findAccounts();
-    await renderizarAccounts(information);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// ! FORMULÁRIO CLIENTES
 
-async function showTransactions() {
-  try {
-    const information = await findTransactions();
-    renderizarTransactions(information);
-  } catch (error) {
-    console.log(error);
-  }
-}
+inputClientName.addEventListener("input", (event) => {
+  event.target.value = event.target.value.toUpperCase();
+});
 
 // ! FORMULÁRIO TRANSAÇÕES
 
@@ -155,3 +176,34 @@ selectTransactionMoviment.addEventListener("change", (event) => {
     btnDeposito.classList.remove("hiddenContent");
   }
 });
+
+// ! ADICIONAR DADOS AOS SELECTs
+
+async function dadosSelect(accounts) {
+  selectAccountClient.length = 1;
+
+  const uniqueClients = [
+    ...new Set(accounts.map((account) => account.idCliente)),
+  ];
+
+  for (const idCliente of uniqueClients) {
+    const client = await findClientsId(idCliente);
+    const nomeFormatado = client.nome.toUpperCase();
+
+    const option = newTag("option");
+    option.value = idCliente;
+    option.innerText = nomeFormatado;
+
+    selectAccountClient.appendChild(option);
+  }
+}
+
+async function incluiDadosSelect() {
+  try {
+    const contas = await findAccounts();
+
+    await dadosSelect(contas);
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -183,6 +183,7 @@
                     <!-- ! As linhas serão inseridas aqui via JS -->
                   </select>
                 </th>
+
                 <th>
                   <select
                     name="selectAccountType"
@@ -216,7 +217,7 @@
                       Status da Conta
                     </option>
                     <option value="ativa">Ativa</option>
-                    <option value="inativa">Inativa</option>
+                    <option value="encerrada">Encerrada</option>
                   </select>
                 </th>
               </tr>
@@ -241,7 +242,7 @@
               type="button"
               class="btn btn-outline-secondary"
             >
-              Ativar/Inativar
+              Ativar/Encerrar
             </button>
             <button
               id="btnDeleteAccount"
@@ -277,9 +278,7 @@
               Selecione o(a) cliente...
             </option>
             <option value="">Todos</option>
-            <option value="">
               <!-- ! As opções serão inseridas aqui via JS -->
-            </option>
           </select>
 
           <select
@@ -390,12 +389,13 @@
       </section>
     </main>
 
-    <footer>
+    <footer class="footer">
       <p>2026 | Gerenciamento Bancário</p>
       <p>© Carla Beatriz | CAIXAVERSO | Dev Front-end</p>
       <p>AdaTech | Turma 1662 | Front-end Dinâmico (JS DOM)</p>
     </footer>
 
+    <script src="./js/var.js"></script>
     <script src="./js/validacao.js"></script>
     <script src="./js/api.js"></script>
     <script src="./js/ui-btn.js"></script>

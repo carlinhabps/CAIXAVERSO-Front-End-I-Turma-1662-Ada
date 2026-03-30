@@ -1,5 +1,4 @@
 // ! lógica principal
 
-showClients();
-showAccounts();
-showTransactions();
+carregarInfo();
+incluiDadosSelect();
