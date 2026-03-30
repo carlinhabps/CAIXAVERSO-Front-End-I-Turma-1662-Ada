@@ -31,6 +31,7 @@ const btnEditAccount = doc("#btnEditAccount");
 const btnDeleteAccount = doc("#btnDeleteAccount");
 const containerTransactions = doc("#containerTransactions");
 const clientName = doc("#clientName");
+const newTransactionForm = doc("#newTransactionForm");
 const selectClientName = doc("#selectClientName");
 const selectClientAccount = doc("#selectClientAccount");
 const today = doc("#today");
