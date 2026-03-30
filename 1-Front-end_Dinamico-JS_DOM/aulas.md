@@ -618,6 +618,8 @@ novoParagrafo.innerText = "Novo parágrafo";
 container.appendChild(novoParagrafo);
 ```
 
+    
+
 ---
 
 ### Comparação

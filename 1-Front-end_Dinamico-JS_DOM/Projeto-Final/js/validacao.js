@@ -35,12 +35,14 @@ const containerTransactions = doc("#containerTransactions");
 const clientName = doc("#clientName");
 const selectClientName = doc("#selectClientName");
 const selectClientAccount = doc("#selectClientAccount");
-const transactionsList = doc("#transactionsList");
 
 // classes
 const errorMensageClient = doc(".errorMensageClient");
 const errorMensageAccount = doc(".errorMensageAccount");
 const errorMensageTransaction = doc(".errorMensageTransaction");
+const clientsList = doc(".clientsList");
+const accountsList = doc(".accountsList");
+const transactionsList = doc(".transactionsList");
 
 // tag
 const nav = doc("nav");

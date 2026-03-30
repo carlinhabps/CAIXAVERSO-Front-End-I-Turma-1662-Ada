@@ -1,7 +1,19 @@
 // ! fetch das chamadas
 
-async function findClient() {
+async function findClients() {
   const resposta = await fetch("http://localhost:3000/clients");
 
-  return await resposta.json();
+  return resposta.json();
+}
+
+async function findAccounts() {
+  const resposta = await fetch("http://localhost:3000/accounts");
+
+  return resposta.json();
+}
+
+async function findTransactions() {
+  const resposta = await fetch("http://localhost:3000/transactions");
+
+  return resposta.json();
 }

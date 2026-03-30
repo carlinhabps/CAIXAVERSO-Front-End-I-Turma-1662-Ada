@@ -1,6 +1,6 @@
 // ! renderização - BOTÕES
 
-navClients.addEventListener("click", (event) => {
+btnClients.addEventListener("click", (event) => {
   // inclui classes de transição
   setTimeout(() => {
     // exclui classes de transição
@@ -14,6 +14,8 @@ btnClients.addEventListener("click", (event) => {
   navClients.classList.add("hiddenContentTransition");
   containerWelcome.classList.add("hiddenContentTransition");
   containerClients.classList.add("showContentTransition");
+
+  errorMensageClient.classList.remove("errorMensageAccount");
 
   setTimeout(() => {
     navBarContainer.classList.remove("showContentTransition");
@@ -36,6 +38,8 @@ btnAccounts.addEventListener("click", (event) => {
   navAccounts.classList.add("hiddenContentTransition");
   containerWelcome.classList.add("hiddenContentTransition");
   containerAccounts.classList.add("showContentTransition");
+
+  errorMensageAccount.classList.remove("errorMensageAccount");
 
   setTimeout(() => {
     navBarContainer.classList.remove("showContentTransition");
@@ -118,6 +122,8 @@ navClients.addEventListener("click", (event) => {
   containerAccounts.classList.add("hiddenContentTransition");
   containerTransactions.classList.add("hiddenContentTransition");
 
+  errorMensageClient.classList.remove("errorMensageAccount");
+
   setTimeout(() => {
     navAccounts.classList.remove("showContentTransition");
     navTransactions.classList.remove("showContentTransition");
@@ -140,18 +146,21 @@ navAccounts.addEventListener("click", (event) => {
   containerAccounts.classList.add("showContentTransition");
   containerTransactions.classList.add("hiddenContentTransition");
 
-  setTimeout(() => {}, 500);
-  navClients.classList.remove("showContentTransition");
-  navTransactions.classList.remove("showContentTransition");
-  containerClients.classList.remove("hiddenContentTransition");
-  containerAccounts.classList.remove("showContentTransition");
-  containerTransactions.classList.remove("hiddenContentTransition");
+  errorMensageAccount.classList.remove("errorMensageAccount");
 
-  navClients.classList.remove("hiddenContent");
-  navTransactions.classList.remove("hiddenContent");
-  containerClients.classList.add("hiddenContent");
-  containerAccounts.classList.remove("hiddenContent");
-  containerTransactions.classList.add("hiddenContent");
+  setTimeout(() => {
+    navClients.classList.remove("showContentTransition");
+    navTransactions.classList.remove("showContentTransition");
+    containerClients.classList.remove("hiddenContentTransition");
+    containerAccounts.classList.remove("showContentTransition");
+    containerTransactions.classList.remove("hiddenContentTransition");
+
+    navClients.classList.remove("hiddenContent");
+    navTransactions.classList.remove("hiddenContent");
+    containerClients.classList.add("hiddenContent");
+    containerAccounts.classList.remove("hiddenContent");
+    containerTransactions.classList.add("hiddenContent");
+  }, 500);
 });
 
 navTransactions.addEventListener("click", (event) => {
