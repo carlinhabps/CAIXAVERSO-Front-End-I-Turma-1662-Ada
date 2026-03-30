@@ -179,31 +179,71 @@ selectTransactionMoviment.addEventListener("change", (event) => {
 
 // ! ADICIONAR DADOS AOS SELECTs
 
-async function dadosSelect(accounts) {
+// async function dadosSelectAccountClient(accounts) {
+//   selectAccountClient.length = 1;
+
+//   const uniqueClients = [
+//     ...new Set(accounts.map((account) => account.idCliente)),
+//   ];
+
+//   for (const idCliente of uniqueClients) {
+//     const client = await findClientsId(idCliente);
+//     const nomeFormatado = client.nome.toUpperCase();
+
+//     const option = newTag("option");
+//     option.value = idCliente;
+//     option.innerText = nomeFormatado;
+
+//     selectAccountClient.appendChild(option);
+//   }
+// }
+async function dadosNomeCliente() {
   selectAccountClient.length = 1;
+  selectClientName.length = 1;
+  selectTransactionClient.length = 1;
 
-  const uniqueClients = [
-    ...new Set(accounts.map((account) => account.idCliente)),
-  ];
+  const clients = await findClients();
 
-  for (const idCliente of uniqueClients) {
-    const client = await findClientsId(idCliente);
-    const nomeFormatado = client.nome.toUpperCase();
+  clients.sort((a, b) => a.nome.localeCompare(b.nome));
 
-    const option = newTag("option");
-    option.value = idCliente;
-    option.innerText = nomeFormatado;
+  clients.forEach(({ nome, id }) => {
+    const nomeFormatado = nome.toUpperCase();
 
-    selectAccountClient.appendChild(option);
-  }
+    const option1 = newTag("option");
+    option1.value = id;
+    option1.innerText = nomeFormatado;
+
+    const option2 = option1.cloneNode(true);
+    const option3 = option1.cloneNode(true);
+
+    selectAccountClient.appendChild(option1);
+    selectClientName.appendChild(option2);
+    selectTransactionClient.appendChild(option3);
+  });
 }
 
-async function incluiDadosSelect() {
-  try {
-    const contas = await findAccounts();
+selectClientName.addEventListener("input", async (event) => {
+  const idClient = event.target.value;
 
-    await dadosSelect(contas);
-  } catch (error) {
-    console.log(error);
-  }
-}
+  const allAccounts = await findAccounts();
+  const accountsClient = allAccounts.filter(
+    (account) => account.idCliente == idClient,
+  );
+
+  selectClientAccount.disabled = false;
+  selectClientAccount.length = 2;
+
+  selectTransactionAccount.disabled = false;
+  selectTransactionAccount.length = 2;
+
+  accountsClient.forEach(({ id, numeroConta }) => {
+    const option1 = newTag("option");
+    option1.value = id;
+    option1.innerText = numeroConta;
+
+    const option2 = option1.cloneNode(true);
+
+    selectClientAccount.appendChild(option1);
+    selectTransactionAccount.appendChild(option2); // ! SE FOR MANTER O FORMULÁRIO
+  });
+});

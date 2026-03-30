@@ -1,4 +1,5 @@
 // ! lógica principal
 
 carregarInfo();
-incluiDadosSelect();
+// incluiDadosSelect();
+dadosNomeCliente();

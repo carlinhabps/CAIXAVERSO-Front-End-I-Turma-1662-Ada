@@ -277,17 +277,18 @@
             <option value="" selected disabled hidden>
               Selecione o(a) cliente...
             </option>
-            <option value="">Todos</option>
-              <!-- ! As opções serão inseridas aqui via JS -->
+            <option value="allAccounts">Todos</option>
+            <!-- ! As opções serão inseridas aqui via JS -->
           </select>
 
           <select
             name="selectClientAccount"
             id="selectClientAccount"
             class="form-select"
+            disabled
             required
           >
-            <option value="" selected disabled hidden>
+            <option value="default" selected disabled hidden>
               Selecione a conta...
             </option>
             <option value="allAccounts">Todas</option>
@@ -330,6 +331,7 @@
                     name="selectTransactionAccount"
                     id="selectTransactionAccount"
                     class="form-select"
+                    disabled
                     required
                   >
                     <option value="default" selected disabled>
