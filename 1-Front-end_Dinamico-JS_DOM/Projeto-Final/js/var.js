@@ -20,6 +20,8 @@ const btnRegisterNewClient = doc("#btnRegisterNewClient");
 const btnConsultClient = doc("#btnConsultClient");
 const btnEditClient = doc("#btnEditClient");
 const btnDeleteClient = doc("#btnDeleteClient");
+const btnSaveNewClient = doc("#btnSaveNewClient");
+const btnCancelNewClient = doc("#btnCancelNewClient");
 const containerAccounts = doc("#containerAccounts");
 const selectAccountClient = doc("#selectAccountClient");
 const selectAccountType = doc("#selectAccountType");
@@ -52,3 +54,4 @@ const btnSaque = doc(".btnSaque");
 
 // tag
 const nav = doc("nav");
+const rowClient = document.querySelectorAll(".clientsList td");

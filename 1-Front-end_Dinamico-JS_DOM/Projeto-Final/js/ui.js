@@ -2,7 +2,24 @@
 
 const newTag = (tag) => document.createElement(tag);
 
-// ! Criar as informações na tabela
+// ! EXIBIR DADOS
+
+async function carregarInfo() {
+  try {
+    const clientes = await findClients();
+    renderizarClients(clientes);
+
+    const contas = await findAccounts();
+    await renderizarAccounts(contas);
+
+    const transacoes = await findTransactions();
+    renderizarTransactions(transacoes);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ! CLIENTES
 
 function renderizarClients(clients) {
   clientsList.innerHTML = "";
@@ -10,8 +27,8 @@ function renderizarClients(clients) {
   clients.forEach(({ nome, cpf, email }) => {
     const row = newTag("tr");
 
-    const cpfNumeros = cpf.replace(/\D/g, "");
-    const cpfFormatado = cpfNumeros.replace(
+    const cpfNumber = cpf.replace(/\D/g, "");
+    const cpfFormatado = cpfNumber.replace(
       /(\d{3})(\d{3})(\d{3})(\d{2})/,
       "$1.$2.$3-$4",
     );
@@ -26,8 +43,58 @@ function renderizarClients(clients) {
 
     row.append(colName, colCpf, colEmail);
     clientsList.appendChild(row);
+
+    // row.addEventListener("click", (event) => {
+    //   console.log(event);
+    // });
   });
 }
+
+// ! CADASTRAR CLIENTES
+
+inputClientName.addEventListener("input", (event) => {
+  event.target.value = event.target.value.toUpperCase();
+});
+
+inputClientCpf.addEventListener("input", (event) => {
+  console.log(event);
+  let cpf = event.target.value;
+
+  cpf = cpf.replace(/\D/g, "");
+
+  cpf = cpf.slice(0, 11);
+
+  if (cpf.length > 9) {
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+  if (cpf.length > 6) {
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3");
+  }
+
+  if (cpf.length > 3) {
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+  }
+  event.target.value = cpf;
+});
+
+inputClientEmail.addEventListener("input", (event) => {
+  event.target.value = event.target.value.toLowerCase();
+});
+
+btnSaveNewClient.addEventListener("click", (event) => {
+  gestaoClientes();
+  newClientForm.classList.add("hiddenContent");
+});
+
+//  CONSULTAR CLIENTES
+
+// clientsList.addEventListener("click", (event) => {
+//   console.log(event);
+// });
+
+
+// ! Criar as informações na tabela
 
 async function renderizarAccounts(accounts) {
   accountsList.innerHTML = "";
@@ -129,53 +196,30 @@ async function renderizarTransactions(transactions) {
   newRow.classList.add("rowTransactions");
 }
 
-// ! Mostrar informações na tabela
-
-async function carregarInfo() {
-  try {
-    const clientes = await findClients();
-    renderizarClients(clientes);
-
-    const contas = await findAccounts();
-    await renderizarAccounts(contas);
-
-    const transacoes = await findTransactions();
-    renderizarTransactions(transacoes);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// ! FORMULÁRIO CLIENTES
-
-inputClientName.addEventListener("input", (event) => {
-  event.target.value = event.target.value.toUpperCase();
-});
-
 // ! FORMULÁRIO TRANSAÇÕES
 
-const hoje = new Date().toLocaleDateString("sv-SE");
+// const hoje = new Date().toLocaleDateString("sv-SE");
 
-today.value = hoje;
-today.min = hoje;
-today.max = hoje;
+// today.value = hoje;
+// today.min = hoje;
+// today.max = hoje;
 
-selectTransactionMoviment.addEventListener("change", (event) => {
-  console.log(event);
+// selectTransactionMoviment.addEventListener("change", (event) => {
+//   console.log(event);
 
-  const resposta = event.target.value;
+//   const resposta = event.target.value;
 
-  if (resposta === "sacar") {
-    btnDeposito.classList.add("hiddenContent");
-    btnSaque.classList.remove("hiddenContent");
-  } else if (resposta === "depositar") {
-    btnDeposito.classList.remove("hiddenContent");
-    btnSaque.classList.add("hiddenContent");
-  } else {
-    btnSaque.classList.remove("hiddenContent");
-    btnDeposito.classList.remove("hiddenContent");
-  }
-});
+//   if (resposta === "sacar") {
+//     btnDeposito.classList.add("hiddenContent");
+//     btnSaque.classList.remove("hiddenContent");
+//   } else if (resposta === "depositar") {
+//     btnDeposito.classList.remove("hiddenContent");
+//     btnSaque.classList.add("hiddenContent");
+//   } else {
+//     btnSaque.classList.remove("hiddenContent");
+//     btnDeposito.classList.remove("hiddenContent");
+//   }
+// });
 
 // ! ADICIONAR DADOS AOS SELECTs
 
@@ -197,30 +241,30 @@ selectTransactionMoviment.addEventListener("change", (event) => {
 //     selectAccountClient.appendChild(option);
 //   }
 // }
-async function dadosNomeCliente() {
-  selectAccountClient.length = 1;
-  selectClientName.length = 1;
-  selectTransactionClient.length = 1;
+// async function dadosNomeCliente() {
+//   selectAccountClient.length = 1;
+//   selectClientName.length = 1;
+//   selectTransactionClient.length = 1;
 
-  const clients = await findClients();
+//   const clients = await findClients();
 
-  clients.sort((a, b) => a.nome.localeCompare(b.nome));
+//   clients.sort((a, b) => a.nome.localeCompare(b.nome));
 
-  clients.forEach(({ nome, id }) => {
-    const nomeFormatado = nome.toUpperCase();
+//   clients.forEach(({ nome, id }) => {
+//     const nomeFormatado = nome.toUpperCase();
 
-    const option1 = newTag("option");
-    option1.value = id;
-    option1.innerText = nomeFormatado;
+//     const option1 = newTag("option");
+//     option1.value = id;
+//     option1.innerText = nomeFormatado;
 
-    const option2 = option1.cloneNode(true);
-    const option3 = option1.cloneNode(true);
+//     const option2 = option1.cloneNode(true);
+//     const option3 = option1.cloneNode(true);
 
-    selectAccountClient.appendChild(option1);
-    selectClientName.appendChild(option2);
-    selectTransactionClient.appendChild(option3);
-  });
-}
+//     selectAccountClient.appendChild(option1);
+//     selectClientName.appendChild(option2);
+//     selectTransactionClient.appendChild(option3);
+//   });
+// }
 
 selectClientName.addEventListener("input", async (event) => {
   const idClient = event.target.value;

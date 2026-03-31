@@ -5,19 +5,19 @@
 async function findClients() {
   const resposta = await fetch("http://localhost:3001/clients");
 
-  return resposta.json();
+  return await resposta.json();
 }
 
 async function findAccounts() {
   const resposta = await fetch("http://localhost:3001/accounts");
 
-  return resposta.json();
+  return await resposta.json();
 }
 
 async function findTransactions() {
   const resposta = await fetch("http://localhost:3001/transactions");
 
-  return resposta.json();
+  return await resposta.json();
 }
 
 // ! identificar o objeto pelo id
@@ -25,17 +25,32 @@ async function findTransactions() {
 async function findClientsId(id) {
   const resposta = await fetch(`http://localhost:3001/clients/${id}`);
 
-  return resposta.json();
+  return await resposta.json();
 }
 
 async function findAccountsIdConta(id) {
   const resposta = await fetch(`http://localhost:3001/accounts/${id}`);
 
-  return resposta.json();
+  return await resposta.json();
 }
 
 async function findAccountsIdCliente(idCliente) {
-  const resposta = await fetch(`http://localhost:3001/accounts/${idCliente}`);
+  const resposta = await fetch(
+    `http://localhost:3001/accounts?idCliente=${idCliente}`,
+  );
 
-  return resposta.json();
+  return await resposta.json();
+}
+
+// ! Cadastros
+
+async function dataNewClient(client) {
+  const resposta = await fetch("http://localhost:3001/clients", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(client),
+  });
+  return await resposta.json();
 }

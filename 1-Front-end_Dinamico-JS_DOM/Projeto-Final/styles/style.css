@@ -253,9 +253,9 @@ select {
   color: var(--alert);
   font-weight: 700;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
   padding: 7px 0 15px 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .btnActions {

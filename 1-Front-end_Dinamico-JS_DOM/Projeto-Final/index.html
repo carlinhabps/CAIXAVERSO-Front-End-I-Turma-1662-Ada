@@ -65,6 +65,7 @@
 
       <section id="containerClients" class="containerClients hiddenContent">
         <h2 class="subtitle">Gestão de Clientes</h2>
+
         <table class="table table-hover table-sm">
           <thead>
             <tr>
@@ -72,23 +73,13 @@
               <th>CPF</th>
               <th>E-mail</th>
             </tr>
-            <!-- <tr class="table-group-divider">
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-              </tr> -->
           </thead>
 
           <tbody class="clientsList table-group-divider">
             <!-- ! As linhas serão inseridas aqui via JS -->
           </tbody>
         </table>
+
         <div class="btnActions">
           <button
             type="button"
@@ -119,8 +110,8 @@
             Deletar
           </button>
         </div>
-        <form id="newClientForm" class="">
-          <!-- <form id="newClientForm" class="hiddenContent"> -->
+
+        <form id="newClientForm" class="hiddenContent">
           <input
             type="text"
             name="inputClientName"
@@ -129,9 +120,8 @@
             placeholder=" Digite o nome completo"
           />
           <input
-            type="number"
-            minlength="11"
-            maxlength="11"
+            type="text"
+            maxlength="14"
             name="inputClientCpf"
             id="inputClientCpf"
             class="form-control"
@@ -145,8 +135,7 @@
             placeholder=" nome@exemplo.com"
           />
 
-          <p class="errorMensageClient">Mensagem!</p>
-          <!-- <p class="errorMensageClient hiddenContent">Mensagem!</p> -->
+          <p class="errorMensageClient hiddenContent">Mensagem!</p>
 
           <button
             type="submit"
@@ -155,9 +144,16 @@
           >
             Salvar
           </button>
+
+          <button
+            type="button"
+            id="btnCancelNewClient"
+            class="btn btn-outline-secondary"
+          >
+            Cancelar
+          </button>
         </form>
-        <!-- Listar clientes (tabela com Nome, CPF, Email) -->
-        <!-- Criar novo cliente (Nome, CPF, Email) -->
+
         <!-- Editar cliente -->
         <!-- Deletar cliente -->
       </section>
@@ -334,7 +330,7 @@
             </tr>
           </thead>
 
-          <tbody class="transactionsList" class="table-group-divider">
+          <tbody class="transactionsList table-group-divider">
             <!-- ! As linhas serão inseridas aqui via JS -->
           </tbody>
         </table>
@@ -344,7 +340,7 @@
           </button>
           <button class="btn btn-outline-secondary btnSaque">Sacar</button>
         </div>
-        
+
         <form id="newTransactionForm">
           <select
             name="selectTransactionClient"
