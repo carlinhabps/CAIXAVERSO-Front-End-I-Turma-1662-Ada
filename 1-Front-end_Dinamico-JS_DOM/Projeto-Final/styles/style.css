@@ -16,6 +16,7 @@
   --bg: #f4fffe;
   --text: #14213d;
   --alert: #d20a2e;
+  --select: #ececec;
   --margin: 40px;
 
   scroll-behavior: smooth;
@@ -198,6 +199,21 @@ h2 {
   border-top-color: var(--text);
 }
 
+.selectedRow td {
+  background-color: var(--select);
+}
+
+#newClientForm,
+#newAccountForm,
+#newTransactionForm {
+  margin: 25px 150px 0 150px;
+  padding: 10px;
+  border-radius: 5px;
+  /* border: var(--text) solid 2px; */
+  background-color: var(--bg);
+  box-shadow: 1px 1px 7px var(--text);
+}
+
 .form-control {
   color: var(--text);
   text-align: left;
@@ -244,13 +260,17 @@ select {
   text-transform: uppercase;
   text-align: center;
   padding: 7px 0 15px 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .btnActions {
   display: flex;
   gap: 20px;
   justify-content: center;
+}
+
+#btnSaveNewClient {
+  margin-right: 15px;
 }
 
 .containerClients .btn,

@@ -2,34 +2,27 @@
 
 // Funções
 
-newClientForm.addEventListener("submit", (event) => {
-  event.preventdefaultt();
-
-  const name = inputClientName.value;
-  const cpf = inputClientCpf.value;
-  const email = inputClientEmail.value;
-
+function validacaoCliente(name, cpf, email) {
   if (name === "" || cpf === "" || email === "") {
     errorMensageClient.innerText = "Há campo obrigatório não preenchido";
     errorMensageClient.classList.remove("hiddenContent");
     errorMensageClient.classList.add("errorMensageClient");
-    return;
+    return false;
   }
 
   if (!email.includes("@")) {
     errorMensageClient.innerText = "Digite um e-mail válido";
     errorMensageClient.classList.remove("hiddenContent");
     errorMensageClient.classList.add("errorMensageClient");
-    return;
+    return false;
   }
 
   errorMensageClient.classList.add("hiddenContent");
-
-  newClientForm.reset();
-});
+  return true;
+}
 
 newAccountForm.addEventListener("submit", (event) => {
-  event.preventdefaultt();
+  event.preventDefault();
 
   const cliente = selectAccountClient.value;
   const tipo = selectAccountType.value;

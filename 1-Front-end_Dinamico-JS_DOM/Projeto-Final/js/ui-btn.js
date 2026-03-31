@@ -1,87 +1,14 @@
 // ! renderização - BOTÕES
 
-btnClients.addEventListener("click", (event) => {
-  // inclui classes de transição
-  setTimeout(() => {
-    // exclui classes de transição
-    // inclui/exclui classe com display none
-  }, 500);
-});
+// btnClients.addEventListener("click", (event) => {
+//   // inclui classes de transição
+//   setTimeout(() => {
+//     // exclui classes de transição
+//     // inclui/exclui classe com display none
+//   }, 500);
+// });
 
-btnClients.addEventListener("click", (event) => {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  navClients.classList.add("hiddenContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerClients.classList.add("showContentTransition");
-
-  errorMensageClient.classList.remove("errorMensageAccount");
-
-  setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    navClients.classList.remove("hiddenContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerClients.classList.remove("showContentTransition");
-
-    navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    navClients.classList.add("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerClients.classList.remove("hiddenContent");
-  }, 500);
-});
-
-btnAccounts.addEventListener("click", (event) => {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  navAccounts.classList.add("hiddenContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerAccounts.classList.add("showContentTransition");
-
-  errorMensageAccount.classList.remove("errorMensageAccount");
-
-  setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    navAccounts.classList.remove("hiddenContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerAccounts.classList.remove("showContentTransition");
-
-    navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    navAccounts.classList.add("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerAccounts.classList.remove("hiddenContent");
-  }, 500);
-});
-
-btnTransactions.addEventListener("click", (event) => {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  navTransactions.classList.add("hiddenContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerTransactions.classList.add("showContentTransition");
-  clientName.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    navTransactions.classList.remove("hiddenContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerTransactions.classList.remove("showContentTransition");
-    clientName.classList.remove("hiddenContentTransition");
-
-    navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    navTransactions.classList.add("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerTransactions.classList.remove("hiddenContent");
-    clientName.classList.add("hiddenContent");
-  }, 500);
-});
-
-homeLogo.addEventListener("click", (event) => {
+function logo() {
   navBarContainer.classList.add("hiddenContentTransition");
   nav.classList.add("hiddenContentTransition");
   containerWelcome.classList.add("hiddenContentTransition");
@@ -113,16 +40,45 @@ homeLogo.addEventListener("click", (event) => {
     navAccounts.classList.remove("hiddenContent");
     navTransactions.classList.remove("hiddenContent");
   }, 500);
-});
+}
+homeLogo.addEventListener("click", (event) => logo());
 
-navClients.addEventListener("click", (event) => {
+// ! CLIENTES
+
+function gestaoClientes() {
+  navBarContainer.classList.add("showContentTransition");
+  nav.classList.add("showContentTransition");
+  containerWelcome.classList.add("hiddenContentTransition");
+  containerClients.classList.add("showContentTransition");
+  newClientForm.classList.add("hiddenContentTransition");
+
+  errorMensageClient.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    navBarContainer.classList.remove("showContentTransition");
+    nav.classList.remove("showContentTransition");
+    containerWelcome.classList.remove("hiddenContentTransition");
+    containerClients.classList.remove("showContentTransition");
+    newClientForm.classList.remove("hiddenContentTransition");
+
+    navBarContainer.classList.remove("hiddenNavBar");
+    nav.classList.remove("hiddenContent");
+    containerWelcome.classList.add("hiddenContent");
+    containerClients.classList.remove("hiddenContent");
+    newClientForm.classList.add("hiddenContent");
+  }, 500);
+}
+btnClients.addEventListener("click", (event) => gestaoClientes());
+
+function gestaoClientesNav() {
   navAccounts.classList.add("showContentTransition");
   navTransactions.classList.add("showContentTransition");
   containerClients.classList.add("showContentTransition");
   containerAccounts.classList.add("hiddenContentTransition");
   containerTransactions.classList.add("hiddenContentTransition");
+  newClientForm.classList.add("hiddenContentTransition");
 
-  errorMensageClient.classList.remove("errorMensageAccount");
+  errorMensageClient.classList.add("hiddenContent");
 
   setTimeout(() => {
     navAccounts.classList.remove("showContentTransition");
@@ -130,23 +86,84 @@ navClients.addEventListener("click", (event) => {
     containerClients.classList.remove("showContentTransition");
     containerAccounts.classList.remove("hiddenContentTransition");
     containerTransactions.classList.remove("hiddenContentTransition");
+    newClientForm.classList.remove("hiddenContentTransition");
 
     navAccounts.classList.remove("hiddenContent");
     navTransactions.classList.remove("hiddenContent");
     containerClients.classList.remove("hiddenContent");
     containerAccounts.classList.add("hiddenContent");
     containerTransactions.classList.add("hiddenContent");
+    newClientForm.classList.add("hiddenContent");
   }, 500);
+}
+navClients.addEventListener("click", (event) => gestaoClientesNav());
+
+function showFormsClient() {
+  newClientForm.classList.remove("hiddenContent");
+}
+btnRegisterNewClient.addEventListener("click", (event) => showFormsClient());
+btnEditClient.addEventListener("click", (event) => showFormsClient());
+
+function openAccountGroup() {
+  containerAccounts.classList.add("showContentTransition");
+  newAccountForm.classList.add("hiddenContentTransition");
+
+  errorMensageAccount.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    containerAccounts.classList.remove("showContentTransition");
+    newAccountForm.classList.remove("hiddenContentTransition");
+
+    containerAccounts.classList.remove("hiddenContent");
+    newAccountForm.classList.add("hiddenContent");
+  }, 500);
+}
+btnConsultClient.addEventListener("click", async (event) => {
+  if (!window.idClienteSelecionado) return;
+
+  openAccountGroup();
+
+  const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
+
+  renderizarAccounts(accounts);
 });
 
-navAccounts.addEventListener("click", (event) => {
+// ! CONTAS
+
+function gestaoContas() {
+  navBarContainer.classList.add("showContentTransition");
+  nav.classList.add("showContentTransition");
+  containerWelcome.classList.add("hiddenContentTransition");
+  containerAccounts.classList.add("showContentTransition");
+  newAccountForm.classList.add("hiddenContentTransition");
+
+  errorMensageAccount.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    navBarContainer.classList.remove("showContentTransition");
+    nav.classList.remove("showContentTransition");
+    containerWelcome.classList.remove("hiddenContentTransition");
+    containerAccounts.classList.remove("showContentTransition");
+    newAccountForm.classList.remove("hiddenContentTransition");
+
+    navBarContainer.classList.remove("hiddenNavBar");
+    nav.classList.remove("hiddenContent");
+    containerWelcome.classList.add("hiddenContent");
+    containerAccounts.classList.remove("hiddenContent");
+    newAccountForm.classList.add("hiddenContent");
+  }, 500);
+}
+btnAccounts.addEventListener("click", (event) => gestaoContas());
+
+function gestaoContasNav() {
   navClients.classList.add("showContentTransition");
   navTransactions.classList.add("showContentTransition");
   containerClients.classList.add("hiddenContentTransition");
   containerAccounts.classList.add("showContentTransition");
   containerTransactions.classList.add("hiddenContentTransition");
+  newAccountForm.classList.add("hiddenContentTransition");
 
-  errorMensageAccount.classList.remove("errorMensageAccount");
+  errorMensageAccount.classList.add("hiddenContent");
 
   setTimeout(() => {
     navClients.classList.remove("showContentTransition");
@@ -154,16 +171,49 @@ navAccounts.addEventListener("click", (event) => {
     containerClients.classList.remove("hiddenContentTransition");
     containerAccounts.classList.remove("showContentTransition");
     containerTransactions.classList.remove("hiddenContentTransition");
+    newAccountForm.classList.remove("hiddenContentTransition");
 
     navClients.classList.remove("hiddenContent");
     navTransactions.classList.remove("hiddenContent");
     containerClients.classList.add("hiddenContent");
     containerAccounts.classList.remove("hiddenContent");
     containerTransactions.classList.add("hiddenContent");
+    newAccountForm.classList.add("hiddenContent");
   }, 500);
-});
+}
+navAccounts.addEventListener("click", (event) => gestaoContasNav());
 
-navTransactions.addEventListener("click", (event) => {
+// ! TRANSAÇÕES
+
+function gestaoTransacoes() {
+  navBarContainer.classList.add("showContentTransition");
+  nav.classList.add("showContentTransition");
+  containerWelcome.classList.add("hiddenContentTransition");
+  containerTransactions.classList.add("showContentTransition");
+  clientName.classList.add("hiddenContentTransition");
+  newTransactionForm.classList.add("hiddenContentTransition");
+
+  errorMensageTransaction.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    navBarContainer.classList.remove("showContentTransition");
+    nav.classList.remove("showContentTransition");
+    containerWelcome.classList.remove("hiddenContentTransition");
+    containerTransactions.classList.remove("showContentTransition");
+    clientName.classList.remove("hiddenContentTransition");
+    newTransactionForm.classList.remove("hiddenContentTransition");
+
+    navBarContainer.classList.remove("hiddenNavBar");
+    nav.classList.remove("hiddenContent");
+    containerWelcome.classList.add("hiddenContent");
+    containerTransactions.classList.remove("hiddenContent");
+    clientName.classList.add("hiddenContent");
+    newTransactionForm.classList.add("hiddenContent");
+  }, 500);
+}
+btnTransactions.addEventListener("click", (event) => gestaoTransacoes());
+
+function gestaoTransacoesNav() {
   navClients.classList.add("showContentTransition");
   navAccounts.classList.add("showContentTransition");
   containerClients.classList.add("hiddenContentTransition");
@@ -171,6 +221,9 @@ navTransactions.addEventListener("click", (event) => {
   containerTransactions.classList.add("showContentTransition");
   clientName.classList.add("hiddenContentTransition");
   selectClientName.classList.add("showContentTransition");
+  newTransactionForm.classList.add("hiddenContentTransition");
+
+  errorMensageTransaction.classList.add("hiddenContent");
 
   setTimeout(() => {
     navClients.classList.remove("showContentTransition");
@@ -180,6 +233,7 @@ navTransactions.addEventListener("click", (event) => {
     containerTransactions.classList.remove("showContentTransition");
     clientName.classList.remove("hiddenContentTransition");
     selectClientName.classList.remove("showContentTransition");
+    newTransactionForm.classList.remove("hiddenContentTransition");
 
     navClients.classList.remove("hiddenContent");
     navAccounts.classList.remove("hiddenContent");
@@ -188,5 +242,7 @@ navTransactions.addEventListener("click", (event) => {
     containerTransactions.classList.remove("hiddenContent");
     clientName.classList.add("hiddenContent");
     selectClientName.classList.remove("hiddenContent");
+    newTransactionForm.classList.add("hiddenContent");
   }, 500);
-});
+}
+navTransactions.addEventListener("click", (event) => gestaoTransacoesNav());
