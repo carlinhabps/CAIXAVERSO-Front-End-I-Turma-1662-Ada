@@ -44,7 +44,7 @@ function renderizarClients(clients) {
     row.append(colName, colCpf, colEmail);
     clientsList.appendChild(row);
 
-    // row.addEventListener("click", (event) => {
+    // row.addEventListener("click", async (event) => {
     //   console.log(event);
     // });
   });
@@ -75,24 +75,42 @@ inputClientCpf.addEventListener("input", (event) => {
   if (cpf.length > 3) {
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
   }
-  event.target.value = cpf;
+  event.target.value = Number(cpf);
 });
 
 inputClientEmail.addEventListener("input", (event) => {
   event.target.value = event.target.value.toLowerCase();
 });
 
-btnSaveNewClient.addEventListener("click", (event) => {
-  gestaoClientes();
-  newClientForm.classList.add("hiddenContent");
-});
-
 //  CONSULTAR CLIENTES
 
-// clientsList.addEventListener("click", (event) => {
-//   console.log(event);
-// });
+clientsList.addEventListener("click", async (event) => {
+  const row = event.target.closest("tr");
+  if (!row) return;
 
+  document.querySelectorAll(".clientsList tr").forEach((tr) => {
+    tr.classList.remove("selectedRow");
+  });
+
+  row.classList.add("selectedRow");
+
+  const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
+  const clientes = await findClients();
+  const cliente = clientes.find(
+    (c) => c.cpf.replace(/\D/g, "") == cpfSelecionado,
+  );
+  window.idClienteSelecionado = Number(cliente.id);
+});
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".clientsList")) return;
+
+  document.querySelectorAll(".clientsList tr").forEach((tr) => {
+    tr.classList.remove("selectedRow");
+  });
+
+  window.idClienteSelecionado = null;
+});
 
 // ! Criar as informações na tabela
 
@@ -117,10 +135,10 @@ async function renderizarAccounts(accounts) {
     const colSaldo = newTag("td");
     const colStatus = newTag("td");
 
-    colAccount.innerText = numeroConta;
+    colAccount.innerText = Number(numeroConta);
     colClientName.innerText = nomeFormatado;
     colAccountType.innerText = tipoConta.toUpperCase();
-    colSaldo.innerText = saldoFormatado;
+    colSaldo.innerText = Number(saldoFormatado);
     colStatus.innerText = statusFormatado;
 
     row.append(colAccount, colClientName, colAccountType, colSaldo, colStatus);

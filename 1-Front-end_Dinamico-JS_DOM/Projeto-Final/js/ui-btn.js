@@ -104,7 +104,7 @@ function showFormsClient() {
 btnRegisterNewClient.addEventListener("click", (event) => showFormsClient());
 btnEditClient.addEventListener("click", (event) => showFormsClient());
 
-function consultaCliente() {
+function openAccountGroup() {
   containerAccounts.classList.add("showContentTransition");
   newAccountForm.classList.add("hiddenContentTransition");
 
@@ -119,9 +119,12 @@ function consultaCliente() {
   }, 500);
 }
 btnConsultClient.addEventListener("click", async (event) => {
-  consultaCliente();
-  const idCliente = 0; // ! CONTINUAR DAQUI
-  const accounts = await findAccountsIdCliente(idCliente);
+  if (!window.idClienteSelecionado) return;
+
+  openAccountGroup();
+
+  const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
+
   renderizarAccounts(accounts);
 });
 

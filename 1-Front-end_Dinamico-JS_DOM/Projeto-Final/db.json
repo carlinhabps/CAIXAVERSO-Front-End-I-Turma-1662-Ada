@@ -1,104 +1,111 @@
 {
   "clients": [
     {
-      "id": "1",
+      "id": 1,
       "nome": "João Silvano",
-      "cpf": "12345678900",
+      "cpf": 12345678900,
       "email": "joao.SILVANO@email.com"
     },
     {
-      "id": "2",
+      "id": 2,
       "nome": "Maria Célia",
-      "cpf": "69587631500",
+      "cpf": 69587631500,
       "email": "maria.celia@email.com"
     },
     {
-      "id": "3",
+      "id": 3,
       "nome": "Carlos Alberto",
-      "cpf": "96588723604",
+      "cpf": 96588723604,
       "email": "carlos.alberto@email.com"
     },
     {
       "nome": "BEATRIZ MARIA",
-      "cpf": "165.912.698-56",
+      "cpf": 16591269856,
       "email": "beatriz.maria@email.com",
       "id": "WzRRRavZtkU"
+    },
+    {
+      "nome": "izabella cristina",
+      "cpf": 12353602606,
+      "email": "izabella.cristina@email.com",
+      "id": "UdekCZDQnIM"
     }
   ],
   "accounts": [
     {
-      "id": "1",
-      "idCliente": "1",
-      "numeroConta": "1001",
+      "id": 1,
+      "idCliente": 1,
+      "numeroConta": 1001,
       "tipoConta": "Corrente",
-      "saldo": "5000",
+      "saldo": 5000,
       "status": "Ativa"
     },
     {
-      "id": "2",
-      "idCliente": "3",
-      "numeroConta": "1001",
+      "id": 2,
+      "idCliente": 3,
+      "numeroConta": 1001,
       "tipoConta": "Poupança",
-      "saldo": "16000",
+      "saldo": 16000,
       "status": "Ativa"
     },
     {
-      "id": "3",
-      "idCliente": "1",
-      "numeroConta": "1002",
+      "id": 3,
+      "idCliente": 1,
+      "numeroConta": 1002,
       "tipoConta": "Poupança",
-      "saldo": "0",
+      "saldo": 0,
       "status": "Encerrada"
     },
     {
-      "id": "4",
-      "idCliente": "1",
-      "numeroConta": "1003",
+      "id": 4,
+      "idCliente": 1,
+      "numeroConta": 1003,
       "tipoConta": "Poupança",
-      "saldo": "100",
+      "saldo": 100,
       "status": "Ativa"
     },
     {
-      "id": "5",
-      "idCliente": "2",
-      "numeroConta": "1001",
+      "id": 5,
+      "idCliente": 2,
+      "numeroConta": 1001,
       "tipoConta": "Corrente",
-      "saldo": "950",
+      "saldo": 950,
       "status": "Ativa"
     }
   ],
   "transactions": [
     {
-      "id": "1",
-      "idConta": "5",
+      "id": 1,
+      "idConta": 5,
       "tipoTransacao": "Depósito",
-      "valorTransacao": "1000",
-      "novoSaldo": "5000",
+      "valorTransacao": 1000,
+      "novoSaldo": 5000,
       "dataTransacao": "2026-03-16"
     },
     {
-      "id": "2",
-      "idConta": "4",
+      "id": 2,
+      "idConta": 4,
       "tipoTransacao": "Saque",
-      "valorTransacao": "50",
-      "novoSaldo": "50",
+      "valorTransacao": 50,
+      "novoSaldo": 50,
       "dataTransacao": "2026-03-20"
     },
     {
-      "id": "4",
-      "idConta": "2",
+      "id": 4,
+      "idConta": 2,
       "tipoTransacao": "Depósito",
-      "valorTransacao": "400",
-      "novoSaldo": "2000",
+      "valorTransacao": 400,
+      "novoSaldo": 2000,
       "dataTransacao": "2026-03-23"
     },
     {
-      "id": "4",
-      "idConta": "1",
+      "id": 4,
+      "idConta": 1,
       "tipoTransacao": "Saque",
-      "valorTransacao": "3500",
-      "novoSaldo": "1500",
+      "valorTransacao": 3500,
+      "novoSaldo": 1500,
       "dataTransacao": "2026-03-27"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

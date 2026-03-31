@@ -16,6 +16,7 @@
   --bg: #f4fffe;
   --text: #14213d;
   --alert: #d20a2e;
+  --select: #ececec;
   --margin: 40px;
 
   scroll-behavior: smooth;
@@ -198,6 +199,10 @@ h2 {
   border-top-color: var(--text);
 }
 
+.selectedRow td {
+  background-color: var(--select);
+}
+
 #newClientForm,
 #newAccountForm,
 #newTransactionForm {
@@ -262,6 +267,10 @@ select {
   display: flex;
   gap: 20px;
   justify-content: center;
+}
+
+#btnSaveNewClient {
+  margin-right: 15px;
 }
 
 .containerClients .btn,

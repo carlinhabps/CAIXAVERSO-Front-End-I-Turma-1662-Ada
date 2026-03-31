@@ -10,7 +10,7 @@ function validacaoCliente(name, cpf, email) {
     return false;
   }
 
-  if (cpf.length !== 14) {
+  if (cpf.length !== 11) {
     errorMensageClient.innerText = "Digite o CPF com 11 dígitos";
     errorMensageClient.classList.remove("hiddenContent");
     errorMensageClient.classList.add("errorMensageClient");

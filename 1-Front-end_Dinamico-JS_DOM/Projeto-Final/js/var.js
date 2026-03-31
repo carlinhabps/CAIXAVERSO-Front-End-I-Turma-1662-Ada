@@ -54,4 +54,3 @@ const btnSaque = doc(".btnSaque");
 
 // tag
 const nav = doc("nav");
-const rowClient = document.querySelectorAll(".clientsList td");
