@@ -25,13 +25,13 @@ function renderizarClients(clients) {
   clientsList.innerHTML = "";
 
   clients.forEach(({ nome, cpf, email }) => {
-    const row = newTag("tr");
-
-    const cpfNumber = cpf.replace(/\D/g, "");
-    const cpfFormatado = cpfNumber.replace(
+    const cpfCompleto = String(cpf).padStart(11, 0);
+    const cpfFormatado = cpfCompleto.replace(
       /(\d{3})(\d{3})(\d{3})(\d{2})/,
       "$1.$2.$3-$4",
     );
+
+    const row = newTag("tr");
 
     const colName = newTag("td");
     const colCpf = newTag("td");
@@ -43,10 +43,6 @@ function renderizarClients(clients) {
 
     row.append(colName, colCpf, colEmail);
     clientsList.appendChild(row);
-
-    // row.addEventListener("click", async (event) => {
-    //   console.log(event);
-    // });
   });
 }
 
@@ -58,7 +54,7 @@ inputClientName.addEventListener("input", (event) => {
 
 inputClientCpf.addEventListener("input", (event) => {
   console.log(event);
-  let cpf = event.target.value;
+  let cpf = String(event.target.value);
 
   cpf = cpf.replace(/\D/g, "");
 
@@ -75,7 +71,7 @@ inputClientCpf.addEventListener("input", (event) => {
   if (cpf.length > 3) {
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
   }
-  event.target.value = Number(cpf);
+  event.target.value = cpf;
 });
 
 inputClientEmail.addEventListener("input", (event) => {
@@ -95,15 +91,22 @@ clientsList.addEventListener("click", async (event) => {
   row.classList.add("selectedRow");
 
   const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
+  const cpfNumero = Number(cpfSelecionado);
+
   const clientes = await findClients();
-  const cliente = clientes.find(
-    (c) => c.cpf.replace(/\D/g, "") == cpfSelecionado,
-  );
-  window.idClienteSelecionado = Number(cliente.id);
+  const cliente = clientes.find((c) => c.cpf === cpfNumero);
+
+  if (!cliente) {
+    window.idClienteSelecionado = null;
+    return;
+  }
+
+  window.idClienteSelecionado = cliente.id;
 });
 
 document.addEventListener("click", (event) => {
   if (event.target.closest(".clientsList")) return;
+  if (event.target.closest("#btnConsultClient")) return;
 
   document.querySelectorAll(".clientsList tr").forEach((tr) => {
     tr.classList.remove("selectedRow");
