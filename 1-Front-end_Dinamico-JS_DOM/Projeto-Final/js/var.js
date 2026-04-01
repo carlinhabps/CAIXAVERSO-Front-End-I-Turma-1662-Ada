@@ -46,6 +46,7 @@ const inputTransactionValor = doc("#inputTransactionValor");
 // classes
 const errorMensageClient = doc(".errorMensageClient");
 const errorMensageAccount = doc(".errorMensageAccount");
+const errorMensageNoAccount = doc(".errorMensageNoAccount");
 const errorMensageTransaction = doc(".errorMensageTransaction");
 const clientsList = doc(".clientsList");
 const accountsList = doc(".accountsList");

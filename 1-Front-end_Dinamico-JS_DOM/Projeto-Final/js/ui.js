@@ -1,3 +1,36 @@
+// ! lógica principal
+
+carregarInfo();
+// dadosNomeCliente();
+
+newClientForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const action = event.target.dataset.action;
+
+  const id = inputClientId.value;
+  const nome = inputClientName.value.toLowerCase();
+  const cpf = Number(inputClientCpf.value.replace(/\D/g, ""));
+  const email = inputClientEmail.value.toLowerCase();
+
+  if (!validacaoCliente(nome, cpf, email)) return;
+
+  try {
+    if (action === "salvar") {
+      await dataNewClient({ nome, cpf, email });
+    } else if (action === "editar") {
+      await editClient({ id, nome, cpf, email });
+    }
+    newClientForm.reset();
+    carregarInfo();
+    gestaoClientes();
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log(event);
+});
+
 // ! renderização - DADOS
 
 const newTag = (tag) => document.createElement(tag);
@@ -127,39 +160,91 @@ document.addEventListener("click", (event) => {
 async function renderizarAccounts(accounts) {
   accountsList.innerHTML = "";
 
-  for (const { numeroConta, idCliente, tipoConta, saldo, status } of accounts) {
-    const client = await findClientsId(idCliente);
-    const nomeFormatado = client.nome.toUpperCase();
+  if (accounts.length === 0) {
+    noAccounts();
+  } else {
+    btnConsultAccount.classList.remove("hiddenContent");
+    btnEditAccount.classList.remove("hiddenContent");
+    btnDeleteAccount.classList.remove("hiddenContent");
 
-    const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-    const statusFormatado = status.toUpperCase();
+    for (const {
+      numeroConta,
+      idCliente,
+      tipoConta,
+      saldo,
+      status,
+    } of accounts) {
+      const client = await findClientsId(idCliente);
+      const nomeFormatado = client.nome.toUpperCase();
 
-    const row = newTag("tr");
+      const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      const statusFormatado = status.toUpperCase();
 
-    const colAccount = newTag("td");
-    const colClientName = newTag("td");
-    const colAccountType = newTag("td");
-    const colSaldo = newTag("td");
-    const colStatus = newTag("td");
+      const row = newTag("tr");
 
-    colAccount.innerText = Number(numeroConta);
-    colClientName.innerText = nomeFormatado;
-    colAccountType.innerText = tipoConta.toUpperCase();
-    colSaldo.innerText = Number(saldoFormatado);
-    colStatus.innerText = statusFormatado;
+      const colAccount = newTag("td");
+      const colClientName = newTag("td");
+      const colAccountType = newTag("td");
+      const colSaldo = newTag("td");
+      const colStatus = newTag("td");
 
-    row.append(colAccount, colClientName, colAccountType, colSaldo, colStatus);
-    accountsList.appendChild(row);
+      colAccount.innerText = Number(numeroConta);
+      colClientName.innerText = nomeFormatado;
+      colAccountType.innerText = tipoConta.toUpperCase();
+      colSaldo.innerText = Number(saldoFormatado);
+      colStatus.innerText = statusFormatado;
 
-    if (statusFormatado === "ENCERRADA") {
-      row.classList.add("closedAccount");
-    } else {
-      row.classList.remove("closedAccount");
+      row.append(
+        colAccount,
+        colClientName,
+        colAccountType,
+        colSaldo,
+        colStatus,
+      );
+      accountsList.appendChild(row);
+
+      if (statusFormatado === "ENCERRADA") {
+        row.classList.add("closedAccount");
+      } else {
+        row.classList.remove("closedAccount");
+      }
     }
   }
+}
+
+function deleteMensage() {
+  const row = newTag("tr");
+  const col = newTag("td");
+
+  col.colSpan = 5;
+  col.innerText = "Cliente não possui conta";
+  col.classList.add("errorMensageNoAccount");
+
+  row.appendChild(col);
+  accountsList.appendChild(row);
+
+  btnConsultAccount.classList.add("hiddenContent");
+  btnEditAccount.classList.add("hiddenContent");
+  btnDeleteAccount.classList.add("hiddenContent");
+}
+
+function noAccounts() {
+  const row = newTag("tr");
+  const col = newTag("td");
+
+  col.colSpan = 5;
+  col.innerText = "Cliente não possui conta";
+  col.classList.add("errorMensageNoAccount");
+
+  row.appendChild(col);
+  accountsList.appendChild(row);
+
+  btnConsultAccount.classList.add("hiddenContent");
+  btnEditAccount.classList.add("hiddenContent");
+  btnDeleteAccount.classList.add("hiddenContent");
 }
 
 async function renderizarTransactions(transactions) {

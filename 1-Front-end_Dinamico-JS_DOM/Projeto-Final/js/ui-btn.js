@@ -98,7 +98,7 @@ function gestaoClientesNav() {
 }
 navClients.addEventListener("click", (event) => gestaoClientesNav());
 
-function showFormsClient() {
+function openFormsClient() {
   newClientForm.classList.add("showContentTransition");
 
   setTimeout(() => {
@@ -107,15 +107,42 @@ function showFormsClient() {
     newClientForm.classList.remove("hiddenContent");
   }, 400);
 }
+
+function closeFormsClient() {
+  newClientForm.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    newClientForm.classList.remove("hiddenContentTransition");
+
+    newClientForm.classList.add("hiddenContent");
+  }, 400);
+}
+
 btnRegisterNewClient.addEventListener("click", (event) => {
-  showFormsClient();
+  closeAccountGroup();
+  openFormsClient();
   newClientForm.setAttribute("data-action", "salvar");
 });
 
-btnEditClient.addEventListener("click", async (event) => {
-  if (!window.idClienteSelecionado) return;
-  showFormsClient();
+btnConsultClient.addEventListener("click", async (event) => {
   try {
+    if (!window.idClienteSelecionado) return;
+    closeFormsClient();
+    openAccountGroup();
+
+    const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
+
+    renderizarAccounts(accounts);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+btnEditClient.addEventListener("click", async (event) => {
+  try {
+    if (!window.idClienteSelecionado) return;
+    openFormsClient();
+
     const client = await findClientsId(window.idClienteSelecionado);
 
     let cpf = String(client.cpf);
@@ -137,9 +164,9 @@ btnEditClient.addEventListener("click", async (event) => {
     inputClientEmail.value = client.email.toLowerCase();
 
     newClientForm.setAttribute("data-action", "editar");
-  } catch (error) {}
 
-  console.log(event);
+    closeAccountGroup();
+  } catch (error) {}
 });
 
 btnCancelNewClient.addEventListener("click", (event) => {
@@ -154,11 +181,12 @@ btnCancelNewClient.addEventListener("click", (event) => {
 });
 
 btnDeleteClient.addEventListener("click", async (event) => {
-  if (!window.idClienteSelecionado) return;
-
-  const confirma = confirm("Confirma a exclusão do cadastro do cliente?");
-
   try {
+    if (!window.idClienteSelecionado) return;
+    closeAccountGroup();
+
+    const confirma = confirm("Confirma a exclusão do cadastro do cliente?");
+
     if (confirma) {
       await deleteClient(window.idClienteSelecionado);
       carregarInfo();
@@ -183,15 +211,16 @@ function openAccountGroup() {
     newAccountForm.classList.add("hiddenContent");
   }, 500);
 }
-btnConsultClient.addEventListener("click", async (event) => {
-  if (!window.idClienteSelecionado) return;
 
-  openAccountGroup();
+function closeAccountGroup() {
+  containerAccounts.classList.add("hiddenContentTransition");
 
-  const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
+  setTimeout(() => {
+    containerAccounts.classList.remove("hiddenContentTransition");
 
-  renderizarAccounts(accounts);
-});
+    containerAccounts.classList.add("hiddenContent");
+  }, 500);
+}
 
 // ! CONTAS
 

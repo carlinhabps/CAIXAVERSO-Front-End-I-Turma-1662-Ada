@@ -263,6 +263,15 @@ select {
   font-size: 14px;
 }
 
+td.errorMensageNoAccount {
+  /* color: var(--secundary); */
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px 0 15px 0;
+  font-size: 14px;
+}
+
 .btnActions {
   display: flex;
   gap: 20px;
