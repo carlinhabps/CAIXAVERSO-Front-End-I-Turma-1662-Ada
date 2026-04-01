@@ -158,7 +158,7 @@ vai:
 OU  
   id="selectAccountStatus"
 vai:
-  RETIRAR class="hiddenContent" do button id="btnRegisterAccount"
+  RETIRAR class="hiddenContent" do button id="btnRegisterNewAccount"
   INSERIR class="hiddenContent" do button id="btnConsultAccount"
   
 
@@ -166,7 +166,7 @@ vai:
 - quando clicar em:
   .accountsList td
 vai:
-  INSERIR class="hiddenContent" do button id="btnRegisterAccount"
+  INSERIR class="hiddenContent" do button id="btnRegisterNewAccount"
   RETIRAR class="hiddenContent" do button id="btnConsultAccount"
   IDENTIFICAR o cliente
   IDENTIFICAR a conta

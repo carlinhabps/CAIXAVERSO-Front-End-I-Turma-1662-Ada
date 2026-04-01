@@ -28,7 +28,7 @@
   "accounts": [
     {
       "id": "1",
-      "idCliente": 1,
+      "idCliente": "I5Jar6y_Rx4",
       "numeroConta": 1001,
       "tipoConta": "Corrente",
       "saldo": 5000,
@@ -36,7 +36,7 @@
     },
     {
       "id": "2",
-      "idCliente": 3,
+      "idCliente": "nOsLPNqHq2Y",
       "numeroConta": 1001,
       "tipoConta": "Poupança",
       "saldo": 16000,
@@ -44,7 +44,7 @@
     },
     {
       "id": "3",
-      "idCliente": 1,
+      "idCliente": "EI4_0r1rFSo",
       "numeroConta": 1002,
       "tipoConta": "Poupança",
       "saldo": 0,
@@ -52,7 +52,7 @@
     },
     {
       "id": "4",
-      "idCliente": 1,
+      "idCliente": "WzRRRavZtkU",
       "numeroConta": 1003,
       "tipoConta": "Poupança",
       "saldo": 100,
@@ -60,7 +60,7 @@
     },
     {
       "id": "5",
-      "idCliente": 2,
+      "idCliente": "WzRRRavZtkU",
       "numeroConta": 1001,
       "tipoConta": "Corrente",
       "saldo": 950,
@@ -100,6 +100,5 @@
       "novoSaldo": 1500,
       "dataTransacao": "2026-03-27"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

@@ -45,6 +45,8 @@ homeLogo.addEventListener("click", (event) => logo());
 
 // ! CLIENTES
 
+// ! FUNÇÕES CLIENTES
+
 function gestaoClientes() {
   navBarContainer.classList.add("showContentTransition");
   nav.classList.add("showContentTransition");
@@ -68,7 +70,6 @@ function gestaoClientes() {
     newClientForm.classList.add("hiddenContent");
   }, 500);
 }
-btnClients.addEventListener("click", (event) => gestaoClientes());
 
 function gestaoClientesNav() {
   navAccounts.classList.add("showContentTransition");
@@ -96,7 +97,6 @@ function gestaoClientesNav() {
     newClientForm.classList.add("hiddenContent");
   }, 500);
 }
-navClients.addEventListener("click", (event) => gestaoClientesNav());
 
 function openFormsClient() {
   newClientForm.classList.add("showContentTransition");
@@ -137,6 +137,12 @@ function closeConfirmDeleteClient() {
     deleteClientDiv.classList.add("hiddenContent");
   }, 400);
 }
+
+// ! BOTÕES CLIENTES
+
+btnClients.addEventListener("click", (event) => gestaoClientes());
+
+navClients.addEventListener("click", (event) => gestaoClientesNav());
 
 btnRegisterNewClient.addEventListener("click", (event) => {
   closeAccountGroup();
@@ -221,32 +227,9 @@ deleteClientBtnNao.addEventListener("click", async (event) => {
   closeConfirmDeleteClient();
 });
 
-function openAccountGroup() {
-  containerAccounts.classList.add("showContentTransition");
-  newAccountForm.classList.add("hiddenContentTransition");
-
-  errorMensageAccount.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    containerAccounts.classList.remove("showContentTransition");
-    newAccountForm.classList.remove("hiddenContentTransition");
-
-    containerAccounts.classList.remove("hiddenContent");
-    newAccountForm.classList.add("hiddenContent");
-  }, 500);
-}
-
-function closeAccountGroup() {
-  containerAccounts.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    containerAccounts.classList.remove("hiddenContentTransition");
-
-    containerAccounts.classList.add("hiddenContent");
-  }, 500);
-}
-
 // ! CONTAS
+
+// ! FUNÇÕES CONTAS
 
 function gestaoContas() {
   navBarContainer.classList.add("showContentTransition");
@@ -271,7 +254,6 @@ function gestaoContas() {
     newAccountForm.classList.add("hiddenContent");
   }, 500);
 }
-btnAccounts.addEventListener("click", (event) => gestaoContas());
 
 function gestaoContasNav() {
   navClients.classList.add("showContentTransition");
@@ -299,9 +281,64 @@ function gestaoContasNav() {
     newAccountForm.classList.add("hiddenContent");
   }, 500);
 }
+
+function openAccountGroup() {
+  containerAccounts.classList.add("showContentTransition");
+  newAccountForm.classList.add("hiddenContentTransition");
+
+  errorMensageAccount.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    containerAccounts.classList.remove("showContentTransition");
+    newAccountForm.classList.remove("hiddenContentTransition");
+
+    containerAccounts.classList.remove("hiddenContent");
+    newAccountForm.classList.add("hiddenContent");
+  }, 500);
+}
+function closeAccountGroup() {
+  containerAccounts.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    containerAccounts.classList.remove("hiddenContentTransition");
+
+    containerAccounts.classList.add("hiddenContent");
+  }, 500);
+}
+
+function openFormsAccount() {
+  newAccountForm.classList.add("showContentTransition");
+
+  setTimeout(() => {
+    newAccountForm.classList.remove("showContentTransition");
+
+    newAccountForm.classList.remove("hiddenContent");
+  }, 400);
+}
+function closeFormsAccount() {
+  newAccountForm.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    newAccountForm.classList.remove("hiddenContentTransition");
+
+    newAccountForm.classList.add("hiddenContent");
+  }, 400);
+}
+// ! BOTÕES CONTAS
+
+btnAccounts.addEventListener("click", (event) => gestaoContas());
+
 navAccounts.addEventListener("click", (event) => gestaoContasNav());
 
+btnRegisterNewAccount.addEventListener("click", (event) => {
+  closeTransactionsGroup();
+  openFormsAccount();
+  newAccountForm.setAttribute("data-action", "salvar");
+});
+
 // ! TRANSAÇÕES
+
+// ! FUNÇÕES TRANSAÇÕES
 
 function gestaoTransacoes() {
   navBarContainer.classList.add("showContentTransition");
@@ -329,7 +366,6 @@ function gestaoTransacoes() {
     newTransactionForm.classList.add("hiddenContent");
   }, 500);
 }
-btnTransactions.addEventListener("click", (event) => gestaoTransacoes());
 
 function gestaoTransacoesNav() {
   navClients.classList.add("showContentTransition");
@@ -363,4 +399,33 @@ function gestaoTransacoesNav() {
     newTransactionForm.classList.add("hiddenContent");
   }, 500);
 }
+
+function openTransactionsGroup() {
+  containerTransactions.classList.add("showContentTransition");
+  newTransactionForm.classList.add("hiddenContentTransition");
+
+  errorMensageTransaction.classList.add("hiddenContent");
+
+  setTimeout(() => {
+    containerTransactions.classList.remove("showContentTransition");
+    newTransactionForm.classList.remove("hiddenContentTransition");
+
+    containerTransactions.classList.remove("hiddenContent");
+    newTransactionForm.classList.add("hiddenContent");
+  }, 500);
+}
+function closeTransactionsGroup() {
+  containerTransactions.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    containerTransactions.classList.remove("hiddenContentTransition");
+
+    containerTransactions.classList.add("hiddenContent");
+  }, 500);
+}
+
+// ! BOTÕES TRANSAÇÕES
+
+btnTransactions.addEventListener("click", (event) => gestaoTransacoes());
+
 navTransactions.addEventListener("click", (event) => gestaoTransacoesNav());
