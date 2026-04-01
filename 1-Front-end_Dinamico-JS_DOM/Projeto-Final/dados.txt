@@ -1,6 +1,6 @@
 cd "1-Front-end_Dinamico-JS_DOM\Projeto-Final"
 
-npx json-server db.json --port 3001
+npx json-server db.json --port 3000
 
 
 npm install -g json-server
@@ -8,17 +8,18 @@ npm install -g json-server
 npm run server
 
 
+♡⸜(˶˃ ᵕ ˂˶)⸝♡
+
 Index:
-http://localhost:3001/
+http://localhost:3000/
 
 Static files:
 Serving ./public directory if it exists
 
 Endpoints:
-http://localhost:3001/clients
-http://localhost:3001/accounts
-http://localhost:3001/transactions
-
+http://localhost:3000/clients
+http://localhost:3000/accounts
+http://localhost:3000/transactions
 
 Cores
 
