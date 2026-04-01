@@ -31,6 +31,7 @@ const selectAccountClient = doc("#selectAccountClient");
 const selectAccountType = doc("#selectAccountType");
 const selectAccountStatus = doc("#selectAccountStatus");
 const newAccountForm = doc("#newAccountForm");
+const inputAccountId = doc("#inputAccountId");
 const btnRegisterNewAccount = doc("#btnRegisterNewAccount");
 const btnConsultAccount = doc("#btnConsultAccount");
 const btnEditAccount = doc("#btnEditAccount");

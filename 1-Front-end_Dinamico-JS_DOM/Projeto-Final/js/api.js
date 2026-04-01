@@ -70,6 +70,31 @@ async function findAccountsIdCliente(idCliente) {
   return await resposta.json();
 }
 
+async function dataNewAccount(account) {
+  const resposta = await fetch("http://localhost:3000/accounts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(account),
+  });
+  return await resposta.json();
+}
+
+async function editAccount(editedAccount) {
+  const resposta = await fetch(
+    `http://localhost:3000/accounts/${editedAccount.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedAccount),
+    },
+  );
+  return await resposta.json();
+}
+
 // ! buscar em TRANSACTIONS
 
 async function findTransactions() {

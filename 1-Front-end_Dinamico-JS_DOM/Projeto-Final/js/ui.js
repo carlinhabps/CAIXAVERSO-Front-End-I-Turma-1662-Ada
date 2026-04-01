@@ -122,63 +122,66 @@ document.addEventListener("click", (event) => {
   window.idClienteSelecionado = null;
 });
 
-// ! Criar as informações na tabela
+// ! CONTAS
 
 async function renderizarAccounts(accounts) {
-  accountsList.innerHTML = "";
+  try {
+    accountsList.innerHTML = "";
 
-  if (accounts.length === 0) {
-    noAccounts();
-  } else {
-    btnConsultAccount.classList.remove("hiddenContent");
-    btnEditAccount.classList.remove("hiddenContent");
-    btnDeleteAccount.classList.remove("hiddenContent");
+    if (accounts.length === 0) {
+      noAccounts();
+    } else {
+      btnConsultAccount.classList.remove("hiddenContent");
+      btnEditAccount.classList.remove("hiddenContent");
 
-    for (const {
-      numeroConta,
-      idCliente,
-      tipoConta,
-      saldo,
-      status,
-    } of accounts) {
-      const client = await findClientsId(idCliente);
-      const nomeFormatado = client.nome.toUpperCase();
+      for (const {
+        numeroConta,
+        idCliente,
+        tipoConta,
+        saldo,
+        status,
+      } of accounts) {
+        const client = await findClientsId(idCliente);
+        const nomeFormatado = client.nome.toUpperCase();
 
-      const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-      const statusFormatado = status.toUpperCase();
+        const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+        const statusFormatado = status.toUpperCase();
 
-      const row = newTag("tr");
+        const row = newTag("tr");
 
-      const colAccount = newTag("td");
-      const colClientName = newTag("td");
-      const colAccountType = newTag("td");
-      const colSaldo = newTag("td");
-      const colStatus = newTag("td");
+        const colAccount = newTag("td");
+        const colClientName = newTag("td");
+        const colAccountType = newTag("td");
+        const colSaldo = newTag("td");
+        const colStatus = newTag("td");
 
-      colAccount.innerText = Number(numeroConta);
-      colClientName.innerText = nomeFormatado;
-      colAccountType.innerText = tipoConta.toUpperCase();
-      colSaldo.innerText = Number(saldoFormatado);
-      colStatus.innerText = statusFormatado;
+        colAccount.innerText = Number(numeroConta);
+        colClientName.innerText = nomeFormatado;
+        colAccountType.innerText = tipoConta.toUpperCase();
+        colSaldo.innerText = saldoFormatado;
+        colStatus.innerText = statusFormatado;
 
-      row.append(
-        colAccount,
-        colClientName,
-        colAccountType,
-        colSaldo,
-        colStatus,
-      );
-      accountsList.appendChild(row);
+        row.append(
+          colAccount,
+          colClientName,
+          colAccountType,
+          colSaldo,
+          colStatus,
+        );
+        accountsList.appendChild(row);
 
-      if (statusFormatado === "ENCERRADA") {
-        row.classList.add("closedAccount");
-      } else {
-        row.classList.remove("closedAccount");
+        if (statusFormatado === "ENCERRADA") {
+          row.classList.add("closedAccount");
+        } else {
+          row.classList.remove("closedAccount");
+        }
       }
     }
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -213,6 +216,34 @@ function noAccounts() {
   btnEditAccount.classList.add("hiddenContent");
   btnDeleteAccount.classList.add("hiddenContent");
 }
+
+// ! CADASTRAR CONTAS
+
+accountsList.addEventListener("click", async (event) => {
+  const row = event.target.closest("tr");
+  if (!row) return;
+
+  document.querySelectorAll(".accountsList tr").forEach((tr) => {
+    tr.classList.remove("selectedRow");
+  });
+
+  row.classList.add("selectedRow");
+
+  // const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
+  // const cpfNumero = Number(cpfSelecionado);
+
+  // const clientes = await findClients();
+  // const cliente = clientes.find((c) => c.cpf === cpfNumero);
+
+  // if (!cliente) {
+  //   window.idClienteSelecionado = null;
+  //   return;
+  // }
+
+  // window.idClienteSelecionado = cliente.id;
+});
+
+// ! FORMULÁRIO TRANSAÇÕES
 
 async function renderizarTransactions(transactions) {
   transactionsList.innerHTML = "";
@@ -276,8 +307,6 @@ async function renderizarTransactions(transactions) {
   newRow.classList.add("rowTransactions");
 }
 
-// ! FORMULÁRIO TRANSAÇÕES
-
 // const hoje = new Date().toLocaleDateString("sv-SE");
 
 // today.value = hoje;
@@ -303,24 +332,28 @@ async function renderizarTransactions(transactions) {
 
 // ! ADICIONAR DADOS AOS SELECTs
 
-// async function dadosSelectAccountClient(accounts) {
-//   selectAccountClient.length = 1;
+async function dadosSelectAccountClient(accounts) {
+  try {
+    selectAccountClient.length = 1;
 
-//   const uniqueClients = [
-//     ...new Set(accounts.map((account) => account.idCliente)),
-//   ];
+    const uniqueClients = [
+      ...new Set(accounts.map((account) => account.idCliente)),
+    ];
 
-//   for (const idCliente of uniqueClients) {
-//     const client = await findClientsId(idCliente);
-//     const nomeFormatado = client.nome.toUpperCase();
+    for (const idCliente of uniqueClients) {
+      const client = await findClientsId(idCliente);
+      const nomeFormatado = client.nome.toUpperCase();
 
-//     const option = newTag("option");
-//     option.value = idCliente;
-//     option.innerText = nomeFormatado;
+      const option = newTag("option");
+      option.value = idCliente;
+      option.innerText = nomeFormatado;
 
-//     selectAccountClient.appendChild(option);
-//   }
-// }
+      selectAccountClient.appendChild(option);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 // async function dadosNomeCliente() {
 //   selectAccountClient.length = 1;
 //   selectClientName.length = 1;

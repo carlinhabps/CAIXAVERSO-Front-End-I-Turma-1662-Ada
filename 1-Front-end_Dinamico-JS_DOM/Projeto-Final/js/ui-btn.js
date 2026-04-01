@@ -306,8 +306,11 @@ function closeAccountGroup() {
   }, 500);
 }
 
-function openFormsAccount() {
+async function openFormsAccount() {
   newAccountForm.classList.add("showContentTransition");
+
+  const contas = await findAccounts();
+  dadosSelectAccountClient(contas);
 
   setTimeout(() => {
     newAccountForm.classList.remove("showContentTransition");
