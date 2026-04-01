@@ -6,7 +6,7 @@ const newTag = (tag) => document.createElement(tag);
 
 async function carregarInfo() {
   try {
-    const clientes = await findClients();
+    const clientes = await findObject(clients);
     renderizarClients(clientes);
 
     const contas = await findAccounts();
@@ -93,7 +93,7 @@ clientsList.addEventListener("click", async (event) => {
   const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
   const cpfNumero = Number(cpfSelecionado);
 
-  const clientes = await findClients();
+  const clientes = await findObject(clients);
   const cliente = clientes.find((c) => c.cpf === cpfNumero);
 
   if (!cliente) {
@@ -274,7 +274,7 @@ async function renderizarTransactions(transactions) {
 //   selectClientName.length = 1;
 //   selectTransactionClient.length = 1;
 
-//   const clients = await findClients();
+//   const clients = await findObject(clients);
 
 //   clients.sort((a, b) => a.nome.localeCompare(b.nome));
 

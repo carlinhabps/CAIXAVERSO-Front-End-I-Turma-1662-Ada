@@ -4,8 +4,8 @@ const banco = "http://localhost:3000/";
 
 // ! buscar em CLIENTS
 
-async function findClients() {
-  const resposta = await fetch("http://localhost:3000/clients");
+async function findObject(objeto) {
+  const resposta = await fetch(banco + objeto);
 
   return await resposta.json();
 }
