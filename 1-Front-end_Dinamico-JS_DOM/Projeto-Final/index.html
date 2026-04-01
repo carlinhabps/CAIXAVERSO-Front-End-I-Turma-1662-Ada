@@ -110,6 +110,26 @@
             Deletar
           </button>
         </div>
+        <div id="deleteClientDiv" class="hiddenContent">
+          <p id="deleteClientP">
+            Confirma a exclusão do cadastro do(a) cliente?
+          </p>
+          <button
+            type="button"
+            id="deleteClientBtnSim"
+            class="btn btn-outline-secondary"
+          >
+            Sim
+          </button>
+
+          <button
+            type="button"
+            id="deleteClientBtnNao"
+            class="btn btn-outline-secondary"
+          >
+            Não
+          </button>
+        </div>
 
         <form id="newClientForm" class="hiddenContent" data-action="salvar">
           <input type="text" name="inputClientId" id="inputClientId" hidden />
@@ -154,9 +174,6 @@
             Cancelar
           </button>
         </form>
-
-        <!-- Editar cliente -->
-        <!-- Deletar cliente -->
       </section>
 
       <section id="containerAccounts" class="containerAccounts hiddenContent">
@@ -206,14 +223,7 @@
             class="btn btn-outline-secondary"
             type="button"
           >
-            Ativar/Encerrar
-          </button>
-          <button
-            id="btnDeleteAccount"
-            class="btn btn-outline-secondary"
-            type="button"
-          >
-            Deletar
+            Encerrar
           </button>
         </div>
 

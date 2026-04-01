@@ -118,6 +118,26 @@ function closeFormsClient() {
   }, 400);
 }
 
+function openConfirmDeleteClient() {
+  deleteClientDiv.classList.add("showContentTransition");
+
+  setTimeout(() => {
+    deleteClientDiv.classList.remove("showContentTransition");
+
+    deleteClientDiv.classList.remove("hiddenContent");
+  }, 400);
+}
+
+function closeConfirmDeleteClient() {
+  deleteClientDiv.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    deleteClientDiv.classList.remove("hiddenContentTransition");
+
+    deleteClientDiv.classList.add("hiddenContent");
+  }, 400);
+}
+
 btnRegisterNewClient.addEventListener("click", (event) => {
   closeAccountGroup();
   openFormsClient();
@@ -180,21 +200,25 @@ btnCancelNewClient.addEventListener("click", (event) => {
   }, 500);
 });
 
-btnDeleteClient.addEventListener("click", async (event) => {
+btnDeleteClient.addEventListener("click", (event) => {
+  if (!window.idClienteSelecionado) return;
+  closeAccountGroup();
+  openConfirmDeleteClient();
+});
+
+deleteClientBtnSim.addEventListener("click", async (event) => {
   try {
-    if (!window.idClienteSelecionado) return;
-    closeAccountGroup();
-
-    const confirma = confirm("Confirma a exclusão do cadastro do cliente?");
-
-    if (confirma) {
-      await deleteClient(window.idClienteSelecionado);
-      carregarInfo();
-      gestaoClientes();
-    }
+    await deleteClient(window.idClienteSelecionado);
+    carregarInfo();
+    gestaoClientes();
+    closeConfirmDeleteClient();
   } catch (error) {
     console.log(error);
   }
+});
+
+deleteClientBtnNao.addEventListener("click", async (event) => {
+  closeConfirmDeleteClient();
 });
 
 function openAccountGroup() {

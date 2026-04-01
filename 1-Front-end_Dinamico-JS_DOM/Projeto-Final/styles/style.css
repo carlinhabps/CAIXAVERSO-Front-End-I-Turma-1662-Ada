@@ -214,6 +214,28 @@ h2 {
   box-shadow: 1px 1px 7px var(--text);
 }
 
+#deleteClientDiv,
+#deleteAccountDiv {
+  margin: 25px 300px 0 300px;
+  padding: 15px;
+  border-radius: 5px;
+  border: var(--alert) solid 2px;
+  background-color: var(--bg);
+  box-shadow: 1px 1px 7px var(--text);
+  text-align: center;
+}
+#deleteClientP,
+#deleteAccountP {
+  padding-bottom: 10px;
+}
+
+#deleteClientBtnSim,
+#deleteAccountBtnSim {
+  background-color: #fa5c5c;
+  color: white;
+  font-weight: 700;
+}
+
 .form-control {
   color: var(--text);
   text-align: left;

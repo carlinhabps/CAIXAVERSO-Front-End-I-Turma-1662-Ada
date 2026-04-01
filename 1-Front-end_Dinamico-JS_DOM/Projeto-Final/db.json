@@ -1,18 +1,6 @@
 {
   "clients": [
     {
-      "id": "1",
-      "nome": "joão silvano",
-      "cpf": 74185296300,
-      "email": "joao.silvano@email.com"
-    },
-    {
-      "id": "2",
-      "nome": "Maria Célia",
-      "cpf": 69587631500,
-      "email": "maria.celia@email.com"
-    },
-    {
       "id": "WzRRRavZtkU",
       "nome": "beatriz maria editado",
       "cpf": 16591269856,
@@ -23,6 +11,18 @@
       "nome": "cadastro 1",
       "cpf": 12365478900,
       "email": "teste@mail.com"
+    },
+    {
+      "nome": "joao silvano",
+      "cpf": 1478520369,
+      "email": "js.teste@mail.com",
+      "id": "nOsLPNqHq2Y"
+    },
+    {
+      "nome": "carla beatriz",
+      "cpf": 12353602606,
+      "email": "carlinhabps@hotmail.com",
+      "id": "I5Jar6y_Rx4"
     }
   ],
   "accounts": [
