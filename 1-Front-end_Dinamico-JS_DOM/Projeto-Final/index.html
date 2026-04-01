@@ -111,7 +111,8 @@
           </button>
         </div>
 
-        <form id="newClientForm" class="hiddenContent">
+        <form id="newClientForm" class="hiddenContent" data-action="salvar">
+          <input type="text" name="inputClientId" id="inputClientId" hidden />
           <input
             type="text"
             name="inputClientName"
@@ -139,7 +140,7 @@
 
           <button
             type="submit"
-            id="btnSaveNewClient"
+            id="btnSaveClient"
             class="btn btn-outline-secondary"
           >
             Salvar

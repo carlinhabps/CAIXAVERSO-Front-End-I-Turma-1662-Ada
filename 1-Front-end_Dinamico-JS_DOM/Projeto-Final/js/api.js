@@ -25,6 +25,27 @@ async function dataNewClient(client) {
   return await resposta.json();
 }
 
+async function editClient(editedClient) {
+  const resposta = await fetch(
+    `http://localhost:3001/clients/${editedClient.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedClient),
+    },
+  );
+  return await resposta.json();
+}
+
+async function deleteClient(id) {
+  const resposta = await fetch(`http://localhost:3001/clients/${id}`, {
+    method: "DELETE",
+  });
+  return await resposta.json();
+}
+
 // ! buscar em ACCOUNT
 
 async function findAccounts() {

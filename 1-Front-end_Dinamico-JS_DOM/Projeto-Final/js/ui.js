@@ -105,8 +105,15 @@ clientsList.addEventListener("click", async (event) => {
 });
 
 document.addEventListener("click", (event) => {
-  if (event.target.closest(".clientsList")) return;
-  if (event.target.closest("#btnConsultClient")) return;
+  if (
+    event.target.closest(".clientsList") ||
+    event.target.closest("#btnConsultClient") ||
+    event.target.closest("#btnEditClient") ||
+    event.target.closest("#btnDeleteClient") ||
+    event.target.closest("#newClientForm")
+  ) {
+    return;
+  }
 
   document.querySelectorAll(".clientsList tr").forEach((tr) => {
     tr.classList.remove("selectedRow");

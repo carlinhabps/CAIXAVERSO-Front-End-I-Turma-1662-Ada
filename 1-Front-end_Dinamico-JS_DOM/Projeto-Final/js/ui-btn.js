@@ -99,10 +99,75 @@ function gestaoClientesNav() {
 navClients.addEventListener("click", (event) => gestaoClientesNav());
 
 function showFormsClient() {
-  newClientForm.classList.remove("hiddenContent");
+  newClientForm.classList.add("showContentTransition");
+
+  setTimeout(() => {
+    newClientForm.classList.remove("showContentTransition");
+
+    newClientForm.classList.remove("hiddenContent");
+  }, 400);
 }
-btnRegisterNewClient.addEventListener("click", (event) => showFormsClient());
-btnEditClient.addEventListener("click", (event) => showFormsClient());
+btnRegisterNewClient.addEventListener("click", (event) => {
+  showFormsClient();
+  newClientForm.setAttribute("data-action", "salvar");
+});
+
+btnEditClient.addEventListener("click", async (event) => {
+  if (!window.idClienteSelecionado) return;
+  showFormsClient();
+  try {
+    const client = await findClientsId(window.idClienteSelecionado);
+
+    let cpf = String(client.cpf);
+    cpf = cpf.replace(/\D/g, "");
+    cpf = cpf.slice(0, 11);
+    if (cpf.length > 9) {
+      cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+    if (cpf.length > 6) {
+      cpf = cpf.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3");
+    }
+    if (cpf.length > 3) {
+      cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    }
+
+    inputClientId.value = client.id;
+    inputClientName.value = client.nome.toUpperCase();
+    inputClientCpf.value = cpf;
+    inputClientEmail.value = client.email.toLowerCase();
+
+    newClientForm.setAttribute("data-action", "editar");
+  } catch (error) {}
+
+  console.log(event);
+});
+
+btnCancelNewClient.addEventListener("click", (event) => {
+  newClientForm.reset();
+  newClientForm.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    newClientForm.classList.remove("hiddenContentTransition");
+
+    newClientForm.classList.add("hiddenContent");
+  }, 500);
+});
+
+btnDeleteClient.addEventListener("click", async (event) => {
+  if (!window.idClienteSelecionado) return;
+
+  const confirma = confirm("Confirma a exclusão do cadastro do cliente?");
+
+  try {
+    if (confirma) {
+      await deleteClient(window.idClienteSelecionado);
+      carregarInfo();
+      gestaoClientes();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 function openAccountGroup() {
   containerAccounts.classList.add("showContentTransition");

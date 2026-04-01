@@ -2,9 +2,9 @@
   "clients": [
     {
       "id": "1",
-      "nome": "João Silvano",
-      "cpf": 12345678900,
-      "email": "joao.SILVANO@email.com"
+      "nome": "joão silvano",
+      "cpf": 74185296300,
+      "email": "joao.silvano@email.com"
     },
     {
       "id": "2",
@@ -13,34 +13,16 @@
       "email": "maria.celia@email.com"
     },
     {
-      "id": "3",
-      "nome": "Carlos Alberto",
-      "cpf": 96588723604,
-      "email": "carlos.alberto@email.com"
-    },
-    {
-      "nome": "BEATRIZ MARIA",
+      "id": "WzRRRavZtkU",
+      "nome": "beatriz maria editado",
       "cpf": 16591269856,
-      "email": "beatriz.maria@email.com",
-      "id": "WzRRRavZtkU"
+      "email": "beatriz.maria@email.com"
     },
     {
-      "nome": "izabella cristina",
-      "cpf": 12353602606,
-      "email": "izabella.cristina@email.com",
-      "id": "UdekCZDQnIM"
-    },
-    {
-      "nome": "carla beatriz",
-      "cpf": 12312312312,
-      "email": "teste@mail.com",
-      "id": "2y8T2gV9o94"
-    },
-    {
-      "nome": "beatriz maria",
-      "cpf": 500600200,
-      "email": "teste@mail.com",
-      "id": "RK8S5AlolWE"
+      "id": "EI4_0r1rFSo",
+      "nome": "cadastro 1",
+      "cpf": 12365478900,
+      "email": "teste@mail.com"
     }
   ],
   "accounts": [
