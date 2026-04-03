@@ -19,10 +19,16 @@
       "id": "nOsLPNqHq2Y"
     },
     {
+      "id": "I5Jar6y_Rx4",
       "nome": "carla beatriz",
       "cpf": 12353602606,
-      "email": "carlinhabps@hotmail.com",
-      "id": "I5Jar6y_Rx4"
+      "email": "cb.teste@mail.com"
+    },
+    {
+      "nome": "beatriz maria",
+      "cpf": 23659,
+      "email": "teste@mail.com",
+      "id": "Rf-uRlLIqAA"
     }
   ],
   "accounts": [
@@ -44,7 +50,7 @@
     },
     {
       "id": "3",
-      "idCliente": "EI4_0r1rFSo",
+      "idCliente": "I5Jar6y_Rx4",
       "numeroConta": 1002,
       "tipoConta": "Poupança",
       "saldo": 0,
@@ -53,7 +59,7 @@
     {
       "id": "4",
       "idCliente": "WzRRRavZtkU",
-      "numeroConta": 1003,
+      "numeroConta": 1001,
       "tipoConta": "Poupança",
       "saldo": 100,
       "status": "Ativa"
@@ -61,7 +67,7 @@
     {
       "id": "5",
       "idCliente": "WzRRRavZtkU",
-      "numeroConta": 1001,
+      "numeroConta": 1002,
       "tipoConta": "Corrente",
       "saldo": 950,
       "status": "Ativa"
@@ -100,5 +106,6 @@
       "novoSaldo": 1500,
       "dataTransacao": "2026-03-27"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

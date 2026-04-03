@@ -47,27 +47,44 @@ homeLogo.addEventListener("click", (event) => logo());
 
 // ! FUNÇÕES CLIENTES
 
-function gestaoClientes() {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerClients.classList.add("showContentTransition");
-  newClientForm.classList.add("hiddenContentTransition");
+function hidden(x, y, z) {
+  const elementFunction = x;
+  const actionFunction = y;
+  const classFunction = z;
 
-  errorMensageClient.classList.add("hiddenContent");
+  if (actionFunction === "add") {
+    elementFunction.classList.add(classFunction);
+  } else {
+    elementFunction.classList.remove(classFunction);
+  }
+}
+
+function gestaoClientes() {
+  const showContentTransition = [navBarContainer, nav, containerClients];
+  const hiddenContentTransition = [
+    errorMensageClient,
+    containerWelcome,
+    newClientForm,
+  ];
+
+  showContentTransition.forEach((e) =>
+    hidden(e, "add", "showContentTransition"),
+  );
+  hiddenContentTransition.forEach((e) =>
+    hidden(e, "add", "hiddenContentTransition"),
+  );
 
   setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerClients.classList.remove("showContentTransition");
-    newClientForm.classList.remove("hiddenContentTransition");
+    showContentTransition.forEach((e) => {
+      hidden(e, "remove", "showContentTransition");
+      hidden(e, "remove", "hiddenContent");
+    });
+    hiddenContentTransition.forEach((e) => {
+      hidden(e, "remove", "hiddenContentTransition");
+      hidden(e, "add", "hiddenContent");
+    });
 
     navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerClients.classList.remove("hiddenContent");
-    newClientForm.classList.add("hiddenContent");
   }, 500);
 }
 
@@ -167,6 +184,7 @@ btnConsultClient.addEventListener("click", async (event) => {
 btnEditClient.addEventListener("click", async (event) => {
   try {
     if (!window.idClienteSelecionado) return;
+    closeAccountGroup();
     openFormsClient();
 
     const client = await findClientsId(window.idClienteSelecionado);
@@ -208,6 +226,7 @@ btnCancelNewClient.addEventListener("click", (event) => {
 
 btnDeleteClient.addEventListener("click", (event) => {
   if (!window.idClienteSelecionado) return;
+  closeFormsClient();
   closeAccountGroup();
   openConfirmDeleteClient();
 });
