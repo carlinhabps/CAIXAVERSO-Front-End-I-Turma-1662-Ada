@@ -1,51 +1,28 @@
 // ! renderização - BOTÕES
 
-// btnClients.addEventListener("click", (event) => {
-//   // inclui classes de transição
-//   setTimeout(() => {
-//     // exclui classes de transição
-//     // inclui/exclui classe com display none
-//   }, 500);
-// });
+// ! ============================== FUNÇÕES BASE ============================== ! //
 
-function logo() {
-  navBarContainer.classList.add("hiddenContentTransition");
-  nav.classList.add("hiddenContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerClients.classList.add("hiddenContentTransition");
-  containerAccounts.classList.add("hiddenContentTransition");
-  containerTransactions.classList.add("hiddenContentTransition");
-  navClients.classList.add("showContentTransition");
-  navAccounts.classList.add("showContentTransition");
-  navTransactions.classList.add("showContentTransition");
+function transitionsGroup(showContentTransition, hiddenContentTransition) {
+  showContentTransition.forEach((e) => {
+    hidden(e, "add", "showContentTransition");
+  });
+
+  hiddenContentTransition.forEach((e) => {
+    hidden(e, "add", "hiddenContentTransition");
+  });
 
   setTimeout(() => {
-    navBarContainer.classList.remove("hiddenContentTransition");
-    nav.classList.remove("hiddenContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerClients.classList.remove("hiddenContentTransition");
-    containerAccounts.classList.remove("hiddenContentTransition");
-    containerTransactions.classList.remove("hiddenContentTransition");
-    navClients.classList.remove("showContentTransition");
-    navAccounts.classList.remove("showContentTransition");
-    navTransactions.classList.remove("showContentTransition");
+    showContentTransition.forEach((e) => {
+      hidden(e, "remove", "showContentTransition");
+      hidden(e, "remove", "hiddenContent");
+    });
 
-    navBarContainer.classList.add("hiddenNavBar");
-    nav.classList.add("hiddenContent");
-    containerWelcome.classList.remove("hiddenContent");
-    containerClients.classList.add("hiddenContent");
-    containerAccounts.classList.add("hiddenContent");
-    containerTransactions.classList.add("hiddenContent");
-    navClients.classList.remove("hiddenContent");
-    navAccounts.classList.remove("hiddenContent");
-    navTransactions.classList.remove("hiddenContent");
+    hiddenContentTransition.forEach((e) => {
+      hidden(e, "remove", "hiddenContentTransition");
+      hidden(e, "add", "hiddenContent");
+    });
   }, 500);
 }
-homeLogo.addEventListener("click", (event) => logo());
-
-// ! CLIENTES
-
-// ! FUNÇÕES CLIENTES
 
 function hidden(x, y, z) {
   const elementFunction = x;
@@ -59,6 +36,46 @@ function hidden(x, y, z) {
   }
 }
 
+function openSomeGroup(element) {
+  element.classList.add("showContentTransition");
+
+  setTimeout(() => {
+    element.classList.remove("showContentTransition");
+
+    element.classList.remove("hiddenContent");
+  }, 400);
+}
+
+function closeSomeGroup(element) {
+  element.classList.add("hiddenContentTransition");
+
+  setTimeout(() => {
+    element.classList.remove("hiddenContentTransition");
+
+    element.classList.add("hiddenContent");
+  }, 400);
+}
+
+// ! ============================== HOME PAGE ============================== ! //
+
+function logo() {
+  const showContentTransition = [navBarContainer, homeLogo, containerWelcome];
+  const hiddenContentTransition = [
+    nav,
+    containerClients,
+    containerAccounts,
+    containerTransactions,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.add("hiddenNavBar");
+}
+
+homeLogo.addEventListener("click", (event) => logo());
+
+// ! ============================== CLIENTES ============================== ! //
+
+// ! ========== FUNÇÕES CLIENTES ========== ! //
+
 function gestaoClientes() {
   const showContentTransition = [navBarContainer, nav, containerClients];
   const hiddenContentTransition = [
@@ -66,111 +83,50 @@ function gestaoClientes() {
     containerWelcome,
     newClientForm,
   ];
-
-  showContentTransition.forEach((e) =>
-    hidden(e, "add", "showContentTransition"),
-  );
-  hiddenContentTransition.forEach((e) =>
-    hidden(e, "add", "hiddenContentTransition"),
-  );
-
-  setTimeout(() => {
-    showContentTransition.forEach((e) => {
-      hidden(e, "remove", "showContentTransition");
-      hidden(e, "remove", "hiddenContent");
-    });
-    hiddenContentTransition.forEach((e) => {
-      hidden(e, "remove", "hiddenContentTransition");
-      hidden(e, "add", "hiddenContent");
-    });
-
-    navBarContainer.classList.remove("hiddenNavBar");
-  }, 500);
+  transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.remove("hiddenNavBar");
 }
 
 function gestaoClientesNav() {
-  navAccounts.classList.add("showContentTransition");
-  navTransactions.classList.add("showContentTransition");
-  containerClients.classList.add("showContentTransition");
-  containerAccounts.classList.add("hiddenContentTransition");
-  containerTransactions.classList.add("hiddenContentTransition");
-  newClientForm.classList.add("hiddenContentTransition");
-
-  errorMensageClient.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    navAccounts.classList.remove("showContentTransition");
-    navTransactions.classList.remove("showContentTransition");
-    containerClients.classList.remove("showContentTransition");
-    containerAccounts.classList.remove("hiddenContentTransition");
-    containerTransactions.classList.remove("hiddenContentTransition");
-    newClientForm.classList.remove("hiddenContentTransition");
-
-    navAccounts.classList.remove("hiddenContent");
-    navTransactions.classList.remove("hiddenContent");
-    containerClients.classList.remove("hiddenContent");
-    containerAccounts.classList.add("hiddenContent");
-    containerTransactions.classList.add("hiddenContent");
-    newClientForm.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [
+    navAccounts,
+    navTransactions,
+    containerClients,
+  ];
+  const hiddenContentTransition = [
+    errorMensageClient,
+    containerAccounts,
+    containerTransactions,
+    newClientForm,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
 function openFormsClient() {
-  newClientForm.classList.add("showContentTransition");
-
-  setTimeout(() => {
-    newClientForm.classList.remove("showContentTransition");
-
-    newClientForm.classList.remove("hiddenContent");
-  }, 400);
+  const showContentTransition = [newClientForm];
+  const hiddenContentTransition = [containerAccounts, containerTransactions];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
-function closeFormsClient() {
-  newClientForm.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    newClientForm.classList.remove("hiddenContentTransition");
-
-    newClientForm.classList.add("hiddenContent");
-  }, 400);
-}
-
-function openConfirmDeleteClient() {
-  deleteClientDiv.classList.add("showContentTransition");
-
-  setTimeout(() => {
-    deleteClientDiv.classList.remove("showContentTransition");
-
-    deleteClientDiv.classList.remove("hiddenContent");
-  }, 400);
-}
-
-function closeConfirmDeleteClient() {
-  deleteClientDiv.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    deleteClientDiv.classList.remove("hiddenContentTransition");
-
-    deleteClientDiv.classList.add("hiddenContent");
-  }, 400);
-}
-
-// ! BOTÕES CLIENTES
+// ! ========== BOTÕES CLIENTES ========== ! //
 
 btnClients.addEventListener("click", (event) => gestaoClientes());
 
 navClients.addEventListener("click", (event) => gestaoClientesNav());
 
 btnRegisterNewClient.addEventListener("click", (event) => {
-  closeAccountGroup();
+  closeSomeGroup(containerAccounts);
+  closeSomeGroup(deleteClientDiv);
   openFormsClient();
   newClientForm.setAttribute("data-action", "salvar");
+  newClientForm.reset();
 });
 
 btnConsultClient.addEventListener("click", async (event) => {
   try {
     if (!window.idClienteSelecionado) return;
-    closeFormsClient();
+    closeSomeGroup(newClientForm);
+    closeSomeGroup(deleteClientDiv);
     openAccountGroup();
 
     const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
@@ -184,7 +140,8 @@ btnConsultClient.addEventListener("click", async (event) => {
 btnEditClient.addEventListener("click", async (event) => {
   try {
     if (!window.idClienteSelecionado) return;
-    closeAccountGroup();
+    closeSomeGroup(containerAccounts);
+    closeSomeGroup(deleteClientDiv);
     openFormsClient();
 
     const client = await findClientsId(window.idClienteSelecionado);
@@ -209,7 +166,7 @@ btnEditClient.addEventListener("click", async (event) => {
 
     newClientForm.setAttribute("data-action", "editar");
 
-    closeAccountGroup();
+    closeSomeGroup(containerAccounts);
   } catch (error) {}
 });
 
@@ -226,9 +183,9 @@ btnCancelNewClient.addEventListener("click", (event) => {
 
 btnDeleteClient.addEventListener("click", (event) => {
   if (!window.idClienteSelecionado) return;
-  closeFormsClient();
-  closeAccountGroup();
-  openConfirmDeleteClient();
+  closeSomeGroup(newClientForm);
+  closeSomeGroup(containerAccounts);
+  openSomeGroup(deleteClientDiv);
 });
 
 deleteClientBtnSim.addEventListener("click", async (event) => {
@@ -236,217 +193,111 @@ deleteClientBtnSim.addEventListener("click", async (event) => {
     await deleteClient(window.idClienteSelecionado);
     carregarInfo();
     gestaoClientes();
-    closeConfirmDeleteClient();
+    closeSomeGroup(deleteClientDiv);
   } catch (error) {
     console.log(error);
   }
 });
 
 deleteClientBtnNao.addEventListener("click", async (event) => {
-  closeConfirmDeleteClient();
+  closeSomeGroup(deleteClientDiv);
 });
 
-// ! CONTAS
+// ! ============================== CONTAS ============================== ! //
 
-// ! FUNÇÕES CONTAS
+// ! ========== FUNÇÕES CONTAS ========== ! //
 
 function gestaoContas() {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerAccounts.classList.add("showContentTransition");
-  newAccountForm.classList.add("hiddenContentTransition");
-
-  errorMensageAccount.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerAccounts.classList.remove("showContentTransition");
-    newAccountForm.classList.remove("hiddenContentTransition");
-
-    navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerAccounts.classList.remove("hiddenContent");
-    newAccountForm.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [navBarContainer, nav, containerAccounts];
+  const hiddenContentTransition = [
+    errorMensageAccount,
+    containerWelcome,
+    newAccountForm,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.remove("hiddenNavBar");
 }
 
 function gestaoContasNav() {
-  navClients.classList.add("showContentTransition");
-  navTransactions.classList.add("showContentTransition");
-  containerClients.classList.add("hiddenContentTransition");
-  containerAccounts.classList.add("showContentTransition");
-  containerTransactions.classList.add("hiddenContentTransition");
-  newAccountForm.classList.add("hiddenContentTransition");
-
-  errorMensageAccount.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    navClients.classList.remove("showContentTransition");
-    navTransactions.classList.remove("showContentTransition");
-    containerClients.classList.remove("hiddenContentTransition");
-    containerAccounts.classList.remove("showContentTransition");
-    containerTransactions.classList.remove("hiddenContentTransition");
-    newAccountForm.classList.remove("hiddenContentTransition");
-
-    navClients.classList.remove("hiddenContent");
-    navTransactions.classList.remove("hiddenContent");
-    containerClients.classList.add("hiddenContent");
-    containerAccounts.classList.remove("hiddenContent");
-    containerTransactions.classList.add("hiddenContent");
-    newAccountForm.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [
+    navClients,
+    navTransactions,
+    containerAccounts,
+  ];
+  const hiddenContentTransition = [
+    errorMensageAccount,
+    containerClients,
+    containerTransactions,
+    newAccountForm,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
 function openAccountGroup() {
-  containerAccounts.classList.add("showContentTransition");
-  newAccountForm.classList.add("hiddenContentTransition");
-
-  errorMensageAccount.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    containerAccounts.classList.remove("showContentTransition");
-    newAccountForm.classList.remove("hiddenContentTransition");
-
-    containerAccounts.classList.remove("hiddenContent");
-    newAccountForm.classList.add("hiddenContent");
-  }, 500);
-}
-function closeAccountGroup() {
-  containerAccounts.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    containerAccounts.classList.remove("hiddenContentTransition");
-
-    containerAccounts.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [containerAccounts];
+  const hiddenContentTransition = [newAccountForm, errorMensageAccount];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
 async function openFormsAccount() {
-  newAccountForm.classList.add("showContentTransition");
+  openSomeGroup(newAccountForm);
 
   const contas = await findAccounts();
   dadosSelectAccountClient(contas);
-
-  setTimeout(() => {
-    newAccountForm.classList.remove("showContentTransition");
-
-    newAccountForm.classList.remove("hiddenContent");
-  }, 400);
 }
-function closeFormsAccount() {
-  newAccountForm.classList.add("hiddenContentTransition");
 
-  setTimeout(() => {
-    newAccountForm.classList.remove("hiddenContentTransition");
-
-    newAccountForm.classList.add("hiddenContent");
-  }, 400);
-}
-// ! BOTÕES CONTAS
+// ! ========== BOTÕES CONTAS ========== ! //
 
 btnAccounts.addEventListener("click", (event) => gestaoContas());
 
 navAccounts.addEventListener("click", (event) => gestaoContasNav());
 
 btnRegisterNewAccount.addEventListener("click", (event) => {
-  closeTransactionsGroup();
+  closeSomeGroup(containerTransactions);
   openFormsAccount();
   newAccountForm.setAttribute("data-action", "salvar");
 });
 
-// ! TRANSAÇÕES
+// ! ============================== TRANSAÇÕES ============================== ! //
 
-// ! FUNÇÕES TRANSAÇÕES
+// ! ========== FUNÇÕES TRANSAÇÕES ========== ! //
 
 function gestaoTransacoes() {
-  navBarContainer.classList.add("showContentTransition");
-  nav.classList.add("showContentTransition");
-  containerWelcome.classList.add("hiddenContentTransition");
-  containerTransactions.classList.add("showContentTransition");
-  clientName.classList.add("hiddenContentTransition");
-  newTransactionForm.classList.add("hiddenContentTransition");
-
-  errorMensageTransaction.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    navBarContainer.classList.remove("showContentTransition");
-    nav.classList.remove("showContentTransition");
-    containerWelcome.classList.remove("hiddenContentTransition");
-    containerTransactions.classList.remove("showContentTransition");
-    clientName.classList.remove("hiddenContentTransition");
-    newTransactionForm.classList.remove("hiddenContentTransition");
-
-    navBarContainer.classList.remove("hiddenNavBar");
-    nav.classList.remove("hiddenContent");
-    containerWelcome.classList.add("hiddenContent");
-    containerTransactions.classList.remove("hiddenContent");
-    clientName.classList.add("hiddenContent");
-    newTransactionForm.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [navBarContainer, nav, containerTransactions];
+  const hiddenContentTransition = [
+    errorMensageTransaction,
+    containerWelcome,
+    newTransactionForm,
+    clientName,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.remove("hiddenNavBar");
 }
 
 function gestaoTransacoesNav() {
-  navClients.classList.add("showContentTransition");
-  navAccounts.classList.add("showContentTransition");
-  containerClients.classList.add("hiddenContentTransition");
-  containerAccounts.classList.add("hiddenContentTransition");
-  containerTransactions.classList.add("showContentTransition");
-  clientName.classList.add("hiddenContentTransition");
-  selectClientName.classList.add("showContentTransition");
-  newTransactionForm.classList.add("hiddenContentTransition");
-
-  errorMensageTransaction.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    navClients.classList.remove("showContentTransition");
-    navAccounts.classList.remove("showContentTransition");
-    containerClients.classList.remove("hiddenContentTransition");
-    containerAccounts.classList.remove("hiddenContentTransition");
-    containerTransactions.classList.remove("showContentTransition");
-    clientName.classList.remove("hiddenContentTransition");
-    selectClientName.classList.remove("showContentTransition");
-    newTransactionForm.classList.remove("hiddenContentTransition");
-
-    navClients.classList.remove("hiddenContent");
-    navAccounts.classList.remove("hiddenContent");
-    containerClients.classList.add("hiddenContent");
-    containerAccounts.classList.add("hiddenContent");
-    containerTransactions.classList.remove("hiddenContent");
-    clientName.classList.add("hiddenContent");
-    selectClientName.classList.remove("hiddenContent");
-    newTransactionForm.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [
+    navClients,
+    navAccounts,
+    containerTransactions,
+    selectClientName,
+  ];
+  const hiddenContentTransition = [
+    containerClients,
+    containerAccounts,
+    clientName,
+    newTransactionForm,
+    errorMensageTransaction,
+  ];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
 function openTransactionsGroup() {
-  containerTransactions.classList.add("showContentTransition");
-  newTransactionForm.classList.add("hiddenContentTransition");
-
-  errorMensageTransaction.classList.add("hiddenContent");
-
-  setTimeout(() => {
-    containerTransactions.classList.remove("showContentTransition");
-    newTransactionForm.classList.remove("hiddenContentTransition");
-
-    containerTransactions.classList.remove("hiddenContent");
-    newTransactionForm.classList.add("hiddenContent");
-  }, 500);
-}
-function closeTransactionsGroup() {
-  containerTransactions.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    containerTransactions.classList.remove("hiddenContentTransition");
-
-    containerTransactions.classList.add("hiddenContent");
-  }, 500);
+  const showContentTransition = [containerTransactions];
+  const hiddenContentTransition = [newTransactionForm, errorMensageTransaction];
+  transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
-// ! BOTÕES TRANSAÇÕES
+// ! ========== BOTÕES TRANSAÇÕES ========== ! //
 
 btnTransactions.addEventListener("click", (event) => gestaoTransacoes());
 
