@@ -300,7 +300,8 @@ td.errorMensageNoAccount {
   justify-content: center;
 }
 
-#btnSaveClient {
+#btnSaveClient,
+#btnSaveAccount {
   margin-right: 15px;
 }
 

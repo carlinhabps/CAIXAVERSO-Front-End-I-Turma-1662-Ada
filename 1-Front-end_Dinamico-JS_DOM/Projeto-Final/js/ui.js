@@ -46,6 +46,24 @@ function renderizarClients(clients) {
   });
 }
 
+async function nameAllClients() {
+  selectAccountClient.length = 1;
+
+  const clients = await findClients();
+
+  clients.sort((a, b) => a.nome.localeCompare(b.nome));
+
+  clients.forEach(({ nome, id }) => {
+    const nomeFormatado = nome.toUpperCase();
+
+    const option = newTag("option");
+    option.value = id;
+    option.innerText = nomeFormatado;
+
+    selectAccountClient.appendChild(option);
+  });
+}
+
 // ! CADASTRAR CLIENTES
 
 inputClientName.addEventListener("input", (event) => {
@@ -331,10 +349,11 @@ async function renderizarTransactions(transactions) {
 // });
 
 // ! ADICIONAR DADOS AOS SELECTs
-
-async function dadosSelectAccountClient(accounts) {
+// async function dadosSelectAccountClient(accounts) {
+async function nameClientsWithAccounts(accounts) {
   try {
-    selectAccountClient.length = 1;
+    selectClientName.length = 1;
+    selectTransactionClient.length = 1;
 
     const uniqueClients = [
       ...new Set(accounts.map((account) => account.idCliente)),
@@ -344,40 +363,19 @@ async function dadosSelectAccountClient(accounts) {
       const client = await findClientsId(idCliente);
       const nomeFormatado = client.nome.toUpperCase();
 
-      const option = newTag("option");
-      option.value = idCliente;
-      option.innerText = nomeFormatado;
+      const option1 = newTag("option");
+      option1.value = idCliente;
+      option1.innerText = nomeFormatado;
 
-      selectAccountClient.appendChild(option);
+      const option2 = option1.cloneNode(true);
+
+      selectClientName.appendChild(option1);
+      selectTransactionClient.appendChild(option2);
     }
   } catch (error) {
     console.log(error);
   }
 }
-// async function dadosNomeCliente() {
-//   selectAccountClient.length = 1;
-//   selectClientName.length = 1;
-//   selectTransactionClient.length = 1;
-
-//   const clients = await findClients();
-
-//   clients.sort((a, b) => a.nome.localeCompare(b.nome));
-
-//   clients.forEach(({ nome, id }) => {
-//     const nomeFormatado = nome.toUpperCase();
-
-//     const option1 = newTag("option");
-//     option1.value = id;
-//     option1.innerText = nomeFormatado;
-
-//     const option2 = option1.cloneNode(true);
-//     const option3 = option1.cloneNode(true);
-
-//     selectAccountClient.appendChild(option1);
-//     selectClientName.appendChild(option2);
-//     selectTransactionClient.appendChild(option3);
-//   });
-// }
 
 selectClientName.addEventListener("input", async (event) => {
   const idClient = event.target.value;

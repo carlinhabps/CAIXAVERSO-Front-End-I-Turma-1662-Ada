@@ -1,23 +1,21 @@
 // ! lógica principal
 
 carregarInfo();
-// dadosNomeCliente();
 
 // ! CLIENTES
 
 newClientForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-
-  const action = event.target.dataset.action;
-
-  const id = inputClientId.value;
-  const nome = inputClientName.value.toLowerCase();
-  const cpf = Number(inputClientCpf.value.replace(/\D/g, ""));
-  const email = inputClientEmail.value.toLowerCase();
-
-  if (!validacaoCliente(nome, cpf, email)) return;
-
   try {
+    const action = event.target.dataset.action;
+
+    const id = inputClientId.value;
+    const nome = inputClientName.value.toLowerCase();
+    const cpf = Number(inputClientCpf.value.replace(/\D/g, ""));
+    const email = inputClientEmail.value.toLowerCase();
+
+    if (!validacaoCliente(nome, cpf, email)) return;
+
     if (action === "salvar") {
       await dataNewClient({ nome, cpf, email });
     } else if (action === "editar") {
@@ -43,7 +41,7 @@ newAccountForm.addEventListener("submit", async (event) => {
 
     const id = inputAccountId.value;
     const idCliente = "0";
-    const numeroConta = "0";
+    const numeroConta = "0"; // ! Criar fórmula pra criar nova conta
     const tipoConta = selectAccountType.value;
     const saldo = "0";
     const status = selectAccountStatus.value;

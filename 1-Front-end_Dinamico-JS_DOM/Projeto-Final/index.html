@@ -169,7 +169,7 @@
 
           <button
             type="button"
-            id="btnCancelNewClient"
+            id="btnCancelClient"
             class="btn btn-outline-secondary"
           >
             Cancelar
@@ -237,7 +237,7 @@
             class="form-select selectAccountClient"
             required
           >
-            <option value="default" selected disabled>
+            <option value="default" selected disabled hidden>
               Selecione o(a) cliente
             </option>
             <!-- ! As linhas serão inseridas aqui via JS -->
@@ -273,10 +273,18 @@
 
           <button
             type="submit"
-            id="btnSaveNewAccount"
+            id="btnSaveAccount"
             class="btn btn-outline-secondary"
           >
             Salvar
+          </button>
+
+          <button
+            type="button"
+            id="btnCancelAccount"
+            class="btn btn-outline-secondary"
+          >
+            Cancelar
           </button>
         </form>
         <!-- Listar contas (Número, Cliente, Tipo, Saldo) -->
@@ -362,7 +370,7 @@
             class="form-select"
             required
           >
-            <option value="default" selected disabled>
+            <option value="default" selected disabled hidden>
               Selecione o(a) cliente
             </option>
             <!-- ! As linhas serão inseridas aqui via JS -->
@@ -401,10 +409,18 @@
 
           <button
             type="submit"
-            id="btnSaveNewTransaction"
+            id="btnSaveTransaction"
             class="btn btn-outline-secondary"
           >
             Salvar
+          </button>
+
+          <button
+            type="button"
+            id="btnCancelTransaction"
+            class="btn btn-outline-secondary"
+          >
+            Cancelar
           </button>
         </form>
         <!-- Registrar depósito (conta, valor, atualizar saldo) -->

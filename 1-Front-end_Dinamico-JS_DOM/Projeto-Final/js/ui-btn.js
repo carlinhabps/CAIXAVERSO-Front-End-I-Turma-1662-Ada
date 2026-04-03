@@ -81,25 +81,12 @@ function gestaoClientes() {
   const hiddenContentTransition = [
     errorMensageClient,
     containerWelcome,
-    newClientForm,
-  ];
-  transitionsGroup(showContentTransition, hiddenContentTransition);
-  navBarContainer.classList.remove("hiddenNavBar");
-}
-
-function gestaoClientesNav() {
-  const showContentTransition = [
-    navAccounts,
-    navTransactions,
-    containerClients,
-  ];
-  const hiddenContentTransition = [
-    errorMensageClient,
     containerAccounts,
     containerTransactions,
     newClientForm,
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.remove("hiddenNavBar");
 }
 
 function openFormsClient() {
@@ -112,7 +99,7 @@ function openFormsClient() {
 
 btnClients.addEventListener("click", (event) => gestaoClientes());
 
-navClients.addEventListener("click", (event) => gestaoClientesNav());
+navClients.addEventListener("click", (event) => gestaoClientes());
 
 btnRegisterNewClient.addEventListener("click", (event) => {
   closeSomeGroup(containerAccounts);
@@ -170,7 +157,7 @@ btnEditClient.addEventListener("click", async (event) => {
   } catch (error) {}
 });
 
-btnCancelNewClient.addEventListener("click", (event) => {
+btnCancelClient.addEventListener("click", (event) => {
   newClientForm.reset();
   newClientForm.classList.add("hiddenContentTransition");
 
@@ -212,25 +199,12 @@ function gestaoContas() {
   const hiddenContentTransition = [
     errorMensageAccount,
     containerWelcome,
-    newAccountForm,
-  ];
-  transitionsGroup(showContentTransition, hiddenContentTransition);
-  navBarContainer.classList.remove("hiddenNavBar");
-}
-
-function gestaoContasNav() {
-  const showContentTransition = [
-    navClients,
-    navTransactions,
-    containerAccounts,
-  ];
-  const hiddenContentTransition = [
-    errorMensageAccount,
     containerClients,
     containerTransactions,
     newAccountForm,
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
+  navBarContainer.classList.remove("hiddenNavBar");
 }
 
 function openAccountGroup() {
@@ -240,22 +214,54 @@ function openAccountGroup() {
 }
 
 async function openFormsAccount() {
-  openSomeGroup(newAccountForm);
-
-  const contas = await findAccounts();
-  dadosSelectAccountClient(contas);
+  try {
+    openSomeGroup(newAccountForm);
+    await nameAllClients();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // ! ========== BOTÕES CONTAS ========== ! //
 
-btnAccounts.addEventListener("click", (event) => gestaoContas());
+btnAccounts.addEventListener("click", async (event) => {
+  try {
+    gestaoContas();
+    const accounts = await findAccounts();
+    setTimeout(() => {
+      renderizarAccounts(accounts);
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-navAccounts.addEventListener("click", (event) => gestaoContasNav());
+navAccounts.addEventListener("click", async (event) => {
+  try {
+    gestaoContas();
+    const accounts = await findAccounts();
+    setTimeout(() => {
+      renderizarAccounts(accounts);
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 btnRegisterNewAccount.addEventListener("click", (event) => {
   closeSomeGroup(containerTransactions);
+  closeSomeGroup(deleteClientDiv);
+
   openFormsAccount();
   newAccountForm.setAttribute("data-action", "salvar");
+});
+
+btnRegisterNewClient.addEventListener("click", (event) => {
+  closeSomeGroup(containerAccounts);
+  closeSomeGroup(btnEditAccount);
+  openFormsClient();
+  newAccountForm.setAttribute("data-action", "salvar");
+  newAccountForm.reset();
 });
 
 // ! ============================== TRANSAÇÕES ============================== ! //
