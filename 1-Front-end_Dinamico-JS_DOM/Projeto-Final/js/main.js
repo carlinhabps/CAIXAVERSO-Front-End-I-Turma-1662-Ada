@@ -17,9 +17,9 @@ newClientForm.addEventListener("submit", async (event) => {
     if (!validacaoCliente(nome, cpf, email)) return;
 
     if (action === "salvar") {
-      await dataNewClient({ nome, cpf, email });
+      await newRegister("clients", { nome, cpf, email });
     } else if (action === "editar") {
-      await editClient({ id, nome, cpf, email });
+      await editRegister("clients", { id, nome, cpf, email });
     }
     newClientForm.reset();
     carregarInfo();
@@ -34,6 +34,8 @@ newClientForm.addEventListener("submit", async (event) => {
 // ! CONTAS
 
 // ! botão ainda não esta funcionando.. VERIFICAR
+const accountNumbers = [];
+
 newAccountForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   try {
@@ -49,9 +51,9 @@ newAccountForm.addEventListener("submit", async (event) => {
     // if (!validacaoCliente(nome, cpf, email)) return;
 
     if (action === "salvar") {
-      await dataNewAccount({ nome, cpf, email });
+      await newRegister("accounts", { nome, cpf, email });
     } else if (action === "editar") {
-      await editAccount({ id, nome, cpf, email });
+      await editRegister("accounts", { id, nome, cpf, email });
     }
     newAccountForm.reset();
     carregarInfo();

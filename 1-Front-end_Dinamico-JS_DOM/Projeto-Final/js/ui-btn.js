@@ -116,7 +116,11 @@ btnConsultClient.addEventListener("click", async (event) => {
     closeSomeGroup(deleteClientDiv);
     openAccountGroup();
 
-    const accounts = await findAccountsIdCliente(window.idClienteSelecionado);
+    const accounts = await findObjectKeyValue(
+      "accounts",
+      "idCliente",
+      window.idClienteSelecionado,
+    );
 
     renderizarAccounts(accounts);
   } catch (error) {
@@ -131,7 +135,7 @@ btnEditClient.addEventListener("click", async (event) => {
     closeSomeGroup(deleteClientDiv);
     openFormsClient();
 
-    const client = await findClientsId(window.idClienteSelecionado);
+    const client = await findObjectId("clients", window.idClienteSelecionado);
 
     let cpf = String(client.cpf);
     cpf = cpf.replace(/\D/g, "");
@@ -177,7 +181,7 @@ btnDeleteClient.addEventListener("click", (event) => {
 
 deleteClientBtnSim.addEventListener("click", async (event) => {
   try {
-    await deleteClient(window.idClienteSelecionado);
+    await deleteRegister("clients", window.idClienteSelecionado);
     carregarInfo();
     gestaoClientes();
     closeSomeGroup(deleteClientDiv);
@@ -227,7 +231,7 @@ async function openFormsAccount() {
 btnAccounts.addEventListener("click", async (event) => {
   try {
     gestaoContas();
-    const accounts = await findAccounts();
+    const accounts = await findObject("accounts");
     setTimeout(() => {
       renderizarAccounts(accounts);
     }, 500);
@@ -239,7 +243,7 @@ btnAccounts.addEventListener("click", async (event) => {
 navAccounts.addEventListener("click", async (event) => {
   try {
     gestaoContas();
-    const accounts = await findAccounts();
+    const accounts = await findObject("accounts");
     setTimeout(() => {
       renderizarAccounts(accounts);
     }, 500);

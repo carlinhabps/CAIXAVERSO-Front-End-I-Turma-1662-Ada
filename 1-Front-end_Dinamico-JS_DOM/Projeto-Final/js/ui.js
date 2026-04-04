@@ -2,29 +2,29 @@
 
 const newTag = (tag) => document.createElement(tag);
 
-// ! EXIBIR DADOS
+// ! ============================== EXIBIR DADOS ==============================
 
 async function carregarInfo() {
   try {
-    const clientes = await findClients();
+    const clientes = await findObject("clients");
     renderizarClients(clientes);
 
-    const contas = await findAccounts();
+    const contas = await findObject("accounts");
     await renderizarAccounts(contas);
 
-    const transacoes = await findTransactions();
+    const transacoes = await findObject("transactions");
     renderizarTransactions(transacoes);
   } catch (error) {
     console.log(error);
   }
 }
 
-// ! CLIENTES
+// ! ========== CLIENTES ==========
 
 function renderizarClients(clients) {
   clientsList.innerHTML = "";
 
-  clients.forEach(({ nome, cpf, email }) => {
+  clients.forEach(({ id, nome, cpf, email }) => {
     const cpfCompleto = String(cpf).padStart(11, 0);
     const cpfFormatado = cpfCompleto.replace(
       /(\d{3})(\d{3})(\d{3})(\d{2})/,
@@ -33,15 +33,19 @@ function renderizarClients(clients) {
 
     const row = newTag("tr");
 
+    const colId = newTag("td");
     const colName = newTag("td");
     const colCpf = newTag("td");
     const colEmail = newTag("td");
 
+    colId.innerText = id;
     colName.innerText = nome.toUpperCase();
     colCpf.innerText = cpfFormatado;
     colEmail.innerText = email.toLowerCase();
 
-    row.append(colName, colCpf, colEmail);
+    colId.classList.add("hiddenContent");
+
+    row.append(colId, colName, colCpf, colEmail);
     clientsList.appendChild(row);
   });
 }
@@ -49,7 +53,7 @@ function renderizarClients(clients) {
 async function nameAllClients() {
   selectAccountClient.length = 1;
 
-  const clients = await findClients();
+  const clients = await findObject("clients");
 
   clients.sort((a, b) => a.nome.localeCompare(b.nome));
 
@@ -64,7 +68,74 @@ async function nameAllClients() {
   });
 }
 
-// ! CADASTRAR CLIENTES
+async function renderizarAccounts(accounts) {
+  try {
+    accountsList.innerHTML = "";
+
+    if (accounts.length === 0) {
+      noAccounts();
+    } else {
+      btnConsultAccount.classList.remove("hiddenContent");
+      btnEditAccount.classList.remove("hiddenContent");
+
+      for (const {
+        id,
+        numeroConta,
+        idCliente,
+        tipoConta,
+        saldo,
+        status,
+      } of accounts) {
+        const client = await findObjectId("clients", idCliente);
+        const nomeFormatado = client.nome.toUpperCase();
+
+        const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+        const statusFormatado = status.toUpperCase();
+
+        const row = newTag("tr");
+
+        const colId = newTag("td");
+        const colAccount = newTag("td");
+        const colClientName = newTag("td");
+        const colAccountType = newTag("td");
+        const colSaldo = newTag("td");
+        const colStatus = newTag("td");
+
+        colId.innerText = id;
+        colAccount.innerText = Number(numeroConta);
+        colClientName.innerText = nomeFormatado;
+        colAccountType.innerText = tipoConta.toUpperCase();
+        colSaldo.innerText = saldoFormatado;
+        colStatus.innerText = statusFormatado;
+
+        colId.classList.add("hiddenContent");
+
+        row.append(
+          colId,
+          colAccount,
+          colClientName,
+          colAccountType,
+          colSaldo,
+          colStatus,
+        );
+        accountsList.appendChild(row);
+
+        if (statusFormatado === "ENCERRADA") {
+          row.classList.add("closedAccount");
+        } else {
+          row.classList.remove("closedAccount");
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ! ==================== EDITAR FORMULÁRIOS ===> CLIENTES / CONTAS ====================
 
 inputClientName.addEventListener("input", (event) => {
   event.target.value = event.target.value.toUpperCase();
@@ -96,8 +167,9 @@ inputClientEmail.addEventListener("input", (event) => {
   event.target.value = event.target.value.toLowerCase();
 });
 
-//  CONSULTAR CLIENTES
+// ! ==================== SELEÇÃO LINHA DA TABELA ====================
 
+// * selecionar cliente pela tabela
 clientsList.addEventListener("click", async (event) => {
   const row = event.target.closest("tr");
   if (!row) return;
@@ -108,27 +180,50 @@ clientsList.addEventListener("click", async (event) => {
 
   row.classList.add("selectedRow");
 
-  const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
-  const cpfNumero = Number(cpfSelecionado);
-
-  const clientes = await findClients();
-  const cliente = clientes.find((c) => c.cpf === cpfNumero);
+  const cliente = row.children[0].innerText;
 
   if (!cliente) {
     window.idClienteSelecionado = null;
     return;
   }
 
-  window.idClienteSelecionado = cliente.id;
+  window.idClienteSelecionado = cliente;
 });
 
+accountsList.addEventListener("click", async (event) => {
+  const row = event.target.closest("tr");
+  if (!row) return;
+
+  document.querySelectorAll(".accountsList tr").forEach((tr) => {
+    tr.classList.remove("selectedRow");
+  });
+
+  row.classList.add("selectedRow");
+
+  const conta = row.children[0].innerText;
+
+  if (!conta) {
+    window.idContaSelecionada = null;
+    return;
+  }
+
+  window.idContaSelecionada = conta;
+});
+
+// * desmarcar a seleção da linha da tabela
 document.addEventListener("click", (event) => {
   if (
     event.target.closest(".clientsList") ||
+    event.target.closest(".accountsList") ||
     event.target.closest("#btnConsultClient") ||
+    event.target.closest("#btnConsultAccount") ||
     event.target.closest("#btnEditClient") ||
+    event.target.closest("#btnEditAccount") ||
     event.target.closest("#btnDeleteClient") ||
-    event.target.closest("#newClientForm")
+    event.target.closest("#deleteClientDiv") ||
+    event.target.closest("#deleteAccountDiv") ||
+    event.target.closest("#newClientForm") ||
+    event.target.closest("#newAccountForm")
   ) {
     return;
   }
@@ -137,71 +232,15 @@ document.addEventListener("click", (event) => {
     tr.classList.remove("selectedRow");
   });
 
+  document.querySelectorAll(".accountsList tr").forEach((tr) => {
+    tr.classList.remove("selectedRow");
+  });
+
   window.idClienteSelecionado = null;
+  window.idContaSelecionada = null;
 });
 
 // ! CONTAS
-
-async function renderizarAccounts(accounts) {
-  try {
-    accountsList.innerHTML = "";
-
-    if (accounts.length === 0) {
-      noAccounts();
-    } else {
-      btnConsultAccount.classList.remove("hiddenContent");
-      btnEditAccount.classList.remove("hiddenContent");
-
-      for (const {
-        numeroConta,
-        idCliente,
-        tipoConta,
-        saldo,
-        status,
-      } of accounts) {
-        const client = await findClientsId(idCliente);
-        const nomeFormatado = client.nome.toUpperCase();
-
-        const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        });
-        const statusFormatado = status.toUpperCase();
-
-        const row = newTag("tr");
-
-        const colAccount = newTag("td");
-        const colClientName = newTag("td");
-        const colAccountType = newTag("td");
-        const colSaldo = newTag("td");
-        const colStatus = newTag("td");
-
-        colAccount.innerText = Number(numeroConta);
-        colClientName.innerText = nomeFormatado;
-        colAccountType.innerText = tipoConta.toUpperCase();
-        colSaldo.innerText = saldoFormatado;
-        colStatus.innerText = statusFormatado;
-
-        row.append(
-          colAccount,
-          colClientName,
-          colAccountType,
-          colSaldo,
-          colStatus,
-        );
-        accountsList.appendChild(row);
-
-        if (statusFormatado === "ENCERRADA") {
-          row.classList.add("closedAccount");
-        } else {
-          row.classList.remove("closedAccount");
-        }
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 function deleteMensage() {
   const row = newTag("tr");
@@ -237,30 +276,6 @@ function noAccounts() {
 
 // ! CADASTRAR CONTAS
 
-accountsList.addEventListener("click", async (event) => {
-  const row = event.target.closest("tr");
-  if (!row) return;
-
-  document.querySelectorAll(".accountsList tr").forEach((tr) => {
-    tr.classList.remove("selectedRow");
-  });
-
-  row.classList.add("selectedRow");
-
-  // const cpfSelecionado = row.children[1].innerText.replace(/\D/g, "");
-  // const cpfNumero = Number(cpfSelecionado);
-
-  // const clientes = await findClients();
-  // const cliente = clientes.find((c) => c.cpf === cpfNumero);
-
-  // if (!cliente) {
-  //   window.idClienteSelecionado = null;
-  //   return;
-  // }
-
-  // window.idClienteSelecionado = cliente.id;
-});
-
 // ! FORMULÁRIO TRANSAÇÕES
 
 async function renderizarTransactions(transactions) {
@@ -273,11 +288,11 @@ async function renderizarTransactions(transactions) {
     valorTransacao,
     novoSaldo,
   } of transactions) {
-    const account = await findAccountsIdConta(idConta);
+    const account = await findObjectId("accounts", idConta);
     const numberAccount = account.numeroConta;
 
     const idCliente = account.idCliente;
-    const client = await findClientsId(idCliente);
+    const client = await findObjectId("clients", idCliente);
     const nameClient = client.nome;
 
     function formatDate(dataISO) {
@@ -325,31 +340,7 @@ async function renderizarTransactions(transactions) {
   newRow.classList.add("rowTransactions");
 }
 
-// const hoje = new Date().toLocaleDateString("sv-SE");
-
-// today.value = hoje;
-// today.min = hoje;
-// today.max = hoje;
-
-// selectTransactionMoviment.addEventListener("change", (event) => {
-//   console.log(event);
-
-//   const resposta = event.target.value;
-
-//   if (resposta === "sacar") {
-//     btnDeposito.classList.add("hiddenContent");
-//     btnSaque.classList.remove("hiddenContent");
-//   } else if (resposta === "depositar") {
-//     btnDeposito.classList.remove("hiddenContent");
-//     btnSaque.classList.add("hiddenContent");
-//   } else {
-//     btnSaque.classList.remove("hiddenContent");
-//     btnDeposito.classList.remove("hiddenContent");
-//   }
-// });
-
 // ! ADICIONAR DADOS AOS SELECTs
-// async function dadosSelectAccountClient(accounts) {
 async function nameClientsWithAccounts(accounts) {
   try {
     selectClientName.length = 1;
@@ -360,7 +351,7 @@ async function nameClientsWithAccounts(accounts) {
     ];
 
     for (const idCliente of uniqueClients) {
-      const client = await findClientsId(idCliente);
+      const client = await findObjectId("clients", idCliente);
       const nomeFormatado = client.nome.toUpperCase();
 
       const option1 = newTag("option");
@@ -377,10 +368,11 @@ async function nameClientsWithAccounts(accounts) {
   }
 }
 
+// ! section transactions
 selectClientName.addEventListener("input", async (event) => {
   const idClient = event.target.value;
 
-  const allAccounts = await findAccounts();
+  const allAccounts = await findObject("accounts");
   const accountsClient = allAccounts.filter(
     (account) => account.idCliente == idClient,
   );

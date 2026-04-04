@@ -1,104 +1,50 @@
 // ! fetch das chamadas
 
-const banco = "http://localhost:3000/";
+const dataBase = "http://localhost:3000/";
 
-// ! buscar em CLIENTS
-
-async function findClients() {
-  const resposta = await fetch("http://localhost:3000/clients");
+async function findObject(object) {
+  const resposta = await fetch(`${dataBase + object}`);
 
   return await resposta.json();
 }
 
-async function findClientsId(id) {
-  const resposta = await fetch(`http://localhost:3000/clients/${id}`);
+async function findObjectId(object, id) {
+  const resposta = await fetch(`${dataBase + object}/${id}`);
 
   return await resposta.json();
 }
 
-async function dataNewClient(client) {
-  const resposta = await fetch("http://localhost:3000/clients", {
+async function findObjectKeyValue(object, key, value) {
+  const resposta = await fetch(`${dataBase + object}?${key}=${value}`);
+
+  return await resposta.json();
+}
+
+async function newRegister(object, data) {
+  const resposta = await fetch(`${dataBase + object}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(client),
+    body: JSON.stringify(data),
   });
   return await resposta.json();
 }
 
-async function editClient(editedClient) {
-  const resposta = await fetch(
-    `http://localhost:3000/clients/${editedClient.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedClient),
+async function editRegister(object, editedData) {
+  const resposta = await fetch(`${dataBase + object}/${editedData.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify(editedData),
+  });
   return await resposta.json();
 }
 
-async function deleteClient(id) {
-  const resposta = await fetch(`http://localhost:3000/clients/${id}`, {
+async function deleteRegister(object, id) {
+  const resposta = await fetch(`${dataBase + object}/${id}`, {
     method: "DELETE",
   });
-  return await resposta.json();
-}
-
-// ! buscar em ACCOUNT
-
-async function findAccounts() {
-  const resposta = await fetch("http://localhost:3000/accounts");
-
-  return await resposta.json();
-}
-
-async function findAccountsIdConta(id) {
-  const resposta = await fetch(`http://localhost:3000/accounts/${id}`);
-
-  return await resposta.json();
-}
-
-async function findAccountsIdCliente(idCliente) {
-  const resposta = await fetch(
-    `http://localhost:3000/accounts?idCliente=${idCliente}`,
-  );
-
-  return await resposta.json();
-}
-
-async function dataNewAccount(account) {
-  const resposta = await fetch("http://localhost:3000/accounts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(account),
-  });
-  return await resposta.json();
-}
-
-async function editAccount(editedAccount) {
-  const resposta = await fetch(
-    `http://localhost:3000/accounts/${editedAccount.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedAccount),
-    },
-  );
-  return await resposta.json();
-}
-
-// ! buscar em TRANSACTIONS
-
-async function findTransactions() {
-  const resposta = await fetch("http://localhost:3000/transactions");
-
   return await resposta.json();
 }
