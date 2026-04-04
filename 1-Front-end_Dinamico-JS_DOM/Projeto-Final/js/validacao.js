@@ -1,7 +1,5 @@
 // ! validações
 
-// Funções
-
 function validacaoCliente(name, cpf, email) {
   if (name === "" || cpf === "" || email === "") {
     errorMensageClient.innerText = "Há campo obrigatório não preenchido";
@@ -9,33 +7,23 @@ function validacaoCliente(name, cpf, email) {
     errorMensageClient.classList.add("errorMensageClient");
     return false;
   }
-
   if (!email.includes("@")) {
     errorMensageClient.innerText = "Digite um e-mail válido";
     errorMensageClient.classList.remove("hiddenContent");
     errorMensageClient.classList.add("errorMensageClient");
     return false;
   }
-
   errorMensageClient.classList.add("hiddenContent");
   return true;
 }
 
-newAccountForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const cliente = selectAccountClient.value;
-  const tipo = selectAccountType.value;
-  const satatus = selectAccountStatus.value;
-
-  if (cliente === "default" || tipo === "default" || satatus === "default") {
+function validacaoConta(idCliente, tipoConta) {
+  if (idCliente === "default" || tipoConta === "default") {
     errorMensageAccount.innerText = "Há campo obrigatório não preenchido!";
     errorMensageAccount.classList.remove("hiddenContent");
     errorMensageAccount.classList.add("errorMensageAccount");
     return;
   }
-
   errorMensageAccount.classList.add("hiddenContent");
-
-  newAccountForm.reset();
-});
+  return true;
+}

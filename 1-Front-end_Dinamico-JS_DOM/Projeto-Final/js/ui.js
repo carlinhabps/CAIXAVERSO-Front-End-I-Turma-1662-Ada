@@ -2,7 +2,7 @@
 
 const newTag = (tag) => document.createElement(tag);
 
-// ! ============================== EXIBIR DADOS ==============================
+// ! ============================== EXIBIR DADOS | RENDERIZAÇÃO ============================== ! //
 
 async function carregarInfo() {
   try {
@@ -19,61 +19,53 @@ async function carregarInfo() {
   }
 }
 
-// ! ========== CLIENTES ==========
+// ! ========== CLIENTES ========== ! //
 
-function renderizarClients(clients) {
-  clientsList.innerHTML = "";
+async function renderizarClients(clients) {
+  try {
+    clientsList.innerHTML = "";
 
-  clients.forEach(({ id, nome, cpf, email }) => {
-    const cpfCompleto = String(cpf).padStart(11, 0);
-    const cpfFormatado = cpfCompleto.replace(
-      /(\d{3})(\d{3})(\d{3})(\d{2})/,
-      "$1.$2.$3-$4",
-    );
+    if (clients.length === 0) {
+      await noClients();
+    } else {
+      clients.forEach(({ id, nome, cpf, email }) => {
+        const cpfCompleto = String(cpf).padStart(11, 0);
+        const cpfFormatado = cpfCompleto.replace(
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4",
+        );
 
-    const row = newTag("tr");
+        const row = newTag("tr");
 
-    const colId = newTag("td");
-    const colName = newTag("td");
-    const colCpf = newTag("td");
-    const colEmail = newTag("td");
+        const colId = newTag("td");
+        const colName = newTag("td");
+        const colCpf = newTag("td");
+        const colEmail = newTag("td");
 
-    colId.innerText = id;
-    colName.innerText = nome.toUpperCase();
-    colCpf.innerText = cpfFormatado;
-    colEmail.innerText = email.toLowerCase();
+        colId.innerText = id;
+        colName.innerText = nome.toUpperCase();
+        colCpf.innerText = cpfFormatado;
+        colEmail.innerText = email.toLowerCase();
 
-    colId.classList.add("hiddenContent");
+        colId.classList.add("hiddenContent");
 
-    row.append(colId, colName, colCpf, colEmail);
-    clientsList.appendChild(row);
-  });
+        row.append(colId, colName, colCpf, colEmail);
+        clientsList.appendChild(row);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-async function nameAllClients() {
-  selectAccountClient.length = 1;
-
-  const clients = await findObject("clients");
-
-  clients.sort((a, b) => a.nome.localeCompare(b.nome));
-
-  clients.forEach(({ nome, id }) => {
-    const nomeFormatado = nome.toUpperCase();
-
-    const option = newTag("option");
-    option.value = id;
-    option.innerText = nomeFormatado;
-
-    selectAccountClient.appendChild(option);
-  });
-}
+// ! ========== CONTAS ========== ! //
 
 async function renderizarAccounts(accounts) {
   try {
     accountsList.innerHTML = "";
 
     if (accounts.length === 0) {
-      noAccounts();
+      await noAccounts();
     } else {
       btnConsultAccount.classList.remove("hiddenContent");
       btnEditAccount.classList.remove("hiddenContent");
@@ -135,39 +127,78 @@ async function renderizarAccounts(accounts) {
   }
 }
 
-// ! ==================== EDITAR FORMULÁRIOS ===> CLIENTES / CONTAS ====================
+// ! ========== TRANSAÇÕES ========== ! //
 
-inputClientName.addEventListener("input", (event) => {
-  event.target.value = event.target.value.toUpperCase();
-});
+async function renderizarTransactions(transactions) {
+  transactionsList.innerHTML = "";
+  try {
+    if (transactions.length === 0) {
+      await noTransactions();
+    } else {
+      for (const {
+        dataTransacao,
+        idConta,
+        tipoTransacao,
+        valorTransacao,
+        novoSaldo,
+      } of transactions) {
+        const account = await findObjectId("accounts", idConta);
+        const numberAccount = account.numeroConta;
 
-inputClientCpf.addEventListener("input", (event) => {
-  console.log(event);
-  let cpf = String(event.target.value);
+        const idCliente = account.idCliente;
+        const client = await findObjectId("clients", idCliente);
+        const nameClient = client.nome;
 
-  cpf = cpf.replace(/\D/g, "");
+        function formatDate(dataISO) {
+          const [ano, mes, dia] = dataISO.split("-");
+          return `${dia}/${mes}/${ano}`;
+        }
 
-  cpf = cpf.slice(0, 11);
+        const valorFormatado = Number(valorTransacao).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+        const saldoFormatado = Number(novoSaldo).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
 
-  if (cpf.length > 9) {
-    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        const row = newTag("tr");
+
+        const colDate = newTag("td");
+        const colClientName = newTag("td");
+        const colAccount = newTag("td");
+        const colDescription = newTag("td");
+        const colValor = newTag("td");
+        const colSaldo = newTag("td");
+
+        colDate.innerText = formatDate(dataTransacao);
+        colClientName.innerText = nameClient.toUpperCase();
+        colAccount.innerText = numberAccount;
+        colDescription.innerText = tipoTransacao.toUpperCase();
+        colValor.innerText = valorFormatado;
+        colSaldo.innerText = saldoFormatado;
+
+        row.append(
+          colDate,
+          colClientName,
+          colAccount,
+          colDescription,
+          colValor,
+          colSaldo,
+        );
+        transactionsList.appendChild(row);
+      }
+
+      const newRow = doc(".transactionsList tr");
+      newRow.classList.add("rowTransactions");
+    }
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  if (cpf.length > 6) {
-    cpf = cpf.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3");
-  }
-
-  if (cpf.length > 3) {
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-  }
-  event.target.value = cpf;
-});
-
-inputClientEmail.addEventListener("input", (event) => {
-  event.target.value = event.target.value.toLowerCase();
-});
-
-// ! ==================== SELEÇÃO LINHA DA TABELA ====================
+// ! ==================== SELEÇÃO LINHA DA TABELA ==================== ! //
 
 // * selecionar cliente pela tabela
 clientsList.addEventListener("click", async (event) => {
@@ -217,6 +248,7 @@ document.addEventListener("click", (event) => {
     event.target.closest(".accountsList") ||
     event.target.closest("#btnConsultClient") ||
     event.target.closest("#btnConsultAccount") ||
+    event.target.closest("#btnRegisterNewAccount") ||
     event.target.closest("#btnEditClient") ||
     event.target.closest("#btnEditAccount") ||
     event.target.closest("#btnDeleteClient") ||
@@ -240,105 +272,91 @@ document.addEventListener("click", (event) => {
   window.idContaSelecionada = null;
 });
 
-// ! CONTAS
+// ! ==================== BANCO DE DADOS VAZIO ==================== ! //
 
-function deleteMensage() {
+async function noClients() {
+  const row = newTag("tr");
+  const col = newTag("td");
+
+  col.colSpan = 3;
+  col.classList.add("errorMensageNoAccount");
+
+  col.innerText = `Não há cliente cadastrado!`;
+
+  row.appendChild(col);
+  clientsList.appendChild(row);
+
+  btnConsultClient.classList.add("hiddenContent");
+  btnEditClient.classList.add("hiddenContent");
+  btnDeleteClient.classList.add("hiddenContent");
+}
+
+async function noAccounts() {
   const row = newTag("tr");
   const col = newTag("td");
 
   col.colSpan = 5;
-  col.innerText = "Cliente não possui conta";
   col.classList.add("errorMensageNoAccount");
 
-  row.appendChild(col);
-  accountsList.appendChild(row);
+  const arrClientes = await findObject("clients");
 
-  btnConsultAccount.classList.add("hiddenContent");
-  btnEditAccount.classList.add("hiddenContent");
-  btnDeleteAccount.classList.add("hiddenContent");
-}
-
-function noAccounts() {
-  const row = newTag("tr");
-  const col = newTag("td");
-
-  col.colSpan = 5;
-  col.innerText = "Cliente não possui conta";
-  col.classList.add("errorMensageNoAccount");
-
-  row.appendChild(col);
-  accountsList.appendChild(row);
-
-  btnConsultAccount.classList.add("hiddenContent");
-  btnEditAccount.classList.add("hiddenContent");
-  btnDeleteAccount.classList.add("hiddenContent");
-}
-
-// ! CADASTRAR CONTAS
-
-// ! FORMULÁRIO TRANSAÇÕES
-
-async function renderizarTransactions(transactions) {
-  transactionsList.innerHTML = "";
-
-  for (const {
-    dataTransacao,
-    idConta,
-    tipoTransacao,
-    valorTransacao,
-    novoSaldo,
-  } of transactions) {
-    const account = await findObjectId("accounts", idConta);
-    const numberAccount = account.numeroConta;
-
-    const idCliente = account.idCliente;
-    const client = await findObjectId("clients", idCliente);
-    const nameClient = client.nome;
-
-    function formatDate(dataISO) {
-      const [ano, mes, dia] = dataISO.split("-");
-      return `${dia}/${mes}/${ano}`;
-    }
-
-    const valorFormatado = Number(valorTransacao).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-    const saldoFormatado = Number(novoSaldo).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-
-    const row = newTag("tr");
-
-    const colDate = newTag("td");
-    const colClientName = newTag("td");
-    const colAccount = newTag("td");
-    const colDescription = newTag("td");
-    const colValor = newTag("td");
-    const colSaldo = newTag("td");
-
-    colDate.innerText = formatDate(dataTransacao);
-    colClientName.innerText = nameClient.toUpperCase();
-    colAccount.innerText = numberAccount;
-    colDescription.innerText = tipoTransacao.toUpperCase();
-    colValor.innerText = valorFormatado;
-    colSaldo.innerText = saldoFormatado;
-
-    row.append(
-      colDate,
-      colClientName,
-      colAccount,
-      colDescription,
-      colValor,
-      colSaldo,
-    );
-    transactionsList.appendChild(row);
+  if (arrClientes.length === 0) {
+    col.innerText = `Não há cliente cadastrado!`;
+    btnRegisterNewAccount.classList.add("hiddenContent");
+  } else if (!window.idClienteSelecionado) {
+    col.innerText = `Não há conta cadastrada!`;
+    btnRegisterNewAccount.classList.remove("hiddenContent");
+  } else {
+    const cliente = await findObjectId("clients", window.idClienteSelecionado);
+    const nomeCliente = cliente.nome;
+    col.innerText = `${nomeCliente} não possui conta cadastrada!`;
+    btnRegisterNewAccount.classList.remove("hiddenContent");
   }
 
-  const newRow = doc(".transactionsList tr");
-  newRow.classList.add("rowTransactions");
+  row.appendChild(col);
+  accountsList.appendChild(row);
+
+  btnConsultAccount.classList.add("hiddenContent");
+  btnEditAccount.classList.add("hiddenContent");
+  btnDeleteAccount.classList.add("hiddenContent");
 }
+
+async function noTransactions() {
+  const row = newTag("tr");
+  const col = newTag("td");
+
+  col.colSpan = 6;
+  col.classList.add("errorMensageNoAccount");
+
+  const arrClientes = await findObject("clients");
+  const arrContas = await findObject("accounts");
+
+  if (arrClientes.length === 0) {
+    col.innerText = `Não há cliente cadastrado!`;
+    btnDeposito.classList.add("hiddenContent");
+    btnSaque.classList.add("hiddenContent");
+  } else if (arrContas.length === 0) {
+    col.innerText = `Não há conta cadastrada!`;
+    btnDeposito.classList.add("hiddenContent");
+    btnSaque.classList.add("hiddenContent");
+  } else if (!window.idContaSelecionada) {
+    col.innerText = `Não há transação cadastrada!`;
+  } else {
+    const conta = await findObjectId("accounts", window.idContaSelecionada);
+    const numberAccount = conta.numeroConta;
+    const idCliente = conta.idCliente;
+    const Cliente = await findObjectId("clients", idCliente);
+    const nomeCliente = Cliente.nome;
+    col.innerText = `A conta nº ${numberAccount}, de ${nomeCliente}, não possui transação cadastrada!`;
+    btnDeposito.classList.remove("hiddenContent");
+    btnSaque.classList.remove("hiddenContent");
+  }
+
+  row.appendChild(col);
+  transactionsList.appendChild(row);
+}
+
+// ! ================================================================================ ! //
 
 // ! ADICIONAR DADOS AOS SELECTs
 async function nameClientsWithAccounts(accounts) {

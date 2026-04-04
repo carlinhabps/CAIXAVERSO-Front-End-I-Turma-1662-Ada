@@ -226,13 +226,21 @@
           >
             Encerrar
           </button>
+          <button
+            id="btnDeleteAccount"
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            Deletar
+          </button>
         </div>
 
         <div id="deleteAccountDiv" class="hiddenContent">
-          <p id="deleteAccountP">Confirma a exclusão da conta selecionada?</p>
+          <p id="deleteAccountP">Mensagem!</p>
           <button
             type="button"
             id="deleteAccountBtnSim"
+            data-action="encerrar"
             class="btn btn-outline-secondary"
           >
             Sim
@@ -318,8 +326,6 @@
       >
         <h2 class="subtitle">Transações</h2>
 
-        <h3 id="clientName" class="clientName">Nome do Cliente</h3>
-
         <form>
           <select
             name="selectClientName"
@@ -360,14 +366,6 @@
               <th>Descrição</th>
               <th>Valor</th>
               <th>Saldo</th>
-            </tr>
-            <tr class="table-group-divider">
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
 

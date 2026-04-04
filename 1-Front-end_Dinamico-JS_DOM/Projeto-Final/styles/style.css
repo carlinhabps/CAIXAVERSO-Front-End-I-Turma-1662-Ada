@@ -286,7 +286,8 @@ select {
 }
 
 td.errorMensageNoAccount {
-  /* color: var(--secundary); */
+  color: var(--alert);
+  font-style: italic;
   font-weight: 500;
   text-transform: uppercase;
   text-align: center;

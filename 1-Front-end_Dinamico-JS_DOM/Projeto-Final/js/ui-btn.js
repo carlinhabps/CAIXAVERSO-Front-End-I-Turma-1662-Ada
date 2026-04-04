@@ -97,23 +97,37 @@ function openFormsClient() {
 
 // ! ========== BOTÕES CLIENTES ========== ! //
 
-btnClients.addEventListener("click", (event) => gestaoClientes());
+btnClients.addEventListener("click", (event) => {
+  gestaoClientes();
+  carregarInfo();
+});
 
-navClients.addEventListener("click", (event) => gestaoClientes());
+navClients.addEventListener("click", (event) => {
+  gestaoClientes();
+  carregarInfo();
+});
 
 btnRegisterNewClient.addEventListener("click", (event) => {
   closeSomeGroup(containerAccounts);
   closeSomeGroup(deleteClientDiv);
   openFormsClient();
+
   newClientForm.setAttribute("data-action", "salvar");
   newClientForm.reset();
+});
+
+btnCancelClient.addEventListener("click", (event) => {
+  newClientForm.reset();
+  closeSomeGroup(newClientForm);
 });
 
 btnConsultClient.addEventListener("click", async (event) => {
   try {
     if (!window.idClienteSelecionado) return;
+
     closeSomeGroup(newClientForm);
     closeSomeGroup(deleteClientDiv);
+    closeSomeGroup(containerTransactions);
     openAccountGroup();
 
     const accounts = await findObjectKeyValue(
@@ -156,20 +170,9 @@ btnEditClient.addEventListener("click", async (event) => {
     inputClientEmail.value = client.email.toLowerCase();
 
     newClientForm.setAttribute("data-action", "editar");
-
-    closeSomeGroup(containerAccounts);
-  } catch (error) {}
-});
-
-btnCancelClient.addEventListener("click", (event) => {
-  newClientForm.reset();
-  newClientForm.classList.add("hiddenContentTransition");
-
-  setTimeout(() => {
-    newClientForm.classList.remove("hiddenContentTransition");
-
-    newClientForm.classList.add("hiddenContent");
-  }, 500);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 btnDeleteClient.addEventListener("click", (event) => {
@@ -252,20 +255,104 @@ navAccounts.addEventListener("click", async (event) => {
   }
 });
 
-btnRegisterNewAccount.addEventListener("click", (event) => {
+btnRegisterNewAccount.addEventListener("click", async (event) => {
   closeSomeGroup(containerTransactions);
   closeSomeGroup(deleteClientDiv);
+  await openFormsAccount();
 
-  openFormsAccount();
   newAccountForm.setAttribute("data-action", "salvar");
+
+  if (!window.idClienteSelecionado) return;
+  setTimeout(() => {
+    selectAccountClient.value = window.idClienteSelecionado;
+    console.log("valor após delay", selectAccountClient.value);
+  }, 50);
 });
 
-btnRegisterNewClient.addEventListener("click", (event) => {
-  closeSomeGroup(containerAccounts);
-  closeSomeGroup(btnEditAccount);
-  openFormsClient();
-  newAccountForm.setAttribute("data-action", "salvar");
+btnCancelAccount.addEventListener("click", (event) => {
   newAccountForm.reset();
+  closeSomeGroup(newAccountForm);
+});
+
+btnConsultAccount.addEventListener("click", async (event) => {
+  try {
+    if (!window.idContaSelecionada) return;
+    closeSomeGroup(newAccountForm);
+    closeSomeGroup(deleteAccountDiv);
+    openTransactionsGroup();
+
+    const transactions = await findObjectKeyValue(
+      "transactions",
+      "idConta",
+      window.idContaSelecionada,
+    );
+
+    renderizarTransactions(transactions);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+btnEditAccount.addEventListener("click", async (event) => {
+  try {
+    if (!window.idContaSelecionada) return;
+    closeSomeGroup(containerTransactions);
+    openSomeGroup(deleteAccountDiv);
+    deleteAccountP.innerText = "Confirma o encerramento da conta selecionada?";
+    deleteAccountBtnSim.setAttribute("data-action", "encerrar");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+btnDeleteAccount.addEventListener("click", async (event) => {
+  try {
+    if (!window.idContaSelecionada) return;
+    closeSomeGroup(containerTransactions);
+    openSomeGroup(deleteAccountDiv);
+    deleteAccountP.innerText = "Deseja realmente excluir a conta do cadastro?";
+    deleteAccountBtnSim.setAttribute("data-action", "deletar");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// ! BOTÃO DE EDIÇÃO DA CONTA COM PROBLEMAS
+deleteAccountBtnSim.addEventListener("click", async (event) => {
+  try {
+    const conta = await findObjectId("accounts", window.idContaSelecionada);
+
+    const id = window.idContaSelecionada;
+    const idCliente = conta.idCliente;
+    const numeroConta = conta.numeroConta;
+    const tipoConta = conta.tipoConta;
+    const saldo = conta.saldo;
+    const status = "encerrada";
+
+    const action = event.target.dataset.action;
+
+    if (action === "encerrar") {
+      await editRegister("accounts", {
+        id,
+        idCliente,
+        numeroConta,
+        tipoConta,
+        saldo,
+        status,
+      });
+    } else if (action === "deletar") {
+      await deleteRegister("accounts", window.idContaSelecionada);
+    }
+    const accounts = await findObject("accounts");
+    renderizarAccounts(accounts);
+    closeSomeGroup(deleteClientDiv);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+deleteAccountBtnNao.addEventListener("click", async (event) => {
+  closeSomeGroup(deleteClientDiv);
 });
 
 // ! ============================== TRANSAÇÕES ============================== ! //
@@ -273,42 +360,58 @@ btnRegisterNewClient.addEventListener("click", (event) => {
 // ! ========== FUNÇÕES TRANSAÇÕES ========== ! //
 
 function gestaoTransacoes() {
-  const showContentTransition = [navBarContainer, nav, containerTransactions];
+  const showContentTransition = [
+    navBarContainer,
+    nav,
+    containerTransactions,
+    selectClientName,
+  ];
   const hiddenContentTransition = [
-    errorMensageTransaction,
     containerWelcome,
+    containerClients,
+    containerAccounts,
     newTransactionForm,
-    clientName,
+    errorMensageTransaction,
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
   navBarContainer.classList.remove("hiddenNavBar");
 }
 
-function gestaoTransacoesNav() {
-  const showContentTransition = [
-    navClients,
-    navAccounts,
-    containerTransactions,
-    selectClientName,
-  ];
-  const hiddenContentTransition = [
-    containerClients,
-    containerAccounts,
-    clientName,
-    newTransactionForm,
-    errorMensageTransaction,
-  ];
-  transitionsGroup(showContentTransition, hiddenContentTransition);
-}
-
 function openTransactionsGroup() {
   const showContentTransition = [containerTransactions];
-  const hiddenContentTransition = [newTransactionForm, errorMensageTransaction];
+  const hiddenContentTransition = [
+    newTransactionForm,
+    errorMensageTransaction,
+    selectClientName,
+  ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
+  selectClientAccount.disabled = false;
 }
 
 // ! ========== BOTÕES TRANSAÇÕES ========== ! //
 
-btnTransactions.addEventListener("click", (event) => gestaoTransacoes());
+btnTransactions.addEventListener("click", async (event) => {
+  try {
+    gestaoTransacoes();
 
-navTransactions.addEventListener("click", (event) => gestaoTransacoesNav());
+    const transactions = await findObject("transactions");
+    setTimeout(() => {
+      renderizarTransactions(transactions);
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+navTransactions.addEventListener("click", async (event) => {
+  try {
+    gestaoTransacoes();
+
+    const transactions = await findObject("transactions");
+    setTimeout(() => {
+      renderizarTransactions(transactions);
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  }
+});
