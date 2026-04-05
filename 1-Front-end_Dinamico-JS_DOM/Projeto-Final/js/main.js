@@ -14,7 +14,7 @@ newClientForm.addEventListener("submit", async (event) => {
     const cpf = Number(inputClientCpf.value.replace(/\D/g, ""));
     const email = inputClientEmail.value.toLowerCase();
 
-    if (!validacaoCliente(nome, cpf, email)) return;
+    if (!(await validacaoCliente(nome, cpf, email))) return;
 
     const action = event.target.dataset.action;
 

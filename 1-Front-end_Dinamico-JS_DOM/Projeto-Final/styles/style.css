@@ -15,7 +15,7 @@
   --secundary: #968248;
   --bg: #f4fffe;
   --text: #14213d;
-  --alert: #d20a2e;
+  --alert: #fa5c5c;
   --select: #ececec;
   --margin: 40px;
 
@@ -216,23 +216,33 @@ h2 {
 
 #deleteClientDiv,
 #deleteAccountDiv {
-  margin: 25px 300px 0 300px;
+  margin: 25px auto;
+
+  max-width: 50%;
   padding: 15px;
   border-radius: 5px;
   border: var(--alert) solid 2px;
   background-color: var(--bg);
   box-shadow: 1px 1px 7px var(--text);
   text-align: center;
+  font-weight: 500;
 }
 #deleteClientP,
 #deleteAccountP {
   padding-bottom: 10px;
 }
 
+#deleteClientP span,
+#deleteAccountP span {
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: var(--alert);
+}
+
 #deleteClientBtnSim,
 #deleteAccountBtnSim {
-  background-color: #fa5c5c;
-  color: white;
+  --bs-btn-hover-bg: var(--alert);
   font-weight: 700;
 }
 
@@ -301,11 +311,6 @@ td.errorMensageNoAccount {
   justify-content: center;
 }
 
-#btnSaveClient,
-#btnSaveAccount {
-  margin-right: 15px;
-}
-
 .containerClients .btn,
 .containerAccounts .btn,
 .containerTransactions .btn {
@@ -326,6 +331,7 @@ td.errorMensageNoAccount {
   font-size: 15px;
   min-width: 111px;
   min-height: 30px;
+  margin: 0 10px;
 }
 
 h3 {
@@ -342,6 +348,7 @@ h3 {
 
 .closedAccount td {
   color: var(--alert);
+  text-transform: uppercase;
   font-style: italic;
 }
 

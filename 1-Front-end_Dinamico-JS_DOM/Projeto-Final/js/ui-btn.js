@@ -95,6 +95,27 @@ function openFormsClient() {
   transitionsGroup(showContentTransition, hiddenContentTransition);
 }
 
+async function consultContasCliente() {
+  try {
+    if (!window.idClienteSelecionado) return;
+
+    closeSomeGroup(newClientForm);
+
+    closeSomeGroup(containerTransactions);
+    openAccountGroup();
+
+    const accounts = await findObjectKeyValue(
+      "accounts",
+      "idCliente",
+      window.idClienteSelecionado,
+    );
+
+    renderizarAccounts(accounts);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // ! ========== BOTÕES CLIENTES ========== ! //
 
 btnClients.addEventListener("click", (event) => {
@@ -122,24 +143,8 @@ btnCancelClient.addEventListener("click", (event) => {
 });
 
 btnConsultClient.addEventListener("click", async (event) => {
-  try {
-    if (!window.idClienteSelecionado) return;
-
-    closeSomeGroup(newClientForm);
-    closeSomeGroup(deleteClientDiv);
-    closeSomeGroup(containerTransactions);
-    openAccountGroup();
-
-    const accounts = await findObjectKeyValue(
-      "accounts",
-      "idCliente",
-      window.idClienteSelecionado,
-    );
-
-    renderizarAccounts(accounts);
-  } catch (error) {
-    console.log(error);
-  }
+  consultContasCliente();
+  closeSomeGroup(deleteClientDiv);
 });
 
 btnEditClient.addEventListener("click", async (event) => {
@@ -175,8 +180,30 @@ btnEditClient.addEventListener("click", async (event) => {
   }
 });
 
-btnDeleteClient.addEventListener("click", (event) => {
+btnDeleteClient.addEventListener("click", async (event) => {
   if (!window.idClienteSelecionado) return;
+  if (!(await validaExclusaoCliente(window.idClienteSelecionado))) return;
+
+  const contasCliente = await findObjectKeyValue(
+    "accounts",
+    "idCliente",
+    window.idClienteSelecionado,
+  );
+  const contasEncerradas = contasCliente.filter(
+    (acc) => acc.status.toLowerCase() === "encerrada",
+  );
+
+  if (
+    contasCliente.length === contasEncerradas.length &&
+    contasEncerradas.length > 0
+  ) {
+    deleteClientP.innerHTML = `O cliente possui <span>${contasEncerradas.length} conta(s) encerradas</span>. Confirma a <span>exclusão</span> do cadastro do cliente e conta(s) da base?`;
+  } else {
+    deleteClientP.innerHTML = `Confirma a <span>exclusão</span> do cadastro do(a) cliente?`;
+  }
+
+  deleteClientBtnSim.classList.remove("hiddenContent");
+
   closeSomeGroup(newClientForm);
   closeSomeGroup(containerAccounts);
   openSomeGroup(deleteClientDiv);
@@ -184,8 +211,46 @@ btnDeleteClient.addEventListener("click", (event) => {
 
 deleteClientBtnSim.addEventListener("click", async (event) => {
   try {
-    await deleteRegister("clients", window.idClienteSelecionado);
-    carregarInfo();
+    const contasCliente = await findObjectKeyValue(
+      "accounts",
+      "idCliente",
+      window.idClienteSelecionado,
+    );
+
+    const contasEncerradas = contasCliente.filter(
+      (acc) => acc.status.toLowerCase() === "encerrada",
+    );
+    const idContasEncerradas = contasEncerradas.map((acc) => acc.id);
+
+    const transactions = await findObjectKeyValue(
+      "transactions",
+      "idCliente",
+      window.idClienteSelecionado,
+    );
+
+    if (contasEncerradas.length > 0) {
+      for (const t of transactions) {
+        await deleteRegister("transactions", t.id);
+      }
+
+      for (const id of idContasEncerradas) {
+        await deleteRegister("accounts", id);
+      }
+    }
+
+    const newContasCliente = await findObjectKeyValue(
+      "accounts",
+      "idCliente",
+      window.idClienteSelecionado,
+    );
+
+    if (newContasCliente.length > 0) {
+      return;
+    } else {
+      await deleteRegister("clients", window.idClienteSelecionado);
+    }
+
+    await carregarInfo();
     gestaoClientes();
     closeSomeGroup(deleteClientDiv);
   } catch (error) {
@@ -193,7 +258,7 @@ deleteClientBtnSim.addEventListener("click", async (event) => {
   }
 });
 
-deleteClientBtnNao.addEventListener("click", async (event) => {
+deleteClientBtnNao.addEventListener("click", (event) => {
   closeSomeGroup(deleteClientDiv);
 });
 
@@ -280,6 +345,7 @@ btnConsultAccount.addEventListener("click", async (event) => {
     closeSomeGroup(newAccountForm);
     closeSomeGroup(deleteAccountDiv);
     openTransactionsGroup();
+    selectClientAccount.classList.add("hiddenContent");
 
     const transactions = await findObjectKeyValue(
       "transactions",
@@ -298,8 +364,18 @@ btnEditAccount.addEventListener("click", async (event) => {
     if (!window.idContaSelecionada) return;
     closeSomeGroup(containerTransactions);
     openSomeGroup(deleteAccountDiv);
-    deleteAccountP.innerText = "Confirma o encerramento da conta selecionada?";
-    deleteAccountBtnSim.setAttribute("data-action", "encerrar");
+    const conta = await findObjectId("accounts", window.idContaSelecionada);
+    const status = conta.status.toLowerCase();
+
+    if (status == "ativa") {
+      deleteAccountP.innerHTML =
+        "Confirma o <span>encerramento</span> da conta selecionada?";
+      deleteAccountBtnSim.setAttribute("data-action", "encerrar");
+    } else if (status == "encerrada") {
+      deleteAccountP.innerHTML =
+        "Deseja <span>reativar</span> a conta selecionada?";
+      deleteAccountBtnSim.setAttribute("data-action", "ativar");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -310,14 +386,15 @@ btnDeleteAccount.addEventListener("click", async (event) => {
     if (!window.idContaSelecionada) return;
     closeSomeGroup(containerTransactions);
     openSomeGroup(deleteAccountDiv);
-    deleteAccountP.innerText = "Deseja realmente excluir a conta do cadastro?";
+
+    deleteAccountP.innerHTML =
+      "Deseja realmente <span>excluir</span> a conta do cadastro?";
     deleteAccountBtnSim.setAttribute("data-action", "deletar");
   } catch (error) {
     console.log(error);
   }
 });
 
-// ! BOTÃO DE EDIÇÃO DA CONTA COM PROBLEMAS
 deleteAccountBtnSim.addEventListener("click", async (event) => {
   try {
     const conta = await findObjectId("accounts", window.idContaSelecionada);
@@ -327,11 +404,21 @@ deleteAccountBtnSim.addEventListener("click", async (event) => {
     const numeroConta = conta.numeroConta;
     const tipoConta = conta.tipoConta;
     const saldo = conta.saldo;
-    const status = "encerrada";
 
     const action = event.target.dataset.action;
 
-    if (action === "encerrar") {
+    if (action === "ativar") {
+      const status = "Ativa";
+      await editRegister("accounts", {
+        id,
+        idCliente,
+        numeroConta,
+        tipoConta,
+        saldo,
+        status,
+      });
+    } else if (action === "encerrar") {
+      const status = "encerrada";
       await editRegister("accounts", {
         id,
         idCliente,
@@ -343,16 +430,27 @@ deleteAccountBtnSim.addEventListener("click", async (event) => {
     } else if (action === "deletar") {
       await deleteRegister("accounts", window.idContaSelecionada);
     }
-    const accounts = await findObject("accounts");
-    renderizarAccounts(accounts);
-    closeSomeGroup(deleteClientDiv);
+
+    if (window.idClienteSelecionado == null) {
+      const accounts = await findObject("accounts");
+      renderizarAccounts(accounts);
+    } else {
+      const contasCliente = await findObjectKeyValue(
+        "accounts",
+        "idCliente",
+        window.idClienteSelecionado,
+      );
+      await renderizarAccounts(contasCliente);
+    }
+
+    closeSomeGroup(deleteAccountDiv);
   } catch (error) {
     console.log(error);
   }
 });
 
 deleteAccountBtnNao.addEventListener("click", async (event) => {
-  closeSomeGroup(deleteClientDiv);
+  closeSomeGroup(deleteAccountDiv);
 });
 
 // ! ============================== TRANSAÇÕES ============================== ! //

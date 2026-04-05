@@ -13,7 +13,7 @@ async function carregarInfo() {
     await renderizarAccounts(contas);
 
     const transacoes = await findObject("transactions");
-    renderizarTransactions(transacoes);
+    await renderizarTransactions(transacoes);
   } catch (error) {
     console.log(error);
   }
@@ -115,7 +115,7 @@ async function renderizarAccounts(accounts) {
         );
         accountsList.appendChild(row);
 
-        if (statusFormatado === "ENCERRADA") {
+        if (statusFormatado.toLowerCase() === "encerrada") {
           row.classList.add("closedAccount");
         } else {
           row.classList.remove("closedAccount");
@@ -252,8 +252,11 @@ document.addEventListener("click", (event) => {
     event.target.closest("#btnEditClient") ||
     event.target.closest("#btnEditAccount") ||
     event.target.closest("#btnDeleteClient") ||
+    event.target.closest("#btnDeleteAccount") ||
     event.target.closest("#deleteClientDiv") ||
     event.target.closest("#deleteAccountDiv") ||
+    event.target.closest("#deleteAccountBtnSim") ||
+    event.target.closest("#deleteAccountBtnNao") ||
     event.target.closest("#newClientForm") ||
     event.target.closest("#newAccountForm")
   ) {

@@ -7,22 +7,10 @@
       "email": "beatriz.maria@email.com"
     },
     {
-      "id": "EI4_0r1rFSo",
-      "nome": "cadastro 1",
-      "cpf": 12365478900,
-      "email": "teste@mail.com"
-    },
-    {
       "nome": "joao silvano",
       "cpf": 1478520369,
       "email": "js.teste@mail.com",
       "id": "nOsLPNqHq2Y"
-    },
-    {
-      "id": "I5Jar6y_Rx4",
-      "nome": "carla beatriz",
-      "cpf": 12353602606,
-      "email": "cb.teste@mail.com"
     },
     {
       "nome": "beatriz maria",
@@ -31,36 +19,20 @@
       "id": "Rf-uRlLIqAA"
     },
     {
+      "id": "0ZGXLve2NWI",
       "nome": "izabella cristina",
-      "cpf": 66666666666,
-      "email": "cbcim1210@gmail.com",
-      "id": "0ZGXLve2NWI"
+      "cpf": 100200399,
+      "email": "cbcim1210@gmail.com"
     }
   ],
   "accounts": [
     {
       "id": "1",
-      "idCliente": "I5Jar6y_Rx4",
-      "numeroConta": 1001,
-      "tipoConta": "Corrente",
-      "saldo": 5000,
-      "status": "Ativa"
-    },
-    {
-      "id": "2",
       "idCliente": "nOsLPNqHq2Y",
       "numeroConta": 1001,
       "tipoConta": "Poupança",
       "saldo": 16000,
       "status": "Ativa"
-    },
-    {
-      "id": "3",
-      "idCliente": "I5Jar6y_Rx4",
-      "numeroConta": 1002,
-      "tipoConta": "Poupança",
-      "saldo": 0,
-      "status": "Encerrada"
     },
     {
       "id": "4",
@@ -76,21 +48,30 @@
       "numeroConta": 1002,
       "tipoConta": "Corrente",
       "saldo": 950,
+      "status": "encerrada"
+    },
+    {
+      "id": "WpKSG0vhZdc",
+      "idCliente": "0ZGXLve2NWI",
+      "numeroConta": 1001,
+      "tipoConta": "corrente",
+      "saldo": 0,
+      "status": "Ativa"
+    },
+    {
+      "id": "IstgyniwE_0",
+      "idCliente": "WzRRRavZtkU",
+      "numeroConta": 1001,
+      "tipoConta": "corrente",
+      "saldo": 0,
       "status": "Ativa"
     }
   ],
   "transactions": [
     {
-      "id": "1",
-      "idConta": 5,
-      "tipoTransacao": "Depósito",
-      "valorTransacao": 1000,
-      "novoSaldo": 5000,
-      "dataTransacao": "2026-03-16"
-    },
-    {
       "id": "2",
-      "idConta": 4,
+      "idConta": "1",
+      "idCliente": "nOsLPNqHq2Y",
       "tipoTransacao": "Saque",
       "valorTransacao": 50,
       "novoSaldo": 50,
@@ -98,15 +79,8 @@
     },
     {
       "id": "4",
-      "idConta": 2,
-      "tipoTransacao": "Depósito",
-      "valorTransacao": 400,
-      "novoSaldo": 2000,
-      "dataTransacao": "2026-03-23"
-    },
-    {
-      "id": "4",
-      "idConta": 1,
+      "idConta": "1",
+      "idCliente": "nOsLPNqHq2Y",
       "tipoTransacao": "Saque",
       "valorTransacao": 3500,
       "novoSaldo": 1500,
