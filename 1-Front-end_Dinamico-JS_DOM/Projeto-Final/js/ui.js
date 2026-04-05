@@ -312,7 +312,7 @@ async function noAccounts() {
   } else {
     const cliente = await findObjectId("clients", window.idClienteSelecionado);
     const nomeCliente = cliente.nome;
-    col.innerText = `${nomeCliente} não possui conta cadastrada!`;
+    col.innerHTML = `<span>${nomeCliente}</span> não possui conta cadastrada!`;
     btnRegisterNewAccount.classList.remove("hiddenContent");
   }
 
@@ -350,7 +350,7 @@ async function noTransactions() {
     const idCliente = conta.idCliente;
     const Cliente = await findObjectId("clients", idCliente);
     const nomeCliente = Cliente.nome;
-    col.innerText = `A conta nº ${numberAccount}, de ${nomeCliente}, não possui transação cadastrada!`;
+    col.innerHTML = `A conta nº ${numberAccount}, de <span>${nomeCliente}</span>, não possui transação cadastrada!`;
     btnDeposito.classList.remove("hiddenContent");
     btnSaque.classList.remove("hiddenContent");
   }

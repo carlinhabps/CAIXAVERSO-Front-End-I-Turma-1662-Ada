@@ -362,19 +362,25 @@ btnConsultAccount.addEventListener("click", async (event) => {
 btnEditAccount.addEventListener("click", async (event) => {
   try {
     if (!window.idContaSelecionada) return;
-    closeSomeGroup(containerTransactions);
-    openSomeGroup(deleteAccountDiv);
+
     const conta = await findObjectId("accounts", window.idContaSelecionada);
     const status = conta.status.toLowerCase();
+    const saldo = Number(conta.saldo);
+
+    closeSomeGroup(containerTransactions);
+    openSomeGroup(deleteAccountDiv);
 
     if (status == "ativa") {
+      if (!validaSaldoConta(saldo)) return;
       deleteAccountP.innerHTML =
         "Confirma o <span>encerramento</span> da conta selecionada?";
       deleteAccountBtnSim.setAttribute("data-action", "encerrar");
+      deleteAccountBtnSim.classList.remove("hiddenContent");
     } else if (status == "encerrada") {
       deleteAccountP.innerHTML =
         "Deseja <span>reativar</span> a conta selecionada?";
       deleteAccountBtnSim.setAttribute("data-action", "ativar");
+      deleteAccountBtnSim.classList.remove("hiddenContent");
     }
   } catch (error) {
     console.log(error);
@@ -384,8 +390,14 @@ btnEditAccount.addEventListener("click", async (event) => {
 btnDeleteAccount.addEventListener("click", async (event) => {
   try {
     if (!window.idContaSelecionada) return;
+    const conta = await findObjectId("accounts", window.idContaSelecionada);
+    const status = conta.status.toLowerCase();
+
+    if (!validaStatusConta(status)) return;
+
     closeSomeGroup(containerTransactions);
     openSomeGroup(deleteAccountDiv);
+    deleteAccountBtnSim.classList.remove("hiddenContent");
 
     deleteAccountP.innerHTML =
       "Deseja realmente <span>excluir</span> a conta do cadastro?";

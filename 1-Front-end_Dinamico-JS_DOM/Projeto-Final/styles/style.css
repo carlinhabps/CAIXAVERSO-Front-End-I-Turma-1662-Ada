@@ -305,6 +305,10 @@ td.errorMensageNoAccount {
   font-size: 14px;
 }
 
+td.errorMensageNoAccount span {
+  text-decoration: underline;
+}
+
 .btnActions {
   display: flex;
   gap: 20px;

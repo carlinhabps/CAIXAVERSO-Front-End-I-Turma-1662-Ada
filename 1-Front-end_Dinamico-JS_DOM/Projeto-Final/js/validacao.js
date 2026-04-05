@@ -41,7 +41,7 @@ async function validaExclusaoCliente(id) {
   const statusContas = contasCliente.map((acc) => acc.status.toLowerCase());
   const contasAtivas = statusContas.filter((s) => s === "ativa").length;
   if (contasAtivas > 1) {
-    deleteClientP.innerHTML = `Cliente possui <span>${contasAtivas} contas ativas</span>, não é possível excluí-lo do cadastro!`;
+    deleteClientP.innerHTML = `Cliente possui <span>${contasAtivas} contas ativas</span>, não é possível proceder com a exclusão do cadastro!`;
     deleteClientDiv.classList.remove("hiddenContent");
     deleteClientBtnSim.classList.add("hiddenContent");
     deleteClientBtnNao.innerText = "Cancelar";
@@ -49,7 +49,7 @@ async function validaExclusaoCliente(id) {
     return false;
   }
   if (contasAtivas === 1) {
-    deleteClientP.innerHTML = `Cliente possui <span>${contasAtivas} conta ativa</span>, não é possível excluí-lo do cadastro!`;
+    deleteClientP.innerHTML = `Cliente possui <span>${contasAtivas} conta ativa</span>, não é possível proceder com a exclusão do cadastro!`;
     deleteClientDiv.classList.remove("hiddenContent");
     deleteClientBtnSim.classList.add("hiddenContent");
     deleteClientBtnNao.innerText = "Cancelar";
@@ -73,8 +73,30 @@ function validacaoConta(idCliente, tipoConta) {
   return true;
 }
 
-function validaEncerramentoConta(account) {
-  //
+function validaSaldoConta(saldo) {
+  if (!(saldo === 0)) {
+    deleteAccountP.innerHTML =
+      "Conta <span>possui saldo</span> e não pode ser encerrada ou excluída!";
+    deleteAccountDiv.classList.remove("hiddenContent");
+    deleteAccountBtnSim.classList.add("hiddenContent");
+    deleteAccountBtnNao.innerText = "Cancelar";
+    consultContasCliente();
+    return;
+  }
+  return true;
+}
+
+function validaStatusConta(status) {
+  if (status === "ativa") {
+    deleteAccountP.innerHTML =
+      "A conta está <span>ativa</span> e não pode ser excluída!";
+    deleteAccountDiv.classList.remove("hiddenContent");
+    deleteAccountBtnSim.classList.add("hiddenContent");
+    deleteAccountBtnNao.innerText = "Cancelar";
+    consultContasCliente();
+    return;
+  }
+  return true;
 }
 
 // ! ========== TRANSAÇÕES ========== ! //
