@@ -14,6 +14,7 @@ async function carregarInfo() {
 
     const transacoes = await findObject("transactions");
     await renderizarTransactions(transacoes);
+    nameClientsWithAccounts();
   } catch (error) {
     console.log(error);
   }
@@ -130,8 +131,9 @@ async function renderizarAccounts(accounts) {
 // ! ========== TRANSAÇÕES ========== ! //
 
 async function renderizarTransactions(transactions) {
-  transactionsList.innerHTML = "";
   try {
+    transactionsList.innerHTML = "";
+
     if (transactions.length === 0) {
       await noTransactions();
     } else {
@@ -144,6 +146,7 @@ async function renderizarTransactions(transactions) {
       } of transactions) {
         const account = await findObjectId("accounts", idConta);
         const numberAccount = account.numeroConta;
+        const id = account.id;
 
         const idCliente = account.idCliente;
         const client = await findObjectId("clients", idCliente);
@@ -165,6 +168,7 @@ async function renderizarTransactions(transactions) {
 
         const row = newTag("tr");
 
+        const colId = newTag("td");
         const colDate = newTag("td");
         const colClientName = newTag("td");
         const colAccount = newTag("td");
@@ -172,12 +176,15 @@ async function renderizarTransactions(transactions) {
         const colValor = newTag("td");
         const colSaldo = newTag("td");
 
+        colId.innerText = id;
         colDate.innerText = formatDate(dataTransacao);
         colClientName.innerText = nameClient.toUpperCase();
         colAccount.innerText = numberAccount;
         colDescription.innerText = tipoTransacao.toUpperCase();
         colValor.innerText = valorFormatado;
         colSaldo.innerText = saldoFormatado;
+
+        colId.classList.add("hiddenContent");
 
         row.append(
           colDate,
@@ -360,58 +367,3 @@ async function noTransactions() {
 }
 
 // ! ================================================================================ ! //
-
-// ! ADICIONAR DADOS AOS SELECTs
-async function nameClientsWithAccounts(accounts) {
-  try {
-    selectClientName.length = 1;
-    selectTransactionClient.length = 1;
-
-    const uniqueClients = [
-      ...new Set(accounts.map((account) => account.idCliente)),
-    ];
-
-    for (const idCliente of uniqueClients) {
-      const client = await findObjectId("clients", idCliente);
-      const nomeFormatado = client.nome.toUpperCase();
-
-      const option1 = newTag("option");
-      option1.value = idCliente;
-      option1.innerText = nomeFormatado;
-
-      const option2 = option1.cloneNode(true);
-
-      selectClientName.appendChild(option1);
-      selectTransactionClient.appendChild(option2);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// ! section transactions
-selectClientName.addEventListener("input", async (event) => {
-  const idClient = event.target.value;
-
-  const allAccounts = await findObject("accounts");
-  const accountsClient = allAccounts.filter(
-    (account) => account.idCliente == idClient,
-  );
-
-  selectClientAccount.disabled = false;
-  selectClientAccount.length = 2;
-
-  selectTransactionAccount.disabled = false;
-  selectTransactionAccount.length = 2;
-
-  accountsClient.forEach(({ id, numeroConta }) => {
-    const option1 = newTag("option");
-    option1.value = id;
-    option1.innerText = numeroConta;
-
-    const option2 = option1.cloneNode(true);
-
-    selectClientAccount.appendChild(option1);
-    selectTransactionAccount.appendChild(option2); // ! SE FOR MANTER O FORMULÁRIO
-  });
-});

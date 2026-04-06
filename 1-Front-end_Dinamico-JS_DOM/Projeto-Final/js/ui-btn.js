@@ -481,7 +481,7 @@ function gestaoTransacoes() {
     containerClients,
     containerAccounts,
     newTransactionForm,
-    errorMensageTransaction,
+    mensageTransaction,
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
   navBarContainer.classList.remove("hiddenNavBar");
@@ -496,6 +496,14 @@ function openTransactionsGroup() {
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
   selectClientAccount.disabled = false;
+}
+
+function openFormsTransaction() {
+  try {
+    openSomeGroup(newTransactionForm);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // ! ========== BOTÕES TRANSAÇÕES ========== ! //
@@ -524,4 +532,28 @@ navTransactions.addEventListener("click", async (event) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+btnDeposito.addEventListener("click", async (event) => {
+  openFormsTransaction();
+  inputTransactionValor.placeholder = "Informe o valor a ser depositado";
+  mensageTransaction.innerText = "";
+  btnSaveTransaction.innerText = "DEPOSITAR";
+});
+
+btnSaque.addEventListener("click", async (event) => {
+  openFormsTransaction();
+  inputTransactionValor.placeholder = "Informe o valor a ser sacado";
+  mensageTransaction.innerText = "";
+  btnSaveTransaction.innerText = "SACAR";
+});
+
+btnCancelTransaction.addEventListener("click", async (event) => {
+  mensageTransaction.innerHTML = `Transação cancelada pelo usuário. <br> o valor não será contabilizado na conta!`;
+  mensageTransaction.classList.remove("errorMensageTransaction");
+  mensageTransaction.classList.remove("okMensageTransaction");
+  mensageTransaction.classList.remove("hiddenContent");
+  setTimeout(() => {
+    closeSomeGroup(newTransactionForm);
+  }, 5000);
 });

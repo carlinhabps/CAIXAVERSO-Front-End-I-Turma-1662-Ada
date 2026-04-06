@@ -50,14 +50,15 @@ const selectClientAccount = doc("#selectClientAccount");
 // const today = doc("#today");
 const selectTransactionClient = doc("#selectTransactionClient");
 const selectTransactionAccount = doc("#selectTransactionAccount");
-const selectTransactionMoviment = doc("#selectTransactionMoviment");
+const btnSaveTransaction = doc("#btnSaveTransaction");
+const btnCancelTransaction = doc("#btnCancelTransaction");
 const inputTransactionValor = doc("#inputTransactionValor");
 
 // classes
 const errorMensageClient = doc(".errorMensageClient");
 const errorMensageAccount = doc(".errorMensageAccount");
 const errorMensageNoAccount = doc(".errorMensageNoAccount");
-const errorMensageTransaction = doc(".errorMensageTransaction");
+const mensageTransaction = doc(".mensageTransaction");
 const clientsList = doc(".clientsList");
 const accountsList = doc(".accountsList");
 const transactionsList = doc(".transactionsList");

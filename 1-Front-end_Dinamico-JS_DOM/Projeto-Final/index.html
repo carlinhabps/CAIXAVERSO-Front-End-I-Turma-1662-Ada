@@ -357,6 +357,7 @@
             </option>
           </select>
         </form>
+
         <table class="table table-hover table-sm">
           <thead>
             <tr class="rowTransactions">
@@ -373,6 +374,7 @@
             <!-- ! As linhas serão inseridas aqui via JS -->
           </tbody>
         </table>
+
         <div class="btnActions">
           <button class="btn btn-outline-secondary btnDeposito">
             Depositar
@@ -392,6 +394,7 @@
             </option>
             <!-- ! As linhas serão inseridas aqui via JS -->
           </select>
+
           <select
             name="selectTransactionAccount"
             id="selectTransactionAccount"
@@ -404,25 +407,15 @@
             </option>
             <!-- ! As linhas serão inseridas aqui via JS -->
           </select>
-          <!-- <select
-            name="selectTransactionMoviment"
-            id="selectTransactionMoviment"
-            class="form-select"
-            required
-          >
-            <option value="default" selected>Transação</option>
-            <option value="depositar">Depositar</option>
-            <option value="sacar">Sacar</option>
-          </select> -->
+
           <input
             type="number"
             id="inputTransactionValor"
             class="form-control"
-            placeholder=" Informe o valor da transação"
             required
           />
 
-          <p class="errorMensageTransaction">Mensagem!</p>
+          <p class="mensageTransaction">Mensagem!</p>
 
           <button
             type="submit"

@@ -241,7 +241,8 @@ h2 {
 }
 
 #deleteClientBtnSim,
-#deleteAccountBtnSim {
+#deleteAccountBtnSim,
+#btnCancelTransaction {
   --bs-btn-hover-bg: var(--alert);
   font-weight: 700;
 }
@@ -284,6 +285,15 @@ select {
   box-shadow: 0 0 3px var(--text);
 }
 
+.mensageTransaction {
+  color: var(--secundary);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px 0 15px 0;
+  font-size: 14px;
+}
+
 .errorMensageClient,
 .errorMensageAccount,
 .errorMensageTransaction {
@@ -295,8 +305,17 @@ select {
   font-size: 14px;
 }
 
-td.errorMensageNoAccount {
+.okMensageTransaction {
   color: var(--alert);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px 0 15px 0;
+  font-size: 14px;
+}
+
+td.errorMensageNoAccount {
+  color: green;
   font-style: italic;
   font-weight: 500;
   text-transform: uppercase;

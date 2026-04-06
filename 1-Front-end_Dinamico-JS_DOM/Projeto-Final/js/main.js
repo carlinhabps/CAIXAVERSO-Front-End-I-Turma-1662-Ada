@@ -110,6 +110,11 @@ newAccountForm.addEventListener("submit", async (event) => {
 
 // ! ========== TRANSAÇÕES ========== ! //
 
+// selectTransactionNameAndAccount.addEventListener("submit", (event) => {
+//   event.preventDefault();
+
+// });
+
 // ! ==================== FORMULÁRIOS | MANIPULAÇÃO ==================== ! //
 
 inputClientName.addEventListener("input", (event) => {
@@ -159,3 +164,107 @@ async function nameAllClients() {
     selectAccountClient.appendChild(option);
   });
 }
+
+// ! ========== TRANSAÇÕES ========== ! //
+
+async function nameClientsWithAccounts() {
+  try {
+    selectClientName.length = 2;
+    selectTransactionClient.length = 1;
+
+    const contas = await findObject("accounts");
+    const uniqueClients = [...new Set(contas.map((acc) => acc.idCliente))];
+
+    const clientsWithAccounts = [];
+
+    for (const idCliente of uniqueClients) {
+      const client = await findObjectId("clients", idCliente);
+      clientsWithAccounts.push({
+        id: idCliente,
+        nome: client.nome.toUpperCase(),
+      });
+    }
+
+    clientsWithAccounts.sort((a, b) => a.nome.localeCompare(b.nome));
+
+    for (const client of clientsWithAccounts) {
+      const option1 = newTag("option");
+      option1.value = client.id;
+      option1.innerText = client.nome;
+
+      const option2 = option1.cloneNode(true);
+
+      selectClientName.appendChild(option1);
+      selectTransactionClient.appendChild(option2);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function accountsClientSelected(idCLiente) {
+  selectClientAccount.length = 1;
+  selectTransactionAccount.length = 1;
+
+  const contasCliente = await findObjectKeyValue(
+    "accounts",
+    "idCliente",
+    idCLiente,
+  );
+
+  for (const conta of contasCliente) {
+    const numeroConta = conta.numeroConta;
+    const id = conta.id;
+    const tipoConta = conta.tipoConta.toUpperCase();
+
+    const option1 = newTag("option");
+    option1.value = id;
+    option1.innerHTML = `${numeroConta} - ${tipoConta}`;
+
+    const option2 = option1.cloneNode(true);
+
+    selectClientAccount.appendChild(option1);
+    selectTransactionAccount.appendChild(option2);
+  }
+}
+
+selectClientName.addEventListener("input", async (event) => {
+  try {
+    const idClient = event.target.value;
+
+    if (idClient === "allAccounts") {
+      const transacoes = await findObject("transactions");
+      await renderizarTransactions(transacoes);
+      selectClientAccount.disabled = true;
+    } else {
+      accountsClientSelected(idClient);
+      selectClientAccount.disabled = false;
+      const transacoes = await findObjectKeyValue(
+        "transactions",
+        "idCliente",
+        idClient,
+      );
+      await renderizarTransactions(transacoes);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+selectTransactionClient.addEventListener("input", async (event) => {
+  const idClient = event.target.value;
+  accountsClientSelected(idClient);
+  selectTransactionAccount.disabled = false;
+});
+
+selectClientAccount.addEventListener("input", async (event) => {
+  const idConta = event.target.value;
+
+  const transacoes = await findObjectKeyValue(
+    "transactions",
+    "idConta",
+    idConta,
+  );
+
+  renderizarTransactions(transacoes);
+});
