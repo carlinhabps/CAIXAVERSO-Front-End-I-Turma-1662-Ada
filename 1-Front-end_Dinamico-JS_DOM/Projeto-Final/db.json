@@ -19,7 +19,7 @@
       "idCliente": "nOsLPNqHq2Y",
       "numeroConta": 1001,
       "tipoConta": "Poupança",
-      "saldo": 12500,
+      "saldo": 550,
       "status": "Ativa"
     },
     {
@@ -27,7 +27,15 @@
       "idCliente": "WzRRRavZtkU",
       "numeroConta": 1001,
       "tipoConta": "Poupança",
-      "saldo": 100,
+      "saldo": 1100,
+      "status": "Ativa"
+    },
+    {
+      "id": "UhbGtBuh_cI",
+      "idCliente": "WzRRRavZtkU",
+      "numeroConta": 1002,
+      "tipoConta": "corrente",
+      "saldo": 51,
       "status": "Ativa"
     }
   ],
@@ -58,6 +66,69 @@
       "valorTransacao": 3500,
       "novoSaldo": 12500,
       "dataTransacao": "2026-03-27"
+    },
+    {
+      "idConta": "UhbGtBuh_cI",
+      "idCliente": "WzRRRavZtkU",
+      "tipoTransacao": "deposito",
+      "valorTransacao": 1,
+      "novoSaldo": 1,
+      "dataTransacao": "2026-04-06",
+      "id": "zMu5a0Bq5rc"
+    },
+    {
+      "idConta": "UhbGtBuh_cI",
+      "idCliente": "WzRRRavZtkU",
+      "tipoTransacao": "deposito",
+      "valorTransacao": 50,
+      "novoSaldo": 51,
+      "dataTransacao": "2026-04-06",
+      "id": "oYLFQ5i2wcM"
+    },
+    {
+      "idConta": "2Pnes5iLdLp",
+      "idCliente": "WzRRRavZtkU",
+      "tipoTransacao": "saque",
+      "valorTransacao": 50,
+      "novoSaldo": 50,
+      "dataTransacao": "2026-04-06",
+      "id": "Fdt5uWHXrXQ"
+    },
+    {
+      "idConta": "2PneoTGLdLp",
+      "idCliente": "nOsLPNqHq2Y",
+      "tipoTransacao": "saque",
+      "valorTransacao": 12000,
+      "novoSaldo": 500,
+      "dataTransacao": "2026-04-06",
+      "id": "7Dg74ynj6YA"
+    },
+    {
+      "idConta": "2Pnes5iLdLp",
+      "idCliente": "WzRRRavZtkU",
+      "tipoTransacao": "deposito",
+      "valorTransacao": 1000,
+      "novoSaldo": 1050,
+      "dataTransacao": "2026-04-06",
+      "id": "L4QPxHijVu8"
+    },
+    {
+      "idConta": "2Pnes5iLdLp",
+      "idCliente": "WzRRRavZtkU",
+      "tipoTransacao": "deposito",
+      "valorTransacao": 50,
+      "novoSaldo": 1100,
+      "dataTransacao": "2026-04-06",
+      "id": "qJL1GbzhOBI"
+    },
+    {
+      "idConta": "2PneoTGLdLp",
+      "idCliente": "nOsLPNqHq2Y",
+      "tipoTransacao": "deposito",
+      "valorTransacao": 50,
+      "novoSaldo": 550,
+      "dataTransacao": "2026-04-06",
+      "id": "dV3WGoJnCws"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

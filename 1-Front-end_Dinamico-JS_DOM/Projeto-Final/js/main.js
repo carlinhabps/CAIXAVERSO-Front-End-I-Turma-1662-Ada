@@ -110,10 +110,73 @@ newAccountForm.addEventListener("submit", async (event) => {
 
 // ! ========== TRANSAÇÕES ========== ! //
 
-// selectTransactionNameAndAccount.addEventListener("submit", (event) => {
-//   event.preventDefault();
+newTransactionForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-// });
+  try {
+    const idConta = selectTransactionAccount.value;
+    const idCliente = selectTransactionClient.value;
+
+    const valorTransacaoInput = inputTransactionValor.value;
+    const valorTransacaoNumber = valorTransacaoInput.replace(/\D/g, "");
+    const valorTransacao = Number(valorTransacaoNumber) / 100;
+
+    const dataTransacao = new Date().toISOString().split("T")[0];
+
+    const action = event.target.dataset.action;
+
+    await findObjectId("accounts", idConta);
+    const contaMovimentada = await findObjectId("accounts", idConta);
+    const saldoAtual = Number(contaMovimentada.saldo);
+
+    let tipoTransacao = "";
+    let novoSaldo = "";
+
+    if (action === "deposito") {
+      tipoTransacao = "deposito";
+      novoSaldo = saldoAtual + valorTransacao;
+    } else if (action === "saque") {
+      if (!(await validaSaque(valorTransacao))) return;
+      tipoTransacao = "saque";
+      novoSaldo = saldoAtual - valorTransacao;
+      console.log(novoSaldo);
+    }
+
+    await editRegister("accounts", {
+      id: idConta,
+      idCliente,
+      numeroConta: contaMovimentada.numeroConta,
+      tipoConta: contaMovimentada.tipoConta,
+      saldo: novoSaldo,
+      status: contaMovimentada.status,
+    });
+
+    await newRegister("transactions", {
+      idConta,
+      idCliente,
+      tipoTransacao,
+      valorTransacao,
+      novoSaldo,
+      dataTransacao,
+    });
+
+    const novoSaldoFormatado = Number(novoSaldo).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    newTransactionForm.reset();
+    mensageTransaction.innerHTML = `Transação realizada com sucesso! Seu novo saldo é de ${novoSaldoFormatado}`;
+    mensageTransaction.classList.remove("hiddenContent");
+    mensageTransaction.classList.remove("errorMensageTransaction");
+    mensageTransaction.classList.add("okMensageTransaction");
+    setTimeout(() => {
+      closeSomeGroup(newTransactionForm);
+    }, 4000);
+    carregarInfo();
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // ! ==================== FORMULÁRIOS | MANIPULAÇÃO ==================== ! //
 
@@ -267,4 +330,15 @@ selectClientAccount.addEventListener("input", async (event) => {
   );
 
   renderizarTransactions(transacoes);
+});
+
+inputTransactionValor.addEventListener("input", (event) => {
+  let valor = event.target.value.replace(/\D/g, "");
+
+  valor = (Number(valor) / 100).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  event.target.value = valor;
 });

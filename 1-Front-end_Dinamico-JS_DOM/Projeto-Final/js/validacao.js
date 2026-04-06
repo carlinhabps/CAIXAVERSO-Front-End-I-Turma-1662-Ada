@@ -100,3 +100,25 @@ function validaStatusConta(status) {
 }
 
 // ! ========== TRANSAÇÕES ========== ! //
+
+async function validaSaque(valor) {
+  const idConta = selectTransactionAccount.value;
+  const contaMovimentada = await findObjectId("accounts", idConta);
+  const saldo = Number(contaMovimentada.saldo);
+
+  if (valor > saldo) {
+    const saldoFormatado = Number(saldo).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    mensageTransaction.innerHTML = `Saldo insuficiente para a transação. Seu saldo atual é de ${saldoFormatado}`;
+    mensageTransaction.classList.remove("hiddenContent");
+    mensageTransaction.classList.add("errorMensageTransaction");
+    mensageTransaction.classList.remove("okMensageTransaction");
+    btnSaveTransaction.classList.add("hiddenContent");
+    return false;
+  }
+  mensageTransaction.classList.add("hiddenContent");
+  btnSaveTransaction.classList.remove("hiddenContent");
+  return true;
+}

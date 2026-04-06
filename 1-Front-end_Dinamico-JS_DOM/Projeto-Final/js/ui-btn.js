@@ -539,6 +539,7 @@ btnDeposito.addEventListener("click", async (event) => {
   inputTransactionValor.placeholder = "Informe o valor a ser depositado";
   mensageTransaction.innerText = "";
   btnSaveTransaction.innerText = "DEPOSITAR";
+  newTransactionForm.setAttribute("data-action", "deposito");
 });
 
 btnSaque.addEventListener("click", async (event) => {
@@ -546,6 +547,7 @@ btnSaque.addEventListener("click", async (event) => {
   inputTransactionValor.placeholder = "Informe o valor a ser sacado";
   mensageTransaction.innerText = "";
   btnSaveTransaction.innerText = "SACAR";
+  newTransactionForm.setAttribute("data-action", "saque");
 });
 
 btnCancelTransaction.addEventListener("click", async (event) => {
@@ -555,5 +557,5 @@ btnCancelTransaction.addEventListener("click", async (event) => {
   mensageTransaction.classList.remove("hiddenContent");
   setTimeout(() => {
     closeSomeGroup(newTransactionForm);
-  }, 5000);
+  }, 4000);
 });

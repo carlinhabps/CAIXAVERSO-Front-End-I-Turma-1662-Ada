@@ -16,7 +16,6 @@
   </head>
   <body>
     <header id="navBarContainer" class="navBar-container hiddenNavBar">
-      <!-- <header id="navBarContainer" class="navBar-container"> -->
       <!-- ! INICIA COM A class="hiddenNavBar" EM <header> -->
       <div id="homeLogo" class="logo">
         <img src="./img/logo.png" alt="Logo do banco" />
@@ -24,7 +23,6 @@
       </div>
 
       <nav class="hiddenContent">
-        <!-- <nav> -->
         <!-- ! INICIA COM A class="hiddenContent" EM <nav> -->
         <ul class="navBar-container-ul">
           <li id="navClients">
@@ -283,19 +281,6 @@
             <option value="poupanca">Poupança</option>
           </select>
 
-          <!-- <select
-            name="selectAccountStatus"
-            id="selectAccountStatus"
-            class="form-select"
-            required
-          >
-            <option value="default" selected disabled hidden>
-              Status da Conta
-            </option>
-            <option value="ativa">Ativa</option>
-            <option value="encerrada">Encerrada</option>
-          </select> -->
-
           <p class="errorMensageAccount">Mensagem!</p>
 
           <button
@@ -314,10 +299,6 @@
             Cancelar
           </button>
         </form>
-        <!-- Listar contas (Número, Cliente, Tipo, Saldo) -->
-        <!-- Criar conta (selecionar cliente, tipo: Corrente/Poupança, saldo inicial 0) -->
-        <!-- Editar status da conta (Ativa/Inativa) -->
-        <!-- Deletar conta -->
       </section>
 
       <section
@@ -409,7 +390,7 @@
           </select>
 
           <input
-            type="number"
+            type="text"
             id="inputTransactionValor"
             class="form-control"
             required
