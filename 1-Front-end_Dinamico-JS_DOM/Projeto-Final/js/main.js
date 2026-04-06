@@ -41,7 +41,6 @@ newClientForm.addEventListener("submit", async (event) => {
 newAccountForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   try {
-    // const id = inputAccountId.value;
     const idCliente = selectAccountClient.value;
     const tipoConta = selectAccountType.value;
     const saldo = 0;
@@ -121,7 +120,12 @@ newTransactionForm.addEventListener("submit", async (event) => {
     const valorTransacaoNumber = valorTransacaoInput.replace(/\D/g, "");
     const valorTransacao = Number(valorTransacaoNumber) / 100;
 
-    const dataTransacao = new Date().toISOString().split("T")[0];
+    const hoje = new Date();
+    const dataTransacao = hoje
+      .toLocaleDateString("pt-BR")
+      .split("/")
+      .reverse()
+      .join("-");
 
     const action = event.target.dataset.action;
 
@@ -139,7 +143,6 @@ newTransactionForm.addEventListener("submit", async (event) => {
       if (!(await validaSaque(valorTransacao))) return;
       tipoTransacao = "saque";
       novoSaldo = saldoAtual - valorTransacao;
-      console.log(novoSaldo);
     }
 
     await editRegister("accounts", {
@@ -165,50 +168,41 @@ newTransactionForm.addEventListener("submit", async (event) => {
       currency: "BRL",
     });
     newTransactionForm.reset();
-    mensageTransaction.innerHTML = `Transação realizada com sucesso! Seu novo saldo é de ${novoSaldoFormatado}`;
+
+    mensageTransaction.innerHTML = `Transação realizada com sucesso!<br>Seu novo saldo é de ${novoSaldoFormatado}`;
     mensageTransaction.classList.remove("hiddenContent");
     mensageTransaction.classList.remove("errorMensageTransaction");
     mensageTransaction.classList.add("okMensageTransaction");
+    selectTransactionClient.classList.add("hiddenContent");
+    selectTransactionAccount.classList.add("hiddenContent");
+    inputTransactionValor.classList.add("hiddenContent");
+    btnSaveTransaction.classList.add("hiddenContent");
+    btnCancelTransaction.classList.add("hiddenContent");
+
     setTimeout(() => {
       closeSomeGroup(newTransactionForm);
     }, 4000);
-    carregarInfo();
+
+    const updatedAccountsClient = await findObjectKeyValue(
+      "accounts",
+      "idCliente",
+      idCliente,
+    );
+
+    const updatedTransactionsAccount = await findObjectKeyValue(
+      "transactions",
+      "idConta",
+      idConta,
+    );
+
+    renderizarAccounts(updatedAccountsClient);
+    renderizarTransactions(updatedTransactionsAccount);
   } catch (error) {
     console.log(error);
   }
 });
 
 // ! ==================== FORMULÁRIOS | MANIPULAÇÃO ==================== ! //
-
-inputClientName.addEventListener("input", (event) => {
-  event.target.value = event.target.value.toUpperCase();
-});
-
-inputClientCpf.addEventListener("input", (event) => {
-  console.log(event);
-  let cpf = String(event.target.value);
-
-  cpf = cpf.replace(/\D/g, "");
-
-  cpf = cpf.slice(0, 11);
-
-  if (cpf.length > 9) {
-    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-  }
-
-  if (cpf.length > 6) {
-    cpf = cpf.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3");
-  }
-
-  if (cpf.length > 3) {
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-  }
-  event.target.value = cpf;
-});
-
-inputClientEmail.addEventListener("input", (event) => {
-  event.target.value = event.target.value.toLowerCase();
-});
 
 async function nameAllClients() {
   selectAccountClient.length = 1;
@@ -227,8 +221,6 @@ async function nameAllClients() {
     selectAccountClient.appendChild(option);
   });
 }
-
-// ! ========== TRANSAÇÕES ========== ! //
 
 async function nameClientsWithAccounts() {
   try {
@@ -266,7 +258,7 @@ async function nameClientsWithAccounts() {
 }
 
 async function accountsClientSelected(idCLiente) {
-  selectClientAccount.length = 1;
+  selectClientAccount.length = 2;
   selectTransactionAccount.length = 1;
 
   const contasCliente = await findObjectKeyValue(
@@ -291,6 +283,36 @@ async function accountsClientSelected(idCLiente) {
   }
 }
 
+inputClientName.addEventListener("input", (event) => {
+  event.target.value = event.target.value.toUpperCase();
+});
+
+inputClientCpf.addEventListener("input", (event) => {
+  console.log(event);
+  let cpf = String(event.target.value);
+
+  cpf = cpf.replace(/\D/g, "");
+
+  cpf = cpf.slice(0, 11);
+
+  if (cpf.length > 9) {
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+  if (cpf.length > 6) {
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3");
+  }
+
+  if (cpf.length > 3) {
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+  }
+  event.target.value = cpf;
+});
+
+inputClientEmail.addEventListener("input", (event) => {
+  event.target.value = event.target.value.toLowerCase();
+});
+
 selectClientName.addEventListener("input", async (event) => {
   try {
     const idClient = event.target.value;
@@ -299,8 +321,9 @@ selectClientName.addEventListener("input", async (event) => {
       const transacoes = await findObject("transactions");
       await renderizarTransactions(transacoes);
       selectClientAccount.disabled = true;
+      selectClientAccount.value = "allAccounts";
     } else {
-      accountsClientSelected(idClient);
+      await accountsClientSelected(idClient);
       selectClientAccount.disabled = false;
       const transacoes = await findObjectKeyValue(
         "transactions",
@@ -316,20 +339,36 @@ selectClientName.addEventListener("input", async (event) => {
 
 selectTransactionClient.addEventListener("input", async (event) => {
   const idClient = event.target.value;
-  accountsClientSelected(idClient);
+  await accountsClientSelected(idClient);
   selectTransactionAccount.disabled = false;
 });
 
 selectClientAccount.addEventListener("input", async (event) => {
-  const idConta = event.target.value;
+  try {
+    const idConta = event.target.value;
 
-  const transacoes = await findObjectKeyValue(
-    "transactions",
-    "idConta",
-    idConta,
-  );
+    if (idConta === "allAccounts") {
+      const idCliente = selectClientName.value;
+      console.log(idCliente);
+      const allAccountsClientSelected = await findObjectKeyValue(
+        "transactions",
+        "idCliente",
+        idCliente,
+      );
+      console.log(allAccountsClientSelected);
+      await renderizarTransactions(allAccountsClientSelected);
+    } else {
+      const allTransactions = await findObjectKeyValue(
+        "transactions",
+        "idConta",
+        idConta,
+      );
 
-  renderizarTransactions(transacoes);
+      await renderizarTransactions(allTransactions);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 inputTransactionValor.addEventListener("input", (event) => {

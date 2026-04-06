@@ -491,7 +491,7 @@ function openTransactionsGroup() {
   const showContentTransition = [containerTransactions];
   const hiddenContentTransition = [
     newTransactionForm,
-    errorMensageTransaction,
+    mensageTransaction,
     selectClientName,
   ];
   transitionsGroup(showContentTransition, hiddenContentTransition);
@@ -504,6 +504,16 @@ function openFormsTransaction() {
   } catch (error) {
     console.log(error);
   }
+}
+
+async function autoFormTransaction() {
+  if (!window.idClienteSelecionado) return;
+  if (!window.idContaSelecionada) return;
+
+  selectTransactionClient.value = window.idClienteSelecionado;
+  await accountsClientSelected(window.idClienteSelecionado);
+  selectTransactionAccount.disabled = false;
+  selectTransactionAccount.value = window.idContaSelecionada;
 }
 
 // ! ========== BOTÕES TRANSAÇÕES ========== ! //
@@ -535,19 +545,31 @@ navTransactions.addEventListener("click", async (event) => {
 });
 
 btnDeposito.addEventListener("click", async (event) => {
+  selectTransactionClient.classList.remove("hiddenContent");
+  selectTransactionAccount.classList.remove("hiddenContent");
+  inputTransactionValor.classList.remove("hiddenContent");
+  btnSaveTransaction.classList.remove("hiddenContent");
+  btnCancelTransaction.classList.remove("hiddenContent");
   openFormsTransaction();
   inputTransactionValor.placeholder = "Informe o valor a ser depositado";
   mensageTransaction.innerText = "";
   btnSaveTransaction.innerText = "DEPOSITAR";
   newTransactionForm.setAttribute("data-action", "deposito");
+  await autoFormTransaction();
 });
 
 btnSaque.addEventListener("click", async (event) => {
+  selectTransactionClient.classList.remove("hiddenContent");
+  selectTransactionAccount.classList.remove("hiddenContent");
+  inputTransactionValor.classList.remove("hiddenContent");
+  btnSaveTransaction.classList.remove("hiddenContent");
+  btnCancelTransaction.classList.remove("hiddenContent");
   openFormsTransaction();
   inputTransactionValor.placeholder = "Informe o valor a ser sacado";
   mensageTransaction.innerText = "";
   btnSaveTransaction.innerText = "SACAR";
   newTransactionForm.setAttribute("data-action", "saque");
+  await autoFormTransaction();
 });
 
 btnCancelTransaction.addEventListener("click", async (event) => {

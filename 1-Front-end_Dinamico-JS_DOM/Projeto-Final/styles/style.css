@@ -328,6 +328,10 @@ td.errorMensageNoAccount span {
   text-decoration: underline;
 }
 
+td.saque {
+  color: var(--alert);
+}
+
 .btnActions {
   display: flex;
   gap: 20px;

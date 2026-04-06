@@ -174,6 +174,7 @@ async function renderizarTransactions(transactions) {
         const colAccount = newTag("td");
         const colDescription = newTag("td");
         const colValor = newTag("td");
+        const colCD = newTag("td");
         const colSaldo = newTag("td");
 
         colId.innerText = id;
@@ -185,6 +186,13 @@ async function renderizarTransactions(transactions) {
         colSaldo.innerText = saldoFormatado;
 
         colId.classList.add("hiddenContent");
+        if (tipoTransacao.toUpperCase() === "SAQUE") {
+          colValor.classList.add("saque");
+          colCD.classList.add("saque");
+          colCD.innerText = "D";
+        } else {
+          colCD.innerText = "C";
+        }
 
         row.append(
           colDate,
@@ -192,6 +200,7 @@ async function renderizarTransactions(transactions) {
           colAccount,
           colDescription,
           colValor,
+          colCD,
           colSaldo,
         );
         transactionsList.appendChild(row);
@@ -265,7 +274,10 @@ document.addEventListener("click", (event) => {
     event.target.closest("#deleteAccountBtnSim") ||
     event.target.closest("#deleteAccountBtnNao") ||
     event.target.closest("#newClientForm") ||
-    event.target.closest("#newAccountForm")
+    event.target.closest("#newAccountForm") ||
+    event.target.closest("#btnSaveTransaction") ||
+    event.target.closest(".btnDeposito") ||
+    event.target.closest(".btnSaque")
   ) {
     return;
   }
@@ -365,5 +377,3 @@ async function noTransactions() {
   row.appendChild(col);
   transactionsList.appendChild(row);
 }
-
-// ! ================================================================================ ! //
