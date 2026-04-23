@@ -1,0 +1,48 @@
+O sistema deve permitir gerenciar contas bancárias de clientes com as seguintes funcionalidades:
+• Abrir conta corrente ou conta poupança
+• Listar todas as contas do banco
+• Buscar conta por número ou por CPF do titular
+• Encerrar conta (apenas se estiver zerada)
+• Operações: depositar, sacar e transferir entre contas
+• Histórico de transações por conta (extrato)
+• Regras diferentes por tipo de conta (cheque especial na corrente; rendimento na poupança)
+• Dashboard com total de contas e saldo consolidado
+
+
+Requisitos Obrigatórios (Checklist de Avaliação)
+O projeto será avaliado com base nestes itens. Todos devem estar presentes e funcionando.
+1. Diagrama UML simplificado entregue (foto de papel ou ferramenta digital)
+2. Encapsulamento real: atributos críticos (#saldo, #cpf, #titular) devem ser privados com # e expostos via getters/setters
+3. Validação nos setters usando throw new Error() para rejeitar dados inválidos
+4. Herança correta: ContaCorrente e ContaPoupanca usando extends Conta e chamando super() no constructor
+5. Polimorfismo real: método sacar() sobrescrito nas duas subclasses com comportamentos diferentes
+6. Uso de static: pelo menos uma variável ou método estático (ex: contador de conta no Banco)
+7. Composição: Conta contém array de Transacao; Banco contém array de Conta
+8. Getter computado: pelo menos um (ex: saldoTotal no Banco ou saldoDisponivel na ContaCorrente)
+9. Reutilização: transferir() deve chamar sacar() e depositar() — não duplicar a lógica de validação
+
+
+Requisitos Extras (Bônus)
+Não obrigatórios, mas contam pontos adicionais na avaliação. Escolham pelo menos um se houver tempo.
+• Interface HTML: página com formulários para abrir conta, operações e visualização. Conectar via DOM e addEventListener
+• Persistência com localStorage: salvar contas para não perder ao recarregar. Reconstruir instâncias via constructor ao carregar
+• Extrato filtrado: método que recebe um tipo e retorna só as transações daquele tipo
+• Histórico consolidado do banco: método que retorna todas as transações de todas as contas ordenadas por data
+• Relatório do banco: estatísticas (maior saldo, menor saldo, saldo médio, total de transações)
+• Limite diário de saque: regra de negócio na ContaCorrente limitando saques a R$ 2.000 por dia
+• Testes automatizados: arquivo testes.js com cenários rodando e validando automaticamente
+
+
+Checklist Final Antes de Entregar
+• UML das classes desenhado e anexado
+• Classe Transacao imutável (só getters)
+• Classe Conta com campos privados e getters/setters validados
+• ContaCorrente e ContaPoupanca usam extends Conta
+• Ambas chamam super() no constructor
+• Método sacar sobrescrito com comportamentos diferentes nas duas subclasses
+• Banco tem static #contadorConta funcionando
+• Banco tem getter computado saldoTotal
+• Método transferir reutiliza sacar e depositar
+• Validações com throw new Error() funcionando
+• Cenários de teste da seção 6 rodam corretamente
+• Código organizado, nomes descritivos, sem duplicação desnecessária
