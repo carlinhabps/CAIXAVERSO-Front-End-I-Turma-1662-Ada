@@ -16,4 +16,8 @@ class Banco {
   // * todasContas: retornar cópia do array
   // * totalContas: quantidade de contas
   // * saldoTotal (getter computado): soma de todos os saldos (usar reduce)
+
+  constructor(params) {
+    
+  }
 }
