@@ -1,29 +1,3 @@
-// ! Classe base com atributos e métodos comuns a qualquer tipo de conta - Não deve ser instanciada diretamente — apenas ContaCorrente e ContaPoupanca.
-// ?   Atributos privados
-// // * #numero (number): número único da conta
-// // * #titular (string)
-// // * #cpf (string): armazenado apenas com os 11 dígitos
-// // * #saldo (number)
-// // * #transacoes (array de Transacao)
-// ?   Constructor
-// // * Recebe: número, titular, CPF e depósito inicial (opcional, padrão 0)
-// // * Se houver depósito inicial, deve chamar this.depositar() automaticamente para que a transação seja registrada
-// ?   Getters
-// // * numero (somente leitura — sem setter)
-// // * titular
-// // * cpf
-// // * saldo (somente leitura — sem setter; alterações só via métodos)
-// // * transacoes: retornar cópia do array com spread [...#transacoes]
-// // * totalTransacoes (getter computado): quantidade de transações
-// ?   Setters com validação
-// // * titular: rejeitar string vazia ou só espaços. Armazenar com .trim()
-// // * cpf: normalizar removendo pontos/traços/espaços. Validar que tem exatamente 11 dígitos após normalização
-// ?   Métodos
-// // * depositar(valor, descricao): validar número positivo. Somar ao saldo e registrar Transacao
-// // * sacar(valor, descricao): validação básica. SERÁ SOBRESCRITO nas subclasses
-// // * transferir(valor, contaDestino): verificar com instanceof que destino é uma Conta e que não é a mesma. Reutilizar sacar() e depositar()
-// // * exibirExtrato(): imprimir no console histórico completo e saldo atual
-
 class Conta {
   #numeroConta;
   #titular;
@@ -68,9 +42,11 @@ class Conta {
   }
 
   get numeroConta() {
-    const numConta = String(this.#numeroConta).padStart(6, "0");
-    const dv = Math.floor(Math.random() * 10);
-    return `${numConta}-${dv}`;
+    this.#numeroConta;
+  }
+
+  get numeroContaFormatado() {
+    return Conta.formatarNumeroConta(this.#numeroConta);
   }
 
   get titular() {
@@ -109,6 +85,12 @@ class Conta {
     });
   }
 
+  static formatarNumeroConta(numeroConta) {
+    const numConta = String(numeroConta).padStart(6, "0");
+    const dv = Math.floor(Math.random() * 10);
+    return `${numConta}-${dv}`;
+  }
+
   depositar(valor, descricao = "depósito") {
     if (valor <= 0) {
       throw new Error("Informe um valor positivo para efetivar a transação.");
@@ -120,8 +102,6 @@ class Conta {
   }
 
   sacar(valor, descricao = "saque") {
-
-
     if (valor <= 0) {
       throw new Error(
         `Operação não realizada! O valor da transação deve ser maior que zero.`,
@@ -134,7 +114,7 @@ class Conta {
   }
 
   transferir(valor, contaDestino) {
-    if (contaDestino === this.#numeroConta) {
+    if (contaDestino.numeroConta === this.#numeroConta) {
       throw new Error(
         `Operação não realizada! A conta de destino informada é igua à conta de origem.`,
       );
@@ -153,13 +133,16 @@ class Conta {
     contaDestino.depositar(valor, `Transferência recebida de ${this.titular}`);
   }
 
-  exibirDadosCOnta() {
+  exibirDadosConta() {
     console.log(`${this.titular} | CPF: ${this.cpf}`);
-    console.log(`Conta número ${this.numeroConta} | Saldo: ${this.saldoFormatado}`);
+    console.log(
+      `Conta número ${this.numeroContaFormatado} | Saldo: ${this.saldoFormatado}`,
+    );
   }
-  
+
   exibirExtrato() {
-    this.exibirDadosCOnta();
+    console.log("========================================");
+    this.exibirDadosConta();
     console.log("Extrato:");
 
     if (this.totalTransacoes === 0) {
@@ -168,6 +151,9 @@ class Conta {
       console.log(`Possui ${this.totalTransacoes} transações realizadas`);
       this.transacoes.forEach((t) => console.log(t.exibir()));
     }
+    console.log(
+      "================================================================================",
+    );
   }
 }
 

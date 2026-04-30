@@ -1,14 +1,3 @@
-// ! Herda de Conta. Adiciona limite de cheque especial. Usar extends Conta.
-// ?   Novo atributo privado
-// // * #limiteChequeEspecial (number): padrão 500
-// ?   Constructor
-// // * Recebe: número, titular, CPF, depósito inicial e limite (opcional). Chamar super() com os parâmetros da classe pai
-// ?   Novos membros
-// // * Getter limiteChequeEspecial
-// // * Getter computado saldoDisponivel: retorna saldo + limiteChequeEspecial
-// ?   Sobrescrita de método
-// // * sacar(valor, descricao): permitir saque até saldo + limiteChequeEspecial. Se passar, lançar erro
-
 class ContaCorrente extends Conta {
   #limiteChequeEspecial;
 
@@ -32,7 +21,7 @@ class ContaCorrente extends Conta {
   sacar(valor, descricao = "saque") {
     if (valor > this.saldoDisponivel) {
       throw new Error(
-        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual, com limite, é de ${this.saldoDisponivelFormatado}.`,
+        `Operação não realizada! Saldo insuficiente para realizar a transação. O saldo atualda conta ${super.numeroContaFormatado} é de ${this.saldoDisponivelFormatado}.`,
       );
       return console.log(Error);
     } else {
@@ -40,12 +29,12 @@ class ContaCorrente extends Conta {
     }
   }
 
-  exibirDadosCOnta() {
+  exibirDadosConta() {
     console.log(`${super.titular} | CPF: ${super.cpf}`);
     console.log(
-      `Conta número ${super.numeroConta} | Saldo: ${super.saldoFormatado} | Limite: ${this.limiteChequeEspecial} | Saldo com Limite: ${this.saldoDisponivelFormatado}`,
+      `Conta Corrente número ${super.numeroContaFormatado} | Saldo: ${super.saldoFormatado} | Limite: ${this.limiteChequeEspecial} | Saldo com Limite: ${this.saldoDisponivelFormatado}`,
     );
   }
 }
 
-const acc = new ContaCorrente(236985, "Carla", 23698547, 200);
+// const acc = new ContaCorrente(236985, "Carla", 23698547, 200);

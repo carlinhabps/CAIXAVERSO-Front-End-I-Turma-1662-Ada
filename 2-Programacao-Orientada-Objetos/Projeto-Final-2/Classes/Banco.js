@@ -1,21 +1,3 @@
-// ! Gerencia a coleção de contas do banco
-// ?   Atributos
-// // * static #contadorConta = 1000 (contador estático compartilhado para gerar números únicos)
-// // * #nome (string)
-// // * #contas (array de Conta)
-// ?   Métodos
-// // * abrirContaCorrente(titular, cpf, depositoInicial, limite): incrementar contador, criar ContaCorrente, adicionar ao array, retornar a conta
-// // * abrirContaPoupanca(titular, cpf, depositoInicial, taxa): análogo, mas cria ContaPoupanca
-// // * encerrarConta(numero): buscar a conta. Se saldo > 0, lançar erro (dinheiro sumiria). Remover do array
-// // * buscarPorNumero(numero): retornar a conta ou undefined
-// // * buscarPorCpf(cpf): retornar array de contas (uma pessoa pode ter várias). Normalizar o CPF antes de comparar
-// // * static formatarMoeda(valor): retorna string no formato "R$ 1.234,56" (opcional, mas recomendado)
-// ?   Getters
-// // * nome
-// // * todasContas: retornar cópia do array
-// // * totalContas: quantidade de contas
-// // * saldoTotal (getter computado): soma de todos os saldos (usar reduce)
-
 class Banco {
   static #contadorConta = 1000;
   #nomeBanco;
@@ -72,12 +54,12 @@ class Banco {
     return novaCP;
   }
 
-  buscarPorNumero(numero) {
+  buscarPorNumero(numeroConta) {
     return this.#contas.find((conta) => conta.numeroConta === numeroConta);
   }
 
   buscarPorCpf(cpf) {
-    const cpfCompleto = String(this.#cpf).padStart(11, "0");
+    const cpfCompleto = String(cpf).padStart(11, "0");
     const cpfFormatado = cpfCompleto.replace(
       /(\d{3})(\d{3})(\d{3})(\d{2})/,
       "$1.$2.$3-$4",
@@ -104,7 +86,101 @@ class Banco {
       (conta) => conta.numeroConta !== numeroConta,
     );
     console.log(
-      `Operação realizada com sucesso! A conta número ${numeroConta} foi removida da base de dados.`,
+      `Operação realizada com sucesso! A conta número ${Conta.formatarNumeroConta(numeroConta)} foi removida da base de dados.`,
     );
   }
 }
+
+// ! ======================================== TESTES ======================================== //
+
+// ! ==================== 6.1. Criação do banco e contas
+
+const cx = new Banco("CAIXA");
+
+const cc = cx.abrirContaCorrente("Ana Silva", "000.123.456-00", 1000);
+
+const cp = cx.abrirContaPoupanca("Ana Silva", "000.123.456-00", 500);
+
+// console.log(cx.buscarPorCpf("000.123.456-00"));
+// console.log(cx.buscarPorCpf("000.123.456-00").length);
+
+// ! ==================== 6.2. Operações básicas
+
+cc.depositar(500);
+cc.sacar(200);
+// cc.exibirExtrato();
+
+// ! ==================== 6.3. Polimorfismo do sacar()
+
+cc.sacar(1500);
+// cc.exibirExtrato();
+
+// cp.sacar(1500);
+// cp.exibirExtrato();
+
+// ! ==================== 6.4. Rendimento da poupança
+
+cp.aplicarRendimento();
+// cp.exibirExtrato();
+
+// ! ==================== 6.5. Transferência
+
+cc.transferir(100, cp);
+cc.exibirExtrato();
+cp.exibirExtrato();
+
+// ! ==================== 6.6. Validações
+
+try {
+  cc.depositar(-50);
+} catch (e) {
+  console.log(e.message);
+}
+try {
+  cc.cpf = "123";
+} catch (e) {
+  console.log(e.message);
+}
+try {
+  cc.cpf = "123456789123";
+} catch (e) {
+  console.log(e.message);
+}
+try {
+  cc.titular = "";
+} catch (e) {
+  console.log(e.message);
+}
+try {
+  cc.transferir(10, cc); //! VER PQ NÃO TÁ DANDO O ERRO
+} catch (e) {
+  console.log(e.message);
+}
+
+// cc.exibirExtrato();
+// cp.exibirExtrato();
+
+// ! ==================== 6.7. Encapsulamento
+
+cc.saldo = 99999999;
+cp.saldo = 99999999;
+
+cc.exibirExtrato();
+cp.exibirExtrato();
+
+// ! ==================== 6.8. Getters do banco
+
+console.log(cx.totalContas);
+console.log(cx.saldoTotal);
+
+// ! ==================== 6.9. Encerrar conta
+
+// Não pode encerrar conta com saldo
+try {
+  cx.encerrarConta(cc.numero); //! VER PQ NÃO TÁ DANDO O ERRO
+} catch (e) {
+  console.log(e.message);
+}
+// Zerar e encerrar
+cc.sacar(cc.saldo); // para contas com saldo positivo
+cx.encerrarConta(cc.numero); // deve funcionar
