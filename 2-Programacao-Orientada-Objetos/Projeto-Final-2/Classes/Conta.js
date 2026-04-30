@@ -20,30 +20,30 @@
 // // * cpf: normalizar removendo pontos/traços/espaços. Validar que tem exatamente 11 dígitos após normalização
 // ?   Métodos
 // // * depositar(valor, descricao): validar número positivo. Somar ao saldo e registrar Transacao
-// * sacar(valor, descricao): validação básica. SERÁ SOBRESCRITO nas subclasses
-// * transferir(valor, contaDestino): verificar com instanceof que destino é uma Conta e que não é a mesma. Reutilizar sacar() e depositar()
-// * exibirExtrato(): imprimir no console histórico completo e saldo atual
+// // * sacar(valor, descricao): validação básica. SERÁ SOBRESCRITO nas subclasses
+// // * transferir(valor, contaDestino): verificar com instanceof que destino é uma Conta e que não é a mesma. Reutilizar sacar() e depositar()
+// // * exibirExtrato(): imprimir no console histórico completo e saldo atual
 
 class Conta {
-  #numero;
+  #numeroConta;
   #titular;
   #cpf;
   #saldo;
   #transacoes;
 
   constructor(numeroConta, nomeTitular, cpf, saldoInicial = 0) {
-    this.#numero = numeroConta;
+    this.#numeroConta = numeroConta;
     this.titular = nomeTitular;
     this.cpf = cpf;
     this.#saldo = 0;
     this.#transacoes = [];
 
     if (saldoInicial > 0)
-      this.depositar(saldoInicial, "Depósito na Abertura da conta");
+      this.depositar(saldoInicial, "Depósito na abertura da conta");
 
     if (saldoInicial < 0)
       console.log(
-        "Saldo inicial inválido! Utilizado o valore de R$ 0,00 para abertura da conta.",
+        "Saldo inicial inválido! Utilizado o valor de R$ 0,00 para abertura da conta.",
       );
   }
 
@@ -52,6 +52,7 @@ class Conta {
 
     if (nome === "") {
       throw new Error("Nome informado inválido.");
+      return console.log(Error);
     } else {
       this.#titular = nome.toUpperCase();
     }
@@ -66,8 +67,8 @@ class Conta {
     this.#cpf = numCpf;
   }
 
-  get numero() {
-    const numConta = String(this.#numero).padStart(6, "0");
+  get numeroConta() {
+    const numConta = String(this.#numeroConta).padStart(6, "0");
     const dv = Math.floor(Math.random() * 10);
     return `${numConta}-${dv}`;
   }
@@ -100,28 +101,72 @@ class Conta {
     return this.#transacoes.length;
   }
 
-  depositar(valor, descricao) {
+  depositar(valor, descricao = "depósito") {
     if (valor <= 0) {
-      return console.log(
-        "Informe um valor positivo para efetivar a transação.",
-      );
+      throw new Error("Informe um valor positivo para efetivar a transação.");
+      return console.log(Error);
     }
     this.#saldo += valor;
     const novoDeposito = new Transacao("depósito", valor, descricao);
     this.#transacoes.push(novoDeposito);
+
+    this.exibirExtrato();
   }
 
-  teste() {
-    console.log(this.numero);
-    console.log(this.titular);
-    console.log(this.cpf);
-    console.log(this.saldo);
-    console.log(this.transacoes);
-    console.log(this.totalTransacoes);
+  sacar(valor, descricao = "saque") {
+    if (valor > this.#saldo) {
+      throw new Error(
+        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${this.saldo}.`,
+      );
+      return console.log(Error);
+    }
+
+    if (valor <= 0) {
+      throw new Error(
+        `Operação não realizada! O valor da transação deve ser maior que zero.`,
+      );
+      return console.log(Error);
+    }
+    this.#saldo -= valor;
+    const novoSaque = new Transacao("saque", valor, descricao);
+    this.#transacoes.push(novoSaque);
+
+    this.exibirExtrato();
+  }
+
+  transferir(valor, contaDestino) {
+    if (contaDestino === this.#numeroConta) {
+      throw new Error(
+        `Operação não realizada! A conta de destino informada é igua à conta de origem.`,
+      );
+      return console.log(Error);
+    }
+
+    if (!(contaDestino instanceof Conta)) {
+      throw new Error(
+        `Operação não realizada! Conta informada não reconhecida.`,
+      );
+      return console.log(Error);
+    }
+
+    this.sacar(valor, `Transferência realizada para ${contaDestino.titular}`);
+
+    contaDestino.depositar(valor, `Transferência recebida de ${this.titular}`);
+  }
+
+  exibirExtrato() {
+    console.log(`${this.titular} | CPF: ${this.cpf}`);
+    console.log(`Conta número ${this.numeroConta} | Saldo: ${this.saldo}`);
+    console.log("Extrato:");
+
+    if (this.totalTransacoes === 0) {
+      console.log("Não há transações realizadas até o momento.");
+    } else {
+      console.log(`Possui ${this.totalTransacoes} transações realizadas`);
+      this.transacoes.forEach((t) => console.log(t.exibir()));
+    }
   }
 }
 
-// constructor(numeroConta, nomeTitular, cpf, saldoInicial = 0)
-const acc = new Conta(123, " a b c ", "123.456.789", 0);
-
-acc.teste();
+// const acc = new Conta(2569874, "Carla ", "123.456.789", 5000);
+// const acc2 = new Conta(3159, " Beatriz", ".456.789", 600);
