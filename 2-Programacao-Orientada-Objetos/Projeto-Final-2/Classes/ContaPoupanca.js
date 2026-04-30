@@ -16,10 +16,10 @@ class ContaPoupanca extends Conta {
     numeroConta,
     nomeTitular,
     cpf,
-    saldoInicial,
+    depositoInicial,
     taxaRendimento = 0.005,
   ) {
-    super(numeroConta, nomeTitular, cpf, saldoInicial);
+    super(numeroConta, nomeTitular, cpf, depositoInicial);
     this.#taxaRendimento = taxaRendimento;
   }
 
@@ -28,14 +28,14 @@ class ContaPoupanca extends Conta {
   }
 
   aplicarRendimento() {
-    const rendimento = super.saldoNumerico * this.#taxaRendimento;
+    const rendimento = super.saldo * this.#taxaRendimento;
     this.depositar(rendimento, "rendimento");
   }
 
   sacar(valor, descricao = "saque") {
-    if (valor > super.saldoNumerico) {
+    if (valor > super.saldo) {
       throw new Error(
-        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${super.saldo}.`,
+        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${super.saldoFormatado}.`,
       );
       return console.log(Error);
     } else {

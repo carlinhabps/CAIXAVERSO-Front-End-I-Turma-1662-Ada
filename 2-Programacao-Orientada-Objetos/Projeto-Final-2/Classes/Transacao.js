@@ -28,10 +28,10 @@ class Transacao {
 
   get valor() {
     if (this.tipo === "DEPÓSITO" || this.tipo === "RENDIMENTO") {
-      return `${this.#valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} C`;
+      return `${Conta.formatarMoeda(this.#valor)} C`;
     }
     if (this.tipo === "SAQUE" || this.tipo === "TRANSFERÊNCIA") {
-      return `- ${this.#valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} D`;
+      return `- ${Conta.formatarMoeda(this.#valor)} D`;
     }
   }
 

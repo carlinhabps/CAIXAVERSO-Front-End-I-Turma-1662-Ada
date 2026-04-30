@@ -31,17 +31,17 @@ class Conta {
   #saldo;
   #transacoes;
 
-  constructor(numeroConta, nomeTitular, cpf, saldoInicial = 0) {
+  constructor(numeroConta, nomeTitular, cpf, depositoInicial = 0) {
     this.#numeroConta = numeroConta;
     this.titular = nomeTitular;
     this.cpf = cpf;
     this.#saldo = 0;
     this.#transacoes = [];
 
-    if (saldoInicial > 0)
-      this.depositar(saldoInicial, "Depósito na abertura da conta");
+    if (depositoInicial > 0)
+      this.depositar(depositoInicial, "Depósito na abertura da conta");
 
-    if (saldoInicial < 0)
+    if (depositoInicial < 0)
       console.log(
         "Saldo inicial inválido! Utilizado o valor de R$ 0,00 para abertura da conta.",
       );
@@ -86,11 +86,11 @@ class Conta {
     return cpfFormatado;
   }
 
-  get saldo() {
-    return Conta.formataMoeda(this.#saldo);
+  get saldoFormatado() {
+    return Conta.formatarMoeda(this.#saldo);
   }
 
-  get saldoNumerico() {
+  get saldo() {
     return this.#saldo;
   }
 
@@ -102,7 +102,7 @@ class Conta {
     return this.#transacoes.length;
   }
 
-  static formataMoeda(valor) {
+  static formatarMoeda(valor) {
     return Number(valor).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -155,7 +155,7 @@ class Conta {
 
   exibirDadosCOnta() {
     console.log(`${this.titular} | CPF: ${this.cpf}`);
-    console.log(`Conta número ${this.numeroConta} | Saldo: ${this.saldo}`);
+    console.log(`Conta número ${this.numeroConta} | Saldo: ${this.saldoFormatado}`);
   }
   
   exibirExtrato() {

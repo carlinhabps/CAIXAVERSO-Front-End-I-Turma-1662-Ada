@@ -12,27 +12,27 @@
 class ContaCorrente extends Conta {
   #limiteChequeEspecial;
 
-  constructor(numeroConta, nomeTitular, cpf, saldoInicial, limite = 500) {
-    super(numeroConta, nomeTitular, cpf, saldoInicial);
+  constructor(numeroConta, nomeTitular, cpf, depositoInicial, limite = 500) {
+    super(numeroConta, nomeTitular, cpf, depositoInicial);
     this.#limiteChequeEspecial = limite;
   }
 
   get limiteChequeEspecial() {
-    return Conta.formataMoeda(this.#limiteChequeEspecial);
-  }
-
-  get saldoDisponivelNumerico() {
-    return this.#limiteChequeEspecial + super.saldoNumerico;
+    return Conta.formatarMoeda(this.#limiteChequeEspecial);
   }
 
   get saldoDisponivel() {
-    return Conta.formataMoeda(this.saldoDisponivelNumerico);
+    return this.#limiteChequeEspecial + super.saldo;
+  }
+
+  get saldoDisponivelFormatado() {
+    return Conta.formatarMoeda(this.saldoDisponivel);
   }
 
   sacar(valor, descricao = "saque") {
-    if (valor > this.saldoDisponivelNumerico) {
+    if (valor > this.saldoDisponivel) {
       throw new Error(
-        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual, com limite, é de ${this.saldoDisponivel}.`,
+        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual, com limite, é de ${this.saldoDisponivelFormatado}.`,
       );
       return console.log(Error);
     } else {
@@ -43,7 +43,7 @@ class ContaCorrente extends Conta {
   exibirDadosCOnta() {
     console.log(`${super.titular} | CPF: ${super.cpf}`);
     console.log(
-      `Conta número ${super.numeroConta} | Saldo: ${super.saldo} | Limite: ${this.limiteChequeEspecial} | Saldo com Limite: ${this.saldoDisponivel}`,
+      `Conta número ${super.numeroConta} | Saldo: ${super.saldoFormatado} | Limite: ${this.limiteChequeEspecial} | Saldo com Limite: ${this.saldoDisponivelFormatado}`,
     );
   }
 }
