@@ -87,10 +87,11 @@ class Conta {
   }
 
   get saldo() {
-    return Number(this.#saldo).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    return Conta.formataMoeda(this.#saldo);
+  }
+
+  get saldoNumerico() {
+    return this.#saldo;
   }
 
   get transacoes() {
@@ -101,6 +102,13 @@ class Conta {
     return this.#transacoes.length;
   }
 
+  static formataMoeda(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
   depositar(valor, descricao = "depósito") {
     if (valor <= 0) {
       throw new Error("Informe um valor positivo para efetivar a transação.");
@@ -109,17 +117,15 @@ class Conta {
     this.#saldo += valor;
     const novoDeposito = new Transacao("depósito", valor, descricao);
     this.#transacoes.push(novoDeposito);
-
-    this.exibirExtrato();
   }
 
   sacar(valor, descricao = "saque") {
-    if (valor > this.#saldo) {
-      throw new Error(
-        `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${this.saldo}.`,
-      );
-      return console.log(Error);
-    }
+    // if (valor > this.#saldo) {
+    //   throw new Error(
+    //     `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${this.saldo}.`,
+    //   );
+    //   return console.log(Error);
+    // }
 
     if (valor <= 0) {
       throw new Error(
@@ -130,8 +136,6 @@ class Conta {
     this.#saldo -= valor;
     const novoSaque = new Transacao("saque", valor, descricao);
     this.#transacoes.push(novoSaque);
-
-    this.exibirExtrato();
   }
 
   transferir(valor, contaDestino) {
@@ -154,9 +158,13 @@ class Conta {
     contaDestino.depositar(valor, `Transferência recebida de ${this.titular}`);
   }
 
-  exibirExtrato() {
+  exibirDadosCOnta() {
     console.log(`${this.titular} | CPF: ${this.cpf}`);
     console.log(`Conta número ${this.numeroConta} | Saldo: ${this.saldo}`);
+  }
+  
+  exibirExtrato() {
+    this.exibirDadosCOnta();
     console.log("Extrato:");
 
     if (this.totalTransacoes === 0) {
