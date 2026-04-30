@@ -42,7 +42,7 @@ class Conta {
   }
 
   get numeroConta() {
-    this.#numeroConta;
+    return this.#numeroConta;
   }
 
   get numeroContaFormatado() {
@@ -99,6 +99,9 @@ class Conta {
     this.#saldo += valor;
     const novoDeposito = new Transacao("depósito", valor, descricao);
     this.#transacoes.push(novoDeposito);
+    console.log(
+      `Despósito de ${Conta.formatarMoeda(valor)} realizado com sucesso!`,
+    );
   }
 
   sacar(valor, descricao = "saque") {
@@ -111,6 +114,9 @@ class Conta {
     this.#saldo -= valor;
     const novoSaque = new Transacao("saque", valor, descricao);
     this.#transacoes.push(novoSaque);
+        console.log(
+      `Saque de ${Conta.formatarMoeda(valor)} realizado com sucesso!`,
+    );
   }
 
   transferir(valor, contaDestino) {

@@ -71,11 +71,11 @@ class Banco {
     const conta = this.buscarPorNumero(numeroConta);
 
     if (!conta) {
-      throw new Error("Operação não realizada! Conta informada é inexistente.");
+      throw new Error("Operação não realizada! Conta informada inexistente.");
       return console.log(Error);
     }
 
-    if (!conta.saldo === 0) {
+    if (conta.saldo !== 0) {
       throw new Error(
         "Operação não realizada! O saldo da conta não está zerado.",
       );
@@ -95,24 +95,24 @@ class Banco {
 
 // ! ==================== 6.1. Criação do banco e contas
 
-const cx = new Banco("CAIXA");
+// const cx = new Banco("CAIXA");
 
-const cc = cx.abrirContaCorrente("Ana Silva", "000.123.456-00", 1000);
+// const cc = cx.abrirContaCorrente("Ana Silva", "000.123.456-00", 1000);
 
-const cp = cx.abrirContaPoupanca("Ana Silva", "000.123.456-00", 500);
+// const cp = cx.abrirContaPoupanca("Ana Silva", "000.123.456-00", 500);
 
 // console.log(cx.buscarPorCpf("000.123.456-00"));
 // console.log(cx.buscarPorCpf("000.123.456-00").length);
 
 // ! ==================== 6.2. Operações básicas
 
-cc.depositar(500);
-cc.sacar(200);
+// cc.depositar(500);
+// cc.sacar(200);
 // cc.exibirExtrato();
 
 // ! ==================== 6.3. Polimorfismo do sacar()
 
-cc.sacar(1500);
+// cc.sacar(1500);
 // cc.exibirExtrato();
 
 // cp.sacar(1500);
@@ -120,67 +120,76 @@ cc.sacar(1500);
 
 // ! ==================== 6.4. Rendimento da poupança
 
-cp.aplicarRendimento();
+// cp.aplicarRendimento();
 // cp.exibirExtrato();
 
 // ! ==================== 6.5. Transferência
 
-cc.transferir(100, cp);
-cc.exibirExtrato();
-cp.exibirExtrato();
+// cc.transferir(100, cp);
+// cc.exibirExtrato();
+// cp.exibirExtrato();
 
 // ! ==================== 6.6. Validações
 
-try {
-  cc.depositar(-50);
-} catch (e) {
-  console.log(e.message);
-}
-try {
-  cc.cpf = "123";
-} catch (e) {
-  console.log(e.message);
-}
-try {
-  cc.cpf = "123456789123";
-} catch (e) {
-  console.log(e.message);
-}
-try {
-  cc.titular = "";
-} catch (e) {
-  console.log(e.message);
-}
-try {
-  cc.transferir(10, cc); //! VER PQ NÃO TÁ DANDO O ERRO
-} catch (e) {
-  console.log(e.message);
-}
+// try {
+//   cc.depositar(-50);
+// } catch (e) {
+//   console.log(e.message);
+// }
+// try {
+//   cc.cpf = "123";
+// } catch (e) {
+//   console.log(e.message);
+// }
+// try {
+//   cc.cpf = "123456789123";
+// } catch (e) {
+//   console.log(e.message);
+// }
+// try {
+//   cc.titular = "";
+// } catch (e) {
+//   console.log(e.message);
+// }
+// try {
+//   cc.transferir(10, cc);
+// } catch (e) {
+//   console.log(e.message);
+// }
 
 // cc.exibirExtrato();
 // cp.exibirExtrato();
 
 // ! ==================== 6.7. Encapsulamento
 
-cc.saldo = 99999999;
-cp.saldo = 99999999;
+// cc.saldo = 99999999;
+// cp.saldo = 99999999;
 
-cc.exibirExtrato();
-cp.exibirExtrato();
+// cc.exibirExtrato();
+// cp.exibirExtrato();
 
 // ! ==================== 6.8. Getters do banco
 
-console.log(cx.totalContas);
-console.log(cx.saldoTotal);
+// console.log(cx.totalContas);
+// console.log(cx.saldoTotal);
 
 // ! ==================== 6.9. Encerrar conta
 
-// Não pode encerrar conta com saldo
-try {
-  cx.encerrarConta(cc.numero); //! VER PQ NÃO TÁ DANDO O ERRO
-} catch (e) {
-  console.log(e.message);
-}
-// Zerar e encerrar
-cc.sacar(cc.saldo); // para contas com saldo positivo
-cx.encerrarConta(cc.numero); // deve funcionar
+// try {
+//   cx.encerrarConta(cc.numeroConta);
+// } catch (e) {
+//   console.log(e.message);
+// }
+
+// cc.exibirExtrato();
+
+// cc.depositar(3000);
+// cc.sacar(cc.saldo);
+
+// cc.exibirExtrato();
+
+// console.log(cx.contas);
+
+// cx.encerrarConta(cc.numeroConta);
+
+// console.log(cx.contas);
