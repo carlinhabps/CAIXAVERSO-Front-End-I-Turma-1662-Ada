@@ -120,12 +120,7 @@ class Conta {
   }
 
   sacar(valor, descricao = "saque") {
-    // if (valor > this.#saldo) {
-    //   throw new Error(
-    //     `Operação não realizada! Saldo insuficiente para realizar a transação. Seu saldo atual é de ${this.saldo}.`,
-    //   );
-    //   return console.log(Error);
-    // }
+
 
     if (valor <= 0) {
       throw new Error(
