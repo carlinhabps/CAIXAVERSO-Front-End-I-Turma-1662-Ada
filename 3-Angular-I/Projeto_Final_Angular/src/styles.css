@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Datatype:wght@100..900&family=Finlandica+Headline:ital,wght@0,100..900;1,100..900&family=Fleur+De+Leah&family=Indie+Flower&family=Julius+Sans+One&family=Major+Mono+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 10px;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Quicksand", sans-serif; */
+  font-family: 'Finlandica Headline', sans-serif;
+  scroll-behavior: smooth;
+  scroll-padding-top: 10rem;
+
+  --font: #403b3c;
+  --bg: #feecf1;
+  --bg-lighter: #fafafa;
+
+  --primary: #b6087c;
+  --secondary: #7f5cff;
+
+  color: var(--font);
+}
+
+.dark {
+  --font: #feecf1;
+  --bg: #353132;
+  --bg-lighter: #403b3c;
+}
+
+body {
+  background-color: var(--bg);
+  height: 100%;
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+

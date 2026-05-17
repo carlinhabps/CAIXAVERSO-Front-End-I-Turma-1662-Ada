@@ -1,0 +1,8 @@
+<div class="summary-container">
+  @for (item of summaryCards; track item.id) {
+    <div class="summary-item">
+      <h2>{{ item.value }}</h2>
+      <p>{{ item.type }}</p>
+    </div>
+  }
+</div>

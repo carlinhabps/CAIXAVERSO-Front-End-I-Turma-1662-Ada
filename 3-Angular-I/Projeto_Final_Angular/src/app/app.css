@@ -1,0 +1,42 @@
+header,
+.footer {
+  font-family: 'Julius Sans One', sans-serif;
+  margin: 1.2rem;
+  border-radius: 1rem;
+  background-color: var(--bg-lighter);
+  box-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+  font-weight: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  padding: 2rem;
+  color: var(--primary);
+}
+
+h1 span {
+  font-weight: 900;
+}
+
+img {
+  height: 3.5rem;
+  padding-right: 2rem;
+}
+
+main {
+  flex: 1;
+}
+
+.footer {
+  padding: 2rem;
+  font-weight: 600;
+}
+
+.footer p {
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--font);
+}

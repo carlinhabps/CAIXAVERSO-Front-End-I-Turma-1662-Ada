@@ -1,0 +1,18 @@
+<header>
+  <h1>
+    Olá, <span>{{ personName }}</span
+    >!
+  </h1>
+
+  <img src="{{ buttonTheme }}" alt="Tema" (click)="toggleTheme()" />
+</header>
+<main>
+  <app-summary-cards></app-summary-cards>
+
+  <router-outlet />
+</main>
+<footer class="footer">
+  <p>2026 | Controle Financeiro</p>
+  <p>© Carla Beatriz | CAIXAVERSO | Dev Front-end</p>
+  <p>AdaTech | Turma 1662 | Angular I</p>
+</footer>
