@@ -1,7 +1,7 @@
 header,
 .footer {
   font-family: 'Julius Sans One', sans-serif;
-  margin: 1.2rem;
+  margin: .8rem 1.2rem;
   border-radius: 1rem;
   background-color: var(--bg-lighter);
   box-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
@@ -10,6 +10,10 @@ header,
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+header {
+  margin-top: 1.2rem;
 }
 
 h1 {
@@ -30,8 +34,10 @@ main {
   flex: 1;
 }
 
+
 .footer {
   padding: 2rem;
+   margin-bottom: 1.2rem;
   font-weight: 600;
 }
 

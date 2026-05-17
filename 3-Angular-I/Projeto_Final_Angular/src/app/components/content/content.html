@@ -1,0 +1,27 @@
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Categoria</th>
+      <th>Descrição</th>
+      <th>Valor</th>
+      <th>C / D</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of transactionList; track item.id) {
+      <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.value }}</td>
+        <td>{{ item.type }}</td>
+        <td class="action">
+          <button>Alterar</button>
+          <button>Excluir</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

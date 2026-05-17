@@ -8,9 +8,10 @@
 
 :root {
   font-size: 10px;
+  /* font-family: 'Finlandica Headline', sans-serif; */
+  font-family: 'Quicksand', sans-serif;
   /* font-family: "Montserrat", sans-serif; */
-  /* font-family: "Quicksand", sans-serif; */
-  font-family: 'Finlandica Headline', sans-serif;
+
   scroll-behavior: smooth;
   scroll-padding-top: 10rem;
 
@@ -20,8 +21,6 @@
 
   --primary: #b6087c;
   --secondary: #7f5cff;
-
-  color: var(--font);
 }
 
 .dark {
@@ -33,6 +32,9 @@
 body {
   background-color: var(--bg);
   height: 100%;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--font);
 }
 
 app-root {
@@ -40,4 +42,3 @@ app-root {
   display: flex;
   flex-direction: column;
 }
-

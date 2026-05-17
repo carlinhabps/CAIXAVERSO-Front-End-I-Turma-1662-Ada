@@ -1,0 +1,8 @@
+.filter {
+  margin: .8rem 1.2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: var(--bg-lighter);
+  box-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+  width: calc((100% - 2.4rem));
+}
