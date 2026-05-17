@@ -13,7 +13,7 @@ th {
 }
 
 td {
-  border-top: 0.2rem solid var(--secondary);
+  border-top: 0.2rem solid var(--primary);
   text-align: center;
 }
 
@@ -30,11 +30,16 @@ td {
 .action button {
   all: unset;
   cursor: pointer;
-  padding: .2rem .6rem;
+  padding: 0.2rem 0.6rem;
   min-width: 4.5rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: var(--bg);
-  color: var(--secondary);
+  color: var(--primary);
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+.action button:hover {
+  background-color: var(--primary);
+  color: var(--bg-lighter);
 }

@@ -20,9 +20,8 @@
   --bg-lighter: #fafafa;
 
   --primary: #b6087c;
-  --secondary: #7f5cff;
 
-  --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+  --default-shadow: 2px 2px 3px 0px rgba(182, 8, 124, 0.42);
   --default-padding: 1.5rem;
   --default-margin: 0.8rem 1.2rem;
   --default-border-radius: 1rem;
@@ -32,6 +31,10 @@
   --font: #feecf1;
   --bg: #353132;
   --bg-lighter: #403b3c;
+
+  --primary: #7f5cff;
+
+  --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
 }
 
 body {
