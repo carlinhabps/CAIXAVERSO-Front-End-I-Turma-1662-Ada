@@ -21,6 +21,11 @@
 
   --primary: #b6087c;
   --secondary: #7f5cff;
+
+  --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+  --default-padding: 1.5rem;
+  --default-margin: 0.8rem 1.2rem;
+  --default-border-radius: 1rem;
 }
 
 .dark {

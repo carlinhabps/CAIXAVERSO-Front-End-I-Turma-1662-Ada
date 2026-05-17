@@ -1,43 +1,80 @@
 form {
+  background-color: var(--bg-lighter);
+  box-shadow: var(--default-shadow);
+  margin: var(--default-margin);
+  padding: var(--default-padding);
+  border-radius: var(--default-border-radius);
+  width: calc((100% - 2.4rem));
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.8rem 1.2rem;
-  gap: 0.8rem;
-  color: var(--font);
+  gap: 0.5rem;
 }
+
 .new-register,
 button {
-  padding: 2rem;
-  border: none;
-  border-radius: 1rem;
-  background-color: var(--bg-lighter);
-  box-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
-  width: calc((100% - 2.4rem));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font: inherit;
 }
 
 .new-register {
-  &.category {
-    color: var(--font);
-
-    width: 30rem;
-  }
-  &.value {
-    width: 25rem;
-  }
-}
-button {
-  text-transform: uppercase;
-  cursor: pointer;
-  width: 18rem;
-  border-radius: 0.5rem;
+  border: none;
+  color: var(--font);
+  font-weight: 500;
   background-color: var(--bg);
-  color: var(--secondary);
-  font-weight: 600;
+  width: 30rem;
+  &.description {
+    width: 100%;
+  }
 }
 
-input:focus,
-button:focus {
+select:focus,
+input:focus {
   border: 0.16rem solid var(--secondary);
-  outline: none; /* remove a borda padrão do navegador */
+  outline: none;
+}
+
+select option {
+  background-color: var(--bg-lighter);
+}
+
+select option:hover,
+select option:checked {
+  background-color: var(--secondary);
+  color: var(--bg-lighter);
+}
+
+button {
+  max-width: 10rem;
+  font-weight: 600;
+  background-color: transparent;
+  border: 1.6px solid var(--secondary);
+  color: var(--secondary);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--secondary);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+button:hover::after {
+  width: 100%;
+}
+
+button:hover {
+  color: var(--bg-lighter);
 }

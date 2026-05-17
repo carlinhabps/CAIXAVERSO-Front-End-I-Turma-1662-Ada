@@ -1,9 +1,9 @@
 table {
-  margin: .8rem 1.2rem;
-  padding: 2rem;
-  border-radius: 1rem;
+  margin: var(--default-margin);
+  padding: var(--default-padding);
+  border-radius: var(--default-border-radius);
   background-color: var(--bg-lighter);
-  box-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+  box-shadow: var(--default-shadow);
   width: calc((100% - 2.4rem));
 }
 
