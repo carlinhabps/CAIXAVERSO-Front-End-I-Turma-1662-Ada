@@ -1,45 +1,34 @@
-import { Component } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TransactionService } from '../../service/transaction.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-content',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './content.html',
   styleUrl: './content.css',
 })
-export class Content {
-  transactionList = [
-    {
-      id: uuidv4(),
-      description: 'descrição',
-      type: 1,
-      category: 'categoria',
-      date: new Date(),
-      value: 156.5,
-    },
-    {
-      id: uuidv4(),
-      description: 'descrição',
-      type: 1,
-      category: 'categoria',
-      date: new Date(),
-      value: 156.5,
-    },
-    {
-      id: uuidv4(),
-      description: 'descrição',
-      type: 1,
-      category: 'categoria',
-      date: new Date(),
-      value: 156.5,
-    },
-    {
-      id: uuidv4(),
-      description: 'descrição',
-      type: 1,
-      category: 'categoria',
-      date: new Date(),
-      value: 156.5,
-    },
-  ];
+export class Content implements OnInit {
+  transactionList: any[] = [];
+
+  constructor(
+    private transactionService: TransactionService,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit(): void {
+    this.loadTransactions();
+  }
+
+  loadTransactions() {
+    this.transactionService.getTransactions().subscribe({
+      next: (data) => {
+        this.transactionList = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Erro ao carregar transações:', err);
+      },
+    });
+  }
 }
