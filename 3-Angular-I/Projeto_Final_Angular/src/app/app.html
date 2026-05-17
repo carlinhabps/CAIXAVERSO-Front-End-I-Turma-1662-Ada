@@ -7,10 +7,13 @@
   <img [src]="buttonTheme" alt="Tema" (click)="toggleTheme()" />
 </header>
 <main>
-  <app-summary-cards></app-summary-cards>
+  <app-summary-cards [income]="incomeTotal" [expenses]="expensesTotal"> </app-summary-cards>
+
   <app-filter></app-filter>
+
   <app-new-register></app-new-register>
-  <app-content></app-content>
+
+  <app-content [transactionList]="transactionListApi"> </app-content>
 
   <router-outlet />
 </main>

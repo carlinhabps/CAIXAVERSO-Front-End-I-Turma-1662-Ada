@@ -8,23 +8,23 @@ Desenvolver uma aplicação web de controle financeiro pessoal (Single Page Appl
 
 ### 1.1. Painel Resumo (Dashboard)
 
-* **Cards de Resumo:** A tela principal deve exibir cards consolidando as informações do mês atual:
-  * Total de Entradas (Receitas)
-  * Total de Saídas (Despesas)
-  * Saldo Atual (Entradas - Saídas)
-* **Visualização em Tabela:** Apresentar uma tabela listando todos os registros do mês.
-* **Filtros:** O usuário deve ser capaz de filtrar os dados da tabela por **Mês** e por **Categoria** (utilizando um `select<span class="token operator">-</span>option`).
+* [X] **Cards de Resumo:** A tela principal deve exibir cards consolidando as informações do mês atual:
+  * [X] Total de Entradas (Receitas)
+  * [X] Total de Saídas (Despesas)
+  * [X] Saldo Atual (Entradas - Saídas)
+* [X] **Visualização em Tabela:** Apresentar uma tabela listando todos os registros do mês.
+* [ ] **Filtros:** O usuário deve ser capaz de filtrar os dados da tabela por **Mês** e por **Categoria** (utilizando um `select<span class="token operator">-</span>option`).
 
 ### 1.2. Gestão de Registros (Lançamentos)
 
-* O usuário deve poder **adicionar** e **remover** registros financeiros.
-* Cada registro deve conter obrigatoriamente os seguintes campos:
-  * **ID:** Identificador único gerado automaticamente (oculto para o usuário). Sugestão: biblioteca `uuid` ou `crypto<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span>`.
-  * **Descrição:** Texto explicativo do lançamento (ex: "Conta de Luz", "Salário").
-  * **Tipo:** Entrada, Saída ou Investimento.
-  * **Categoria:** Categoria customizável atrelada ao tipo.
-  * **Data:** Data da ocorrência. *(Regra: O sistema não deve permitir o cadastro de datas futuras para despesas e receitas).*
-  * **Valor:** Valor monetário do registro.
+* [ ] O usuário deve poder **adicionar** e **remover** registros financeiros.
+* [ ] Cada registro deve conter obrigatoriamente os seguintes campos:
+  * [ ] **ID:** Identificador único gerado automaticamente (oculto para o usuário). Sugestão: biblioteca `uuid` ou `crypto<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span>`.
+  * [ ] **Descrição:** Texto explicativo do lançamento (ex: "Conta de Luz", "Salário").
+  * [ ] **Tipo:** Entrada, Saída ou Investimento.
+  * [ ] **Categoria:** Categoria customizável atrelada ao tipo.
+  * [ ] **Data:** Data da ocorrência. *(Regra: O sistema não deve permitir o cadastro de datas futuras para despesas e receitas).*
+  * [ ] **Valor:** Valor monetário do registro.
 
 ### 1.3. Metas de Gastos e Perfil Financeiro
 

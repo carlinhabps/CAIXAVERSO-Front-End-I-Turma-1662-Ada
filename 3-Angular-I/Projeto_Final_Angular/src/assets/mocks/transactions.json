@@ -10,7 +10,7 @@
   {
     "id": "2",
     "description": "Aluguel",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2026-01-10",
     "value": 1500
@@ -18,7 +18,7 @@
   {
     "id": "3",
     "description": "Supermercado",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2026-01-15",
     "value": 420
@@ -34,7 +34,7 @@
   {
     "id": "5",
     "description": "Plano de saúde",
-    "type": 0,
+    "type": 2,
     "category": "Saúde",
     "date": "2026-02-08",
     "value": 350
@@ -42,7 +42,7 @@
   {
     "id": "6",
     "description": "Cinema",
-    "type": 0,
+    "type": 2,
     "category": "Lazer",
     "date": "2026-02-20",
     "value": 60
@@ -58,7 +58,7 @@
   {
     "id": "8",
     "description": "Conta de luz",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2026-03-12",
     "value": 230
@@ -66,7 +66,7 @@
   {
     "id": "9",
     "description": "Restaurante",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2026-03-18",
     "value": 95
@@ -82,7 +82,7 @@
   {
     "id": "11",
     "description": "Internet",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2026-04-10",
     "value": 120
@@ -90,7 +90,7 @@
   {
     "id": "12",
     "description": "Academia",
-    "type": 0,
+    "type": 2,
     "category": "Saúde",
     "date": "2026-04-22",
     "value": 89
@@ -106,7 +106,7 @@
   {
     "id": "14",
     "description": "Mercado",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2026-05-14",
     "value": 510
@@ -114,7 +114,7 @@
   {
     "id": "15",
     "description": "Show — ingresso",
-    "type": 0,
+    "type": 2,
     "category": "Lazer",
     "date": "2026-05-25",
     "value": 180
@@ -130,7 +130,7 @@
   {
     "id": "102",
     "description": "Aluguel",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2025-07-10",
     "value": 1500
@@ -138,7 +138,7 @@
   {
     "id": "103",
     "description": "Supermercado",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2025-07-18",
     "value": 380
@@ -154,7 +154,7 @@
   {
     "id": "105",
     "description": "Conta de luz",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2025-08-12",
     "value": 210
@@ -162,7 +162,7 @@
   {
     "id": "106",
     "description": "Restaurante",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2025-08-22",
     "value": 120
@@ -178,7 +178,7 @@
   {
     "id": "108",
     "description": "Internet",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2025-09-10",
     "value": 120
@@ -186,7 +186,7 @@
   {
     "id": "109",
     "description": "Farmácia",
-    "type": 0,
+    "type": 2,
     "category": "Saúde",
     "date": "2025-09-19",
     "value": 75
@@ -202,7 +202,7 @@
   {
     "id": "111",
     "description": "Mercado",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2025-10-14",
     "value": 450
@@ -210,7 +210,7 @@
   {
     "id": "112",
     "description": "Cinema",
-    "type": 0,
+    "type": 2,
     "category": "Lazer",
     "date": "2025-10-28",
     "value": 60
@@ -226,7 +226,7 @@
   {
     "id": "114",
     "description": "Conta de água",
-    "type": 0,
+    "type": 2,
     "category": "Moradia",
     "date": "2025-11-11",
     "value": 95
@@ -234,7 +234,7 @@
   {
     "id": "115",
     "description": "Academia",
-    "type": 0,
+    "type": 2,
     "category": "Saúde",
     "date": "2025-11-23",
     "value": 89
@@ -250,7 +250,7 @@
   {
     "id": "117",
     "description": "Presentes de Natal",
-    "type": 0,
+    "type": 2,
     "category": "Lazer",
     "date": "2025-12-20",
     "value": 350
@@ -258,7 +258,7 @@
   {
     "id": "118",
     "description": "Ceia de Natal",
-    "type": 0,
+    "type": 2,
     "category": "Alimentação",
     "date": "2025-12-24",
     "value": 280
