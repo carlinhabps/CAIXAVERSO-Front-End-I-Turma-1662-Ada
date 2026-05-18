@@ -11,7 +11,7 @@
   border-radius: var(--default-border-radius);
   background-color: var(--bg-lighter);
   min-height: 7rem;
-  color: var(--font);
+  color: var(--primary);
   width: calc((100% - 2.4rem) / 3);
   gap: 0.5rem;
 
@@ -26,6 +26,14 @@
 }
 .summary-item p {
   font-style: italic;
+}
+
+.receita {
+  color: var(--green);
+}
+
+.despesa {
+  color: var(--red);
 }
 
 @media screen and (max-width: 425px) {

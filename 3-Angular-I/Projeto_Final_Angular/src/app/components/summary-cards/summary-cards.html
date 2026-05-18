@@ -1,6 +1,6 @@
 <div class="summary-container">
   @for (item of summaryCards; track item.id) {
-    <div class="summary-item">
+    <div [ngClass]="{ 'summary-item': true, receita: item.id === 1, despesa: item.id === 2 }">
       <h2>{{ item.value | currency: 'BRL' }}</h2>
       <p>{{ item.type }}</p>
     </div>
