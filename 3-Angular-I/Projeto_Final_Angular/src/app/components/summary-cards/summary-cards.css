@@ -26,4 +26,5 @@
 }
 .summary-item p {
   font-style: italic;
+  /* margin: inherit; */
 }

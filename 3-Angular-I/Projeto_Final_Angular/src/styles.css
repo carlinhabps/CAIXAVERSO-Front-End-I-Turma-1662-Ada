@@ -15,13 +15,15 @@
   scroll-behavior: smooth;
   scroll-padding-top: 10rem;
 
-  --font: #403b3c;
+  --font: #6A6264;
   --bg: #feecf1;
   --bg-lighter: #fafafa;
 
   --primary: #b6087c;
+  --red: #cf1f2e;
+  --green: #078635;
 
-  --default-shadow: 2px 2px 3px 0px rgba(182, 8, 124, 0.42);
+  --default-shadow: 2px 2px 3px 0px rgba(115, 28, 84, 0.75);
   --default-padding: 1.5rem;
   --default-margin: 0.8rem 1.2rem;
   --default-border-radius: 1rem;
@@ -32,7 +34,9 @@
   --bg: #353132;
   --bg-lighter: #403b3c;
 
-  --primary: #7f5cff;
+  --primary: #B67EFB;
+  --red: #ff8282;
+  --green: #53BA68;
 
   --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
 }

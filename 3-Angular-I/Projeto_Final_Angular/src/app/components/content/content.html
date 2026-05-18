@@ -1,27 +1,43 @@
-<table>
-  <thead>
-    <tr>
-      <th>Data</th>
-      <th>Categoria</th>
-      <th>Descrição</th>
-      <th>Valor</th>
-      <th>C / D</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of transactionList; track item.id) {
-      <tr>
-        <td>{{ item.date }}</td>
-        <td>{{ item.category }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.value }}</td>
-        <td>{{ item.type }}</td>
-        <td class="action">
-          <button>Alterar</button>
-          <button>Excluir</button>
-        </td>
+<div class="table-container">
+  <table class="table-cb">
+    <thead>
+      <tr class="table-header">
+        <th>Data</th>
+        <th>Categoria</th>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>C / D</th>
+        <th>Ações</th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (item of transactionList; track item.id) {
+        <tr [ngClass]="{ content: true, receita: item.type === 1, despesa: item.type === 2 }">
+          <td>
+            {{ moment(item.date).format('L') }}
+          </td>
+          <td class="left">{{ item.category }}</td>
+          <td class="left">{{ item.description }}</td>
+          <td class="right">
+            @if (item.type === 1) {
+              {{ item.value | currency: 'BRL' }}
+            } @else {
+              {{ -1 * item.value | currency: 'BRL' }}
+            }
+          </td>
+          <td class="left">
+            @if (item.type === 1) {
+              C
+            } @else {
+              D
+            }
+          </td>
+          <td class="action">
+            <button>Alterar</button>
+            <button>Excluir</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

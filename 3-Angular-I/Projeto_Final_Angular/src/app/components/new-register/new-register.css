@@ -41,8 +41,7 @@ select option {
   background-color: var(--bg-lighter);
 }
 
-select option:hover,
-select option:checked {
+select option:hover {
   background-color: var(--primary);
   color: var(--bg-lighter);
 }

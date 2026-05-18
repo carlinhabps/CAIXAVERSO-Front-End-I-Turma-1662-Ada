@@ -20,6 +20,7 @@ export class App implements OnInit {
     const theme = localStorage.getItem('tema');
     if (theme === 'dark') {
       document.body.classList.add('dark');
+      this.buttonTheme = 'assets/icons/day-and-night-2.png';
     }
   }
 
