@@ -15,7 +15,7 @@
   scroll-behavior: smooth;
   scroll-padding-top: 10rem;
 
-  --font: #6A6264;
+  --font: #6a6264;
   --bg: #feecf1;
   --bg-lighter: #fafafa;
 
@@ -34,9 +34,9 @@
   --bg: #353132;
   --bg-lighter: #403b3c;
 
-  --primary: #B67EFB;
+  --primary: #b67efb;
   --red: #ff8282;
-  --green: #53BA68;
+  --green: #53ba68;
 
   --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
 }
@@ -53,4 +53,28 @@ app-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 9px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  :root {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    font-size: 6px;
+  }
 }
