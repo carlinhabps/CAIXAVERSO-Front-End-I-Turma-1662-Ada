@@ -12,7 +12,13 @@
     </thead>
     <tbody>
       @for (item of transactionList; track item.id) {
-        <tr [ngClass]="{ content: true, receita: item.type === 1, despesa: item.type === 2 }">
+        <tr
+          [ngClass]="{
+            content: true,
+            receita: item.type === tipoReceita,
+            despesa: item.type === tipoDespesa,
+          }"
+        >
           <td>
             {{ moment(item.date).format('L') }}
           </td>

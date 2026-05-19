@@ -5,7 +5,13 @@ import { Filter } from './components/filter/filter';
 import { NewRegister } from './components/new-register/new-register';
 import { Content } from './components/content/content';
 import { RouterOutlet } from '@angular/router';
-import { TransactionService } from './service/transaction.service';
+import { Transaction, TransactionService } from './service/transaction.service';
+
+export const TIPO = {
+  SALDO: 0,
+  RECEITA: 1,
+  DESPESA: 2,
+};
 
 @Component({
   selector: 'app-root',
@@ -31,18 +37,22 @@ export class App implements OnInit {
 
   // ! --------------- CARREGAR DADOS DO BANCO ---------------
 
-  transactionListApi: any[] = [];
+  transactionListApi: Transaction[] = [];
   incomeTotal = 0;
   expensesTotal = 0;
 
   loadTransactions() {
-    this.transactionService.getTransactions().subscribe({
-      next: (data) => {
+    this.transactionService.readTransaction().subscribe({
+      next: (data: Transaction[]) => {
         this.transactionListApi = data;
 
-        this.incomeTotal = data.filter((t) => t.type === 1).reduce((acc, t) => acc + t.value, 0);
+        this.incomeTotal = data
+          .filter((t) => t.type === TIPO.RECEITA)
+          .reduce((acc, t) => acc + t.value, 0);
 
-        this.expensesTotal = data.filter((t) => t.type === 2).reduce((acc, t) => acc + t.value, 0);
+        this.expensesTotal = data
+          .filter((t) => t.type === TIPO.DESPESA)
+          .reduce((acc, t) => acc + t.value, 0);
 
         this.cdr.detectChanges();
       },

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TIPO } from '../../app';
 
 @Component({
   selector: 'app-summary-cards',
@@ -11,6 +12,9 @@ export class SummaryCards {
   @Input() income = 0;
   @Input() expenses = 0;
 
+  tipoReceita = TIPO.RECEITA;
+  tipoDespesa = TIPO.DESPESA;
+  
   get balance() {
     return this.income - this.expenses;
   }
@@ -18,17 +22,17 @@ export class SummaryCards {
   get summaryCards() {
     return [
       {
-        id: 1,
+        id: TIPO.RECEITA,
         type: 'Receitas',
         value: this.income,
       },
       {
-        id: 2,
+        id: TIPO.DESPESA,
         type: 'Despesas',
         value: this.expenses,
       },
       {
-        id: 0,
+        id: TIPO.SALDO,
         type: 'Saldo',
         value: this.balance,
       },
