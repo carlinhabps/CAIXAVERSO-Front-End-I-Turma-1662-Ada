@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Transaction {
+export interface TypeTransaction {
   id: string;
   description: string;
   type: number;
@@ -15,42 +15,35 @@ export interface Transaction {
   providedIn: 'root',
 })
 export class TransactionService {
-  private url = 'assets/mocks/transactions.json';
+  private _url = 'assets/mocks/transactions.json';
 
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
   // ! --------------- CREAT ---------------
 
-  creatTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.url, transaction);
+  creatTransaction(transaction: TypeTransaction): Observable<TypeTransaction> {
+    return this._http.post<TypeTransaction>(this._url, transaction);
   }
 
   // ! --------------- READ ---------------
 
-  readTransaction(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.url);
+  readTransaction(): Observable<TypeTransaction[]> {
+    return this._http.get<TypeTransaction[]>(this._url);
   }
 
-  readIdTransaction(id: string): Observable<Transaction> {
-    return this.http.get<Transaction>(`${this.url}/${id}`);
+  readIdTransaction(id: string): Observable<TypeTransaction> {
+    return this._http.get<TypeTransaction>(`${this._url}/${id}`);
   }
 
   // ! --------------- UPDATE ---------------
 
-  updateTransaction(id: string, transaction: Transaction): Observable<Transaction> {
-    return this.http.put<Transaction>(`${this.url}/${id}`, transaction);
+  updateTransaction(id: string, transaction: TypeTransaction): Observable<TypeTransaction> {
+    return this._http.put<TypeTransaction>(`${this._url}/${id}`, transaction);
   }
 
   // ! --------------- DELETE ---------------
 
-  deleteTransaction(id: string): Observable<Transaction> {
-    return this.http.delete<Transaction>(`${this.url}/${id}`);
+  deleteTransaction(id: string): Observable<TypeTransaction> {
+    return this._http.delete<TypeTransaction>(`${this._url}/${id}`);
   }
-  // deleteTransaction(id: string): Observable<void> {
-  //   return this.http.delete<void>(`${this.url}/${id}`);
-  // }
-
-  // postTransaction(): Observable<any[]> {
-  // localStorage.setItem('tabela', JSON.stringify(this.listaResumos));
-  // }
 }

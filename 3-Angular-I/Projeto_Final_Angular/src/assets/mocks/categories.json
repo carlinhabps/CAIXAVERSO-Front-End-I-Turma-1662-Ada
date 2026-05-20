@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1a",
+    "type": 1,
+    "name": "Receita"
+  },
+  {
+    "id": "1b",
+    "type": 1,
+    "name": "Receita Extra"
+  },
+  {
+    "id": "1c",
+    "type": 2,
+    "name": "Moradia"
+  },
+  {
+    "id": "1d",
+    "type": 2,
+    "name": "Alimentação"
+  },
+  {
+    "id": "1e",
+    "type": 2,
+    "name": "Saúde"
+  },
+  {
+    "id": "1f",
+    "type": 2,
+    "name": "Lazer"
+  }
+]

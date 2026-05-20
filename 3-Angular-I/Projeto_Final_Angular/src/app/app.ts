@@ -5,7 +5,7 @@ import { Filter } from './components/filter/filter';
 import { NewRegister } from './components/new-register/new-register';
 import { Content } from './components/content/content';
 import { RouterOutlet } from '@angular/router';
-import { Transaction, TransactionService } from './service/transaction.service';
+import { TransactionService, TypeTransaction } from './service/transaction.service';
 
 export const TIPO = {
   SALDO: 0,
@@ -31,19 +31,19 @@ export class App implements OnInit {
   }
 
   constructor(
-    private transactionService: TransactionService,
-    private cdr: ChangeDetectorRef,
+    private _transactionService: TransactionService,
+    private _cdr: ChangeDetectorRef,
   ) {}
 
-  // ! --------------- CARREGAR DADOS DO BANCO ---------------
+  // ! --------------- CARREGAR TRANSAÇÕES DO BANCO DE DADOS ---------------
 
-  transactionListApi: Transaction[] = [];
+  transactionListApi: TypeTransaction[] = [];
   incomeTotal = 0;
   expensesTotal = 0;
 
   loadTransactions() {
-    this.transactionService.readTransaction().subscribe({
-      next: (data: Transaction[]) => {
+    this._transactionService.readTransaction().subscribe({
+      next: (data: TypeTransaction[]) => {
         this.transactionListApi = data;
 
         this.incomeTotal = data
@@ -54,13 +54,19 @@ export class App implements OnInit {
           .filter((t) => t.type === TIPO.DESPESA)
           .reduce((acc, t) => acc + t.value, 0);
 
-        this.cdr.detectChanges();
+        this._cdr.detectChanges();
       },
       error: (err) => {
         console.error('Erro ao carregar transações:', err);
       },
     });
   }
+
+  // ! --------------- CATEGORIAS ---------------
+
+  // public categoryList() {
+  //   return
+  // }
 
   // ! --------------- TEMA DA TELA ---------------
 
