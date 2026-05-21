@@ -12,6 +12,27 @@ form {
   gap: 0.5rem;
 }
 
+/* ! ========== CATEGORIA ========== */
+
+.mat-mdc-option.mdc-list-item {
+  color: var(--font);
+}
+
+.mat-mdc-optgroup {
+  color: var(--primary);
+}
+
+.mat-mdc-option.mdc-list-item:hover {
+  background: var(--bg-lighter);
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+  color: var(--primary);
+}
+
+/* ! ========== BOTÃO ========== */
+
+
 .new-register,
 button {
   padding: 1rem;

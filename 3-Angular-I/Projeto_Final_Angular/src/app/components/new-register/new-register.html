@@ -1,14 +1,21 @@
-<!-- <div class="new-register"> -->
 <form action="">
-  <!-- <div class="new-register"> -->
-    <select name="category" id="category" class="new-register category">
-      <option value="0" selected disabled hidden>Categoria</option>
-      <option value="1">Receita</option>
-      <option value="2">Despesa</option>
-    </select>
-    <input class="new-register description" type="text" placeholder="Descrição" />
-    <input class="new-register value" type="number" placeholder="Valor" />
-  <!-- </div> -->
+  <!-- <select name="category" id="category" class="new-register category">
+    <option value="0" selected disabled hidden>Categoria</option>
+    <option value="1">Receita</option>
+    <option value="2">Despesa</option>
+  </select> -->
+
+  <mat-form-field>
+    <mat-label>Categoria</mat-label>
+    <mat-select>
+      <mat-option>-- None --</mat-option>
+      <mat-option value="1">Receita</mat-option>
+      <mat-option value="2">Despesa</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input class="new-register description" type="text" placeholder="Descrição" />
+
+  <input class="new-register value" type="number" placeholder="Valor" />
   <button>Registrar</button>
 </form>
-<!-- </div> -->

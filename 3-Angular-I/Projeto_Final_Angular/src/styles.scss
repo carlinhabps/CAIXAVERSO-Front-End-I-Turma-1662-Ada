@@ -1,0 +1,154 @@
+@use '@angular/material' as mat;
+
+@import url('https://fonts.googleapis.com/css2?family=Datatype:wght@100..900&family=Finlandica+Headline:ital,wght@0,100..900;1,100..900&family=Fleur+De+Leah&family=Indie+Flower&family=Julius+Sans+One&family=Major+Mono+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 10px;
+  /* font-family: 'Finlandica Headline', sans-serif; */
+  font-family: 'Quicksand', sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+
+  scroll-behavior: smooth;
+  scroll-padding-top: 10rem;
+
+  --font: #6a6264;
+  --bg: #feecf1;
+  --bg-lighter: #fafafa;
+
+  --primary: #b6087c;
+  --red: #cf1f2e;
+  --green: #078635;
+
+  --default-shadow: 2px 2px 3px 0px rgba(115, 28, 84, 0.75);
+  --default-padding: 1.5rem;
+  --default-margin: 0.8rem 1.2rem;
+  --default-border-radius: 1rem;
+
+  // ! ========== CALENDÁRIO ==========
+
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-elevation-shadow: var(--default-shadow),
+      calendar-body-label-text-color: var(--primary),
+      calendar-container-background-color: var(--bg),
+      calendar-container-text-color: var(--primary),
+      calendar-date-hover-state-background-color: var(--bg-lighter),
+      calendar-date-in-range-state-background-color: var(--bg-lighter),
+      calendar-date-outline-color: var(--bg-lighter),
+      calendar-date-preview-state-outline-color: var(--primary),
+      calendar-date-selected-state-background-color: var(--primary),
+      calendar-date-selected-state-text-color: var(--bg-lighter),
+      calendar-date-text-color: var(--font),
+      calendar-date-today-outline-color: var(--primary),
+      calendar-header-divider-color: var(--primary),
+      calendar-navigation-button-icon-color: var(--primary),
+      calendar-period-button-icon-color: var(--primary),
+      calendar-period-button-text-color: var(--primary),
+      toggle-icon-color: var(--primary),
+    )
+  );
+
+  // ! ========== CATEGORIA ==========
+
+  @include mat.select-overrides(
+    (
+      container-elevation-shadow: var(--default-shadow),
+      panel-background-color: var(--bg),
+      enabled-trigger-text-color: var(--primary),
+      enabled-arrow-color: var(--primary),
+      focused-arrow-color: var(--primary),
+    )
+  );
+}
+
+.dark {
+  --font: #feecf1;
+  --bg: #353132;
+  --bg-lighter: #403b3c;
+
+  --primary: #b67efb;
+  --red: #ff8282;
+  --green: #53ba68;
+
+  --default-shadow: 2px 2px 5px 0px rgba(56, 0, 153, 0.42);
+
+  // ! ========== CALENDÁRIO ==========
+
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-elevation-shadow: var(--default-shadow),
+      calendar-body-label-text-color: var(--font),
+      calendar-container-background-color: var(--bg),
+      calendar-container-text-color: var(--primary),
+      calendar-date-hover-state-background-color: var(--bg-lighter),
+      calendar-date-in-range-state-background-color: var(--bg-lighter),
+      calendar-date-outline-color: var(--bg-lighter),
+      calendar-date-preview-state-outline-color: var(--primary),
+      calendar-date-selected-state-background-color: var(--primary),
+      calendar-date-selected-state-text-color: var(--bg-lighter),
+      calendar-date-text-color: var(--font),
+      calendar-date-today-outline-color: var(--primary),
+      calendar-header-divider-color: var(--primary),
+      calendar-navigation-button-icon-color: var(--primary),
+      calendar-period-button-icon-color: var(--primary),
+      calendar-period-button-text-color: var(--primary),
+      toggle-icon-color: var(--primary),
+    )
+  );
+
+  // ! ========== CATEGORIA ==========
+
+  @include mat.select-overrides(
+    (
+      container-elevation-shadow: var(--default-shadow),
+      panel-background-color: var(--bg),
+      enabled-trigger-text-color: var(--primary),
+      enabled-arrow-color: var(--primary),
+      focused-arrow-color: var(--primary),
+    )
+  );
+}
+
+body {
+  background-color: var(--bg);
+  height: 100%;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--font);
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 9px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  :root {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    font-size: 6px;
+  }
+}
