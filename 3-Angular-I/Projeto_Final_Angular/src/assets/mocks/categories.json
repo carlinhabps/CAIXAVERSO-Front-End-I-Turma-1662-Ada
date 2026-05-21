@@ -1,32 +1,36 @@
 [
   {
-    "id": "1a",
-    "type": 1,
-    "name": "Receita"
+    "type": "Receitas",
+    "categories": [
+      {
+        "id": "1a",
+        "name": "Receita"
+      },
+      {
+        "id": "1b",
+        "name": "Receita Extra"
+      }
+    ]
   },
   {
-    "id": "1b",
-    "type": 1,
-    "name": "Receita Extra"
-  },
-  {
-    "id": "1c",
-    "type": 2,
-    "name": "Moradia"
-  },
-  {
-    "id": "1d",
-    "type": 2,
-    "name": "Alimentação"
-  },
-  {
-    "id": "1e",
-    "type": 2,
-    "name": "Saúde"
-  },
-  {
-    "id": "1f",
-    "type": 2,
-    "name": "Lazer"
+    "type": "Despesas",
+    "categories": [
+      {
+        "id": "1c",
+        "name": "Moradia"
+      },
+      {
+        "id": "1d",
+        "name": "Alimentação"
+      },
+      {
+        "id": "1e",
+        "name": "Saúde"
+      },
+      {
+        "id": "1f",
+        "name": "Lazer"
+      }
+    ]
   }
 ]

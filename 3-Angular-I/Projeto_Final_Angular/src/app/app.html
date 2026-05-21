@@ -9,11 +9,11 @@
 <main>
   <app-summary-cards [income]="incomeTotal" [expenses]="expensesTotal"> </app-summary-cards>
 
-  <app-filter></app-filter>
+  <app-filter [categoriesList]="categoryListApi"></app-filter>
 
   <app-new-register></app-new-register>
 
-  <app-content [transactionList]="transactionListApi"> </app-content>
+  <app-content [transactionsList]="transactionListApi"> </app-content>
 
   <router-outlet />
 </main>

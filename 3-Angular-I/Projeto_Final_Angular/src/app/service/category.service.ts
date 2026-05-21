@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface TypeCategory {
+interface TypeCategory {
   id: string;
-  type: number;
   name: string;
+}
+
+export interface TypeCategoryGroup {
+  type: string;
+  categories: TypeCategory[];
 }
 
 @Injectable({
@@ -18,29 +22,33 @@ export class CategoryService {
 
   // ! --------------- CREAT ---------------
 
-  creatCategory(category: TypeCategory): Observable<TypeCategory> {
-    return this._http.post<TypeCategory>(this._url, category);
+  creatCategory(category: TypeCategoryGroup): Observable<TypeCategoryGroup> {
+    return this._http.post<TypeCategoryGroup>(this._url, category);
   }
 
   // ! --------------- READ ---------------
 
-  readCategory(): Observable<TypeCategory[]> {
-    return this._http.get<TypeCategory[]>(this._url);
+  readCategory(): Observable<TypeCategoryGroup[]> {
+    return this._http.get<TypeCategoryGroup[]>(this._url);
   }
 
-  readIdCategory(id: string): Observable<TypeCategory> {
-    return this._http.get<TypeCategory>(`${this._url}/${id}`);
+  readIdCategory(type: number, id: string): Observable<TypeCategoryGroup> {
+    return this._http.get<TypeCategoryGroup>(`${this._url}/${type}/${id}`);
   }
 
   // ! --------------- UPDATE ---------------
 
-  updateCategory(id: string, category: TypeCategory): Observable<TypeCategory> {
-    return this._http.put<TypeCategory>(`${this._url}/${id}`, category);
+  updateCategory(
+    type: number,
+    id: string,
+    category: TypeCategoryGroup,
+  ): Observable<TypeCategoryGroup> {
+    return this._http.put<TypeCategoryGroup>(`${this._url}/${type}/${id}`, category);
   }
 
   // ! --------------- DELETE ---------------
 
-  deleteCategory(id: string): Observable<TypeCategory> {
-    return this._http.delete<TypeCategory>(`${this._url}/${id}`);
+  deleteCategory(type: number, id: string): Observable<TypeCategoryGroup> {
+    return this._http.delete<TypeCategoryGroup>(`${this._url}/${type}/${id}`);
   }
 }

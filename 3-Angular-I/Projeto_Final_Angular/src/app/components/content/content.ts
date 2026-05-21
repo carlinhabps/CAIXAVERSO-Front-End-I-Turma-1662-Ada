@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import moment from 'moment';
 import { TIPO } from '../../app';
+import { TypeTransaction } from '../../service/transaction.service';
 
 @Component({
   selector: 'app-content',
@@ -10,7 +11,7 @@ import { TIPO } from '../../app';
   styleUrl: './content.css',
 })
 export class Content {
-  @Input() transactionList: any[] = [];
+  @Input() transactionsList: TypeTransaction[] = [];
 
   moment = moment;
 

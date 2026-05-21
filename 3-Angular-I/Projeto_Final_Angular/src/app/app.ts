@@ -6,6 +6,7 @@ import { NewRegister } from './components/new-register/new-register';
 import { Content } from './components/content/content';
 import { RouterOutlet } from '@angular/router';
 import { TransactionService, TypeTransaction } from './service/transaction.service';
+import { CategoryService, TypeCategoryGroup } from './service/category.service';
 
 export const TIPO = {
   SALDO: 0,
@@ -22,6 +23,7 @@ export const TIPO = {
 export class App implements OnInit {
   ngOnInit(): void {
     this.loadTransactions();
+    this.loadCategories();
 
     const theme = localStorage.getItem('tema');
     if (theme === 'dark') {
@@ -32,10 +34,11 @@ export class App implements OnInit {
 
   constructor(
     private _transactionService: TransactionService,
+    private _categoryService: CategoryService,
     private _cdr: ChangeDetectorRef,
   ) {}
 
-  // ! --------------- CARREGAR TRANSAÇÕES DO BANCO DE DADOS ---------------
+  // ! --------------- TRANSAÇÕES ---------------
 
   transactionListApi: TypeTransaction[] = [];
   incomeTotal = 0;
@@ -57,16 +60,25 @@ export class App implements OnInit {
         this._cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Erro ao carregar transações:', err);
+        console.error('Erro ao carregar a lista de transações:', err);
       },
     });
   }
 
   // ! --------------- CATEGORIAS ---------------
 
-  // public categoryList() {
-  //   return
-  // }
+  categoryListApi: TypeCategoryGroup[] = [];
+
+  loadCategories() {
+    this._categoryService.readCategory().subscribe({
+      next: (data: TypeCategoryGroup[]) => {
+        this.categoryListApi = data;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar a lista das categorias:', err);
+      },
+    });
+  }
 
   // ! --------------- TEMA DA TELA ---------------
 
