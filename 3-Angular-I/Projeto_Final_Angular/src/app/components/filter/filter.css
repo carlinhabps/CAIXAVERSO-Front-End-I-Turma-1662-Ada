@@ -5,19 +5,24 @@
   background-color: var(--bg-lighter);
   box-shadow: var(--default-shadow);
   width: calc((100% - 2.4rem));
-}
 
-.filter form {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .filterContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+.partition {
+  font-size: 6rem;
+  font-weight: 100;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 /* ! ========== CALENDÁRIO ========== */
@@ -38,30 +43,11 @@
   width: calc((100% - 2.4rem));
 }
 
-/* ! ========== CATEGORIA ========== */
-
-.mat-mdc-option.mdc-list-item {
-  color: var(--font);
-}
-
-.mat-mdc-optgroup {
-  color: var(--primary);
-}
-
-.mat-mdc-option.mdc-list-item:hover {
-  background: var(--bg-lighter);
-}
-
-.mat-mdc-option.mdc-list-item--selected {
-  color: var(--primary);
-}
-
 /* ! ========== C/D ========== */
 
 .type {
   padding: 0.4rem;
   border-radius: 0.5rem;
-  width: 100%;
   font: inherit;
 
   width: 5rem;
@@ -121,4 +107,76 @@
 
 .type.selected:hover::after {
   width: 0;
+}
+
+/* ! ========== CATEGORIA ========== */
+
+.mat-mdc-option.mdc-list-item {
+  color: var(--font);
+}
+
+.mat-mdc-optgroup {
+  color: var(--primary);
+}
+
+.mat-mdc-option.mdc-list-item:hover {
+  background: var(--bg-lighter);
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+  color: var(--primary);
+}
+
+/* ! ========== BOTÕES FILTRO ========== */
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttonFilter,
+.buttonRegister {
+  padding: 1.2rem 0;
+  border-radius: 0.5rem;
+  font: inherit;
+
+  width: 12.6rem;
+  font-weight: 600;
+  background-color: transparent;
+  border: 1.6px solid var(--bg);
+  box-shadow: var(--default-shadow);
+  color: var(--font);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.buttonFilter::after,
+.buttonRegister::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--bg);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.buttonFilter:hover,
+.buttonRegister:hover {
+  color: var(--primary);
+}
+
+.buttonFilter:hover::after,
+.buttonRegister:hover::after {
+  width: 100%;
+}
+
+.buttonRegister {
+  width: auto;
+  padding: 1.2rem;
+  font-weight: 900;
+  color: var(--primary);
 }

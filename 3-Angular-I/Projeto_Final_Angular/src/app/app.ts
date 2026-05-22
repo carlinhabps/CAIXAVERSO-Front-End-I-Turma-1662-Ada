@@ -95,4 +95,16 @@ export class App implements OnInit {
   // ! --------------- PERFIL DE CONSULTA ---------------
 
   personName = 'Carla Beatriz';
+
+  // ! --------------- NOVO REGISTRO ---------------
+
+  showNewRegister = false;
+
+  onRegisterClick() {
+    this.showNewRegister = true;
+  }
+
+  offRegisterClick() {
+    this.showNewRegister = false;
+  }
 }

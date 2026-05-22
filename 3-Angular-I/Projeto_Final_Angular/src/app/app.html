@@ -9,9 +9,11 @@
 <main>
   <app-summary-cards [income]="incomeTotal" [expenses]="expensesTotal"> </app-summary-cards>
 
-  <app-filter [categoriesList]="categoryListApi"></app-filter>
+  <app-filter [categoriesList]="categoryListApi" (registerClicked)="onRegisterClick()"></app-filter>
 
-  <app-new-register></app-new-register>
+  @if (showNewRegister) {
+    <app-new-register (closeRegister)="offRegisterClick()"></app-new-register>
+  }
 
   <app-content [transactionsList]="transactionListApi"> </app-content>
 

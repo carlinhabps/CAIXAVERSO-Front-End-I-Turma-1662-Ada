@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TIPO } from '../../app';
@@ -27,6 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './filter.css',
 })
 export class Filter {
+  @Output() registerClicked = new EventEmitter<void>();
+
   @Input()
   set categoriesList(value: TypeCategoryGroup[]) {
     this._categoriesList = value;
@@ -39,8 +41,6 @@ export class Filter {
 
   categoriesNameList: TypeCategoryGroup[] = [];
 
-  
-
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
@@ -50,5 +50,9 @@ export class Filter {
   }
   set categoryControl(value) {
     this._categoryControl = value;
+  }
+
+  onRegisterClick() {
+    return this.registerClicked.emit();
   }
 }
