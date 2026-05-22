@@ -21,6 +21,8 @@ export enum TIPO {
   styleUrl: './app.css',
 })
 export class App implements OnInit {
+  // ! ========== CARREGAMENTO DA PÁGINA E CONSTRUCTOR ==========
+
   ngOnInit(): void {
     this.loadTransactions();
     this.loadCategories();
@@ -38,7 +40,7 @@ export class App implements OnInit {
     private _cdr: ChangeDetectorRef,
   ) {}
 
-  // ! --------------- TRANSAÇÕES ---------------
+  // ! ========== TRANSAÇÕES ==========
 
   transactionListApi: TypeTransaction[] = [];
   incomeTotal = 0;
@@ -65,7 +67,7 @@ export class App implements OnInit {
     });
   }
 
-  // ! --------------- CATEGORIAS ---------------
+  // ! ========== CATEGORIAS ==========
 
   categoryListApi: TypeCategoryGroup[] = [];
 
@@ -83,7 +85,7 @@ export class App implements OnInit {
     });
   }
 
-  // ! --------------- TEMA DA TELA ---------------
+  // ! ========== TEMA DA TELA ==========
 
   buttonTheme = 'assets/icons/day-and-night-1.png';
 
@@ -95,11 +97,11 @@ export class App implements OnInit {
       : 'assets/icons/day-and-night-1.png';
   }
 
-  // ! --------------- PERFIL DE CONSULTA ---------------
+  // ! ========== PERFIL DE CONSULTA ==========
 
   personName = 'Carla Beatriz';
 
-  // ! --------------- NOVO REGISTRO ---------------
+  // ! ========== NOVO REGISTRO ==========
 
   showNewRegister = false;
 
@@ -110,4 +112,6 @@ export class App implements OnInit {
   offRegisterClick() {
     this.showNewRegister = false;
   }
+
+  // ! ========== EM CONSTRUÇÃO ==========
 }

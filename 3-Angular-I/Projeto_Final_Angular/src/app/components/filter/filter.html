@@ -9,9 +9,10 @@
     <div class="splitFilterTwo angularMaterialContainer">
       <mat-form-field class="dateFilter">
         <mat-label class="labelCalendar">Período</mat-label>
-        <mat-date-range-input [rangePicker]="rangePicker">
-          <input matStartDate placeholder="Início" />
-          <input matEndDate placeholder="Fim" />
+
+        <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="dateRange">
+          <input matStartDate formControlName="start" placeholder="Início" />
+          <input matEndDate formControlName="end" placeholder="Fim" />
         </mat-date-range-input>
         <!-- <mat-hint>dd/mm/aaaa – dd/mm/aaaa</mat-hint> -->
         <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
@@ -56,8 +57,8 @@
       </div>
 
       <div class="buttonsContainer">
-        <button class="buttonFilter" (click)="consultFilteredContent()">Consultar</button>
-        <button class="buttonFilter">Limpar Filtros</button>
+        <button class="buttonFilter" (click)="applyFilteredContent()">Aplicar</button>
+        <button class="buttonFilter" (click)="cleanFilteredContent()">Limpar</button>
       </div>
     </div>
   </div>

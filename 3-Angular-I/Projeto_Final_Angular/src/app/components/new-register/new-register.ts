@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { TIPO } from '../../app';
 
 @Component({
   selector: 'app-new-register',
@@ -20,10 +21,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './new-register.css',
 })
 export class NewRegister {
+  // ! ========== DEFAULT ========== TIPO TRANSAÇÃO ==========
+  tipoReceita = TIPO.RECEITA;
+  tipoDespesa = TIPO.DESPESA;
+
+  // ! ========== LINK COM APP ========== FECHAR O COMPONENTE NEW-REGISTER ==========
   @Output() closeRegister = new EventEmitter();
   value: any;
 
   offRegisterClick() {
     return this.closeRegister.emit();
   }
+
+  // ! ========== EM CONSTRUÇÃO ==========
 }

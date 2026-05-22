@@ -11,10 +11,15 @@ import { TypeTransaction } from '../../service/transaction.service';
   styleUrl: './content.css',
 })
 export class Content {
-  @Input() transactionsList: TypeTransaction[] = [];
+  // ! ========== DEFAULT ========== TIPO TRANSAÇÃO e BIBLIOTECA DATA ==========
+  tipoReceita = TIPO.RECEITA;
+  tipoDespesa = TIPO.DESPESA;
 
   moment = moment;
 
-  tipoReceita = TIPO.RECEITA;
-  tipoDespesa = TIPO.DESPESA;
+  // ! ========== LINK COM APP ========== LISTA DE TRANSAÇÕES ==========
+
+  @Input() transactionsList: TypeTransaction[] = [];
+
+  // ! ========== EM CONSTRUÇÃO ==========
 }

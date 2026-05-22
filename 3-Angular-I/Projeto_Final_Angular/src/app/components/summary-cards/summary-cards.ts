@@ -9,12 +9,14 @@ import { TIPO } from '../../app';
   styleUrl: './summary-cards.css',
 })
 export class SummaryCards {
+  // ! ========== DEFAULT ========== TIPO TRANSAÇÃO ==========
+  tipoReceita = TIPO.RECEITA;
+  tipoDespesa = TIPO.DESPESA;
+
+  // ! ========== LINK COM APP ========== VALORES TOTAIS ==========
   @Input() income = 0;
   @Input() expenses = 0;
 
-  tipoReceita = TIPO.RECEITA;
-  tipoDespesa = TIPO.DESPESA;
-  
   get balance() {
     return this.income - this.expenses;
   }
