@@ -73,7 +73,10 @@ export class App implements OnInit {
     this._categoryService.readCategory().subscribe({
       next: (data: TypeCategoryGroup[]) => {
         this.categoryListApi = data;
+
+        this._cdr.detectChanges();
       },
+
       error: (err) => {
         console.error('Erro ao carregar a lista das categorias:', err);
       },

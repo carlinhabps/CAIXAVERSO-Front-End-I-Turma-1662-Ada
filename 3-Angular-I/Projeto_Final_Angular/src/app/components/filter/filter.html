@@ -21,8 +21,14 @@
   </mat-form-field>
 
   <div class="filterContainer">
-    <button [ngClass]="{ type: true, selected: true }">C</button>
-    <button [ngClass]="{ type: true, selected: false }">D</button>
+    <button [ngClass]="{ type: true, selected: selectedIncomes }" (click)="incomeFilter()">
+      C
+      <p>Créditos</p>
+    </button>
+    <button [ngClass]="{ type: true, selected: selectedExpenses }" (click)="expensesFilter()">
+      D
+      <p>Débitos</p>
+    </button>
   </div>
 
   <div class="filterContainer">
@@ -43,7 +49,7 @@
   </div>
 
   <div class="buttonsContainer">
-    <button class="buttonFilter">Consultar</button>
+    <button class="buttonFilter" (click)="consultFilteredContent()">Consultar</button>
     <button class="buttonFilter">Limpar Filtros</button>
   </div>
 </div>

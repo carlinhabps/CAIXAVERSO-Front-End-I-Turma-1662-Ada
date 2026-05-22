@@ -55,4 +55,18 @@ export class Filter {
   onRegisterClick() {
     return this.registerClicked.emit();
   }
+
+  selectedIncomes = false;
+  incomeFilter() {
+    this.selectedIncomes = !this.selectedIncomes;
+  }
+
+  selectedExpenses = false;
+  expensesFilter() {
+    this.selectedExpenses = !this.selectedExpenses;
+  }
+
+  consultFilteredContent() {
+    console.log('teste');
+  }
 }
