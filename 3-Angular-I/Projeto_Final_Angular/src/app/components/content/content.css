@@ -79,6 +79,8 @@ tr {
   }
 }
 
+/* ! ========== RESPONSIVIDADE ========== */
+
 @media screen and (max-width: 640px) {
   .action {
     flex-direction: column;

@@ -8,11 +8,11 @@ import { RouterOutlet } from '@angular/router';
 import { TransactionService, TypeTransaction } from './service/transaction.service';
 import { CategoryService, TypeCategoryGroup } from './service/category.service';
 
-export const TIPO = {
-  SALDO: 0,
-  RECEITA: 1,
-  DESPESA: 2,
-};
+export enum TIPO {
+  SALDO = 0,
+  RECEITA = 1,
+  DESPESA = 2,
+}
 
 @Component({
   selector: 'app-root',

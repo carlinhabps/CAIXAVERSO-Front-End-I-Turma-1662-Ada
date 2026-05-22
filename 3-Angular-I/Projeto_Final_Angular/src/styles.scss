@@ -129,6 +129,8 @@ app-root {
   flex-direction: column;
 }
 
+// ! ========== RESPONSIVIDADE ==========
+
 @media screen and (max-width: 768px) {
   :root {
     font-size: 9px;
@@ -147,7 +149,7 @@ app-root {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 360px) {
   :root {
     font-size: 6px;
   }

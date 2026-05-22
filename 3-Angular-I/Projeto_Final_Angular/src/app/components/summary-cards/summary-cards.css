@@ -36,6 +36,8 @@
   color: var(--red);
 }
 
+/* ! ========== RESPONSIVIDADE ========== */
+
 @media screen and (max-width: 425px) {
   .summary-item h2 {
     font-size: 2rem;

@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1rem;
 }
 
 .filterContainer {
@@ -25,6 +26,18 @@
   padding: 0 1rem;
 }
 
+.splitFilter,
+.splitFilterTwo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.splitFilterTwo {
+  padding: 1.2rem;
+}
 /* ! ========== CALENDÁRIO ========== */
 
 #cancelButton,
@@ -54,7 +67,7 @@
   font-size: 2rem;
   font-weight: 600;
   background-color: transparent;
-  border: 1.6px solid var(--primary);
+  border: 0.1rem solid var(--primary);
   color: var(--primary);
   cursor: pointer;
 }
@@ -110,11 +123,11 @@
   padding: 1.2rem 0;
   border-radius: 0.5rem;
   font: inherit;
-
+  /* height: 4.5rem; */
   width: 12.6rem;
   font-weight: 600;
   background-color: transparent;
-  border: 1.6px solid var(--bg);
+  border: 0.1rem solid var(--bg);
   box-shadow: var(--default-shadow);
   color: var(--font);
   cursor: pointer;
@@ -150,4 +163,68 @@
   padding: 1.2rem;
   font-weight: 900;
   color: var(--primary);
+}
+
+/* ! ========== RESPONSIVIDADE ========== */
+
+@media screen and (max-width: 1200px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .dateFilter,
+  .categoryFilter {
+    width: 15rem;
+    min-width: 12rem;
+  }
+
+  .mdc-text-field {
+    padding: 0;
+  }
+
+  .typeFilterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .buttonsContainer {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .splitFilter {
+    gap: 0;
+  }
+  .splitFilterTwo {
+    gap: 1rem;
+  }
+
+  .buttonFilter {
+    max-width: 12rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .splitFilter {
+    flex-direction: column;
+  }
+
+  .splitFilterTwo {
+    padding-top: 0;
+  }
+
+  .typeFilterContainer,
+  .buttonsContainer {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .angularMaterialContainer,
+  .typeFilterContainer,
+  .buttonsContainer {
+    flex-direction: column;
+  }
 }

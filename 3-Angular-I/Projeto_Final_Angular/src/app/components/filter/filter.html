@@ -2,54 +2,63 @@
   <button class="buttonRegister" (click)="onRegisterClick()">NOVO REGISTRO</button>
 
   <h2 class="partition">|</h2>
+
   <h2>Filtros:</h2>
 
-  <mat-form-field class="dateFilter">
-    <mat-label>Selecione um período</mat-label>
-    <mat-date-range-input [rangePicker]="rangePicker">
-      <input matStartDate placeholder="Data início" />
-      <input matEndDate placeholder="Data Fim" />
-    </mat-date-range-input>
-    <!-- <mat-hint>dd/mm/aaaa – dd/mm/aaaa</mat-hint> -->
-    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-    <mat-date-range-picker #rangePicker>
-      <mat-date-range-picker-actions>
-        <button matButton matDateRangePickerCancel id="cancelButton">Cancelar</button>
-        <button matButton="elevated" matDateRangePickerApply id="selectButton">Selecionar</button>
-      </mat-date-range-picker-actions>
-    </mat-date-range-picker>
-  </mat-form-field>
+  <div class="splitFilter">
+    <div class="splitFilterTwo angularMaterialContainer">
+      <mat-form-field class="dateFilter">
+        <mat-label class="labelCalendar">Período</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Início" />
+          <input matEndDate placeholder="Fim" />
+        </mat-date-range-input>
+        <!-- <mat-hint>dd/mm/aaaa – dd/mm/aaaa</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button matButton matDateRangePickerCancel id="cancelButton">Cancelar</button>
+            <button matButton="elevated" matDateRangePickerApply id="selectButton">
+              Selecionar
+            </button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
 
-  <div class="filterContainer">
-    <button [ngClass]="{ type: true, selected: selectedIncomes }" (click)="incomeFilter()">
-      C
-      <p>Créditos</p>
-    </button>
-    <button [ngClass]="{ type: true, selected: selectedExpenses }" (click)="expensesFilter()">
-      D
-      <p>Débitos</p>
-    </button>
-  </div>
+      <div class="filterContainer">
+        <mat-form-field class="categoryFilter">
+          <mat-label>Categoria</mat-label>
 
-  <div class="filterContainer">
-    <mat-form-field>
-      <mat-label>Categoria</mat-label>
-
-      <mat-select [formControl]="categoryControl">
-        <mat-option>-- Não Selecionado --</mat-option>
-        @for (type of categoriesNameList; track type) {
-          <mat-optgroup [label]="type.type" [disabled]="false">
-            @for (category of type.categories; track category) {
-              <mat-option [value]="category.id"> {{ category.name }} </mat-option>
+          <mat-select [formControl]="categoryControl">
+            <mat-option>-- Não Selecionado --</mat-option>
+            @for (type of categoriesNameList; track type) {
+              <mat-optgroup [label]="type.type" [disabled]="false">
+                @for (category of type.categories; track category) {
+                  <mat-option [value]="category.id"> {{ category.name }} </mat-option>
+                }
+              </mat-optgroup>
             }
-          </mat-optgroup>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="buttonsContainer">
-    <button class="buttonFilter" (click)="consultFilteredContent()">Consultar</button>
-    <button class="buttonFilter">Limpar Filtros</button>
+    <div class="splitFilterTwo">
+      <div class="filterContainer typeFilterContainer">
+        <button [ngClass]="{ type: true, selected: selectedIncomes }" (click)="incomeFilter()">
+          C
+          <p>Créditos</p>
+        </button>
+        <button [ngClass]="{ type: true, selected: selectedExpenses }" (click)="expensesFilter()">
+          D
+          <p>Débitos</p>
+        </button>
+      </div>
+
+      <div class="buttonsContainer">
+        <button class="buttonFilter" (click)="consultFilteredContent()">Consultar</button>
+        <button class="buttonFilter">Limpar Filtros</button>
+      </div>
+    </div>
   </div>
 </div>
