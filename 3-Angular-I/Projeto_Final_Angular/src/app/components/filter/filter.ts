@@ -77,21 +77,60 @@ export class Filter {
       expenses: this.selectedExpenses,
     };
     console.log(filtros);
+    this._filterService.updateFilter(filtros);
   }
 
-  // ! ========== EM CONSTRUÇÃO ==========
+  // ! ========== SELEÇÃO DO FILTRO C e/ou D, RECEITAS e/ou DESPESAS ==========
 
   selectedIncomes = false;
-  incomeFilter() {
-    this.selectedIncomes = !this.selectedIncomes;
+  selectedExpenses = false;
+
+  typeFilter(value: number) {
+    const incomesCategoriesList = this.categoriesList.filter((cat) => cat.type === 'Receitas');
+
+    const expensesCategoriesList = this.categoriesList.filter((cat) => cat.type === 'Despesas');
+
+    if (value === this.tipoReceita && !this.selectedIncomes) {
+      this.selectedExpenses = this.selectedIncomes;
+      this.selectedIncomes = !this.selectedIncomes;
+
+      this.categoriesNameList = incomesCategoriesList;
+
+      return;
+    }
+
+    if (value === this.tipoDespesa && !this.selectedExpenses) {
+      this.selectedIncomes = this.selectedExpenses;
+      this.selectedExpenses = !this.selectedExpenses;
+
+      this.categoriesNameList = expensesCategoriesList;
+
+      return;
+    }
+
+    if (value === this.tipoReceita && this.selectedIncomes) {
+      this.selectedIncomes = !this.selectedIncomes;
+
+      this.categoriesNameList = this.categoriesList;
+
+      return;
+    }
+
+    if (value === this.tipoDespesa && this.selectedExpenses) {
+      this.selectedExpenses = !this.selectedExpenses;
+
+      this.categoriesNameList = this.categoriesList;
+
+      return;
+    }
   }
 
-  selectedExpenses = false;
-  expensesFilter() {
-    this.selectedExpenses = !this.selectedExpenses;
-  }
+  // ! ========== LIMPAR FILTROS ==========
 
   cleanFilteredContent() {
-    console.log('Limpar Filtros');
+    this.dateRange.reset();
+    this.categoryControl.reset();
+    this.selectedIncomes = false;
+    this.selectedExpenses = false;
   }
 }

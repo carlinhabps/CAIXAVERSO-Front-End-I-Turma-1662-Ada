@@ -32,9 +32,9 @@
 
           <mat-select [formControl]="categoryControl">
             <mat-option>-- Não Selecionado --</mat-option>
-            @for (type of categoriesNameList; track type) {
+            @for (type of categoriesNameList; track type.type) {
               <mat-optgroup [label]="type.type" [disabled]="false">
-                @for (category of type.categories; track category) {
+                @for (category of type.categories; track category.id) {
                   <mat-option [value]="category.id"> {{ category.name }} </mat-option>
                 }
               </mat-optgroup>
@@ -46,11 +46,17 @@
 
     <div class="splitFilterTwo">
       <div class="filterContainer typeFilterContainer">
-        <button [ngClass]="{ type: true, selected: selectedIncomes }" (click)="incomeFilter()">
+        <button
+          [ngClass]="{ type: true, selected: selectedIncomes }"
+          (click)="typeFilter(tipoReceita)"
+        >
           C
           <p>Créditos</p>
         </button>
-        <button [ngClass]="{ type: true, selected: selectedExpenses }" (click)="expensesFilter()">
+        <button
+          [ngClass]="{ type: true, selected: selectedExpenses }"
+          (click)="typeFilter(tipoDespesa)"
+        >
           D
           <p>Débitos</p>
         </button>
