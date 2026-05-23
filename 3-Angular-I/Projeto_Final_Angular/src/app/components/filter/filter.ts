@@ -55,6 +55,10 @@ export class Filter {
 
   constructor(private _filterService: FilterService) {}
 
+  ngOnInit() {
+    this.cleanFilteredContent();
+  }
+
   // ! ========== CRIAR CALENDÁRIO ==========
 
   dateRange = new FormGroup({
@@ -76,11 +80,10 @@ export class Filter {
       incomes: this.selectedIncomes,
       expenses: this.selectedExpenses,
     };
-    console.log(filtros);
     this._filterService.updateFilter(filtros);
   }
 
-  // ! ========== SELEÇÃO DO FILTRO C e/ou D, RECEITAS e/ou DESPESAS ==========
+  // ! ========== SELEÇÃO DO FILTRO C ou D, RECEITAS ou DESPESAS ==========
 
   selectedIncomes = false;
   selectedExpenses = false;
@@ -95,6 +98,7 @@ export class Filter {
       this.selectedIncomes = !this.selectedIncomes;
 
       this.categoriesNameList = incomesCategoriesList;
+      this.applyFilteredContent();
 
       return;
     }
@@ -104,6 +108,7 @@ export class Filter {
       this.selectedExpenses = !this.selectedExpenses;
 
       this.categoriesNameList = expensesCategoriesList;
+      this.applyFilteredContent();
 
       return;
     }
@@ -112,6 +117,7 @@ export class Filter {
       this.selectedIncomes = !this.selectedIncomes;
 
       this.categoriesNameList = this.categoriesList;
+      this.applyFilteredContent();
 
       return;
     }
@@ -120,6 +126,7 @@ export class Filter {
       this.selectedExpenses = !this.selectedExpenses;
 
       this.categoriesNameList = this.categoriesList;
+      this.applyFilteredContent();
 
       return;
     }
@@ -132,5 +139,7 @@ export class Filter {
     this.categoryControl.reset();
     this.selectedIncomes = false;
     this.selectedExpenses = false;
+
+    this.applyFilteredContent();
   }
 }
