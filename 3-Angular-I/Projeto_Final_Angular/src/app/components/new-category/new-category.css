@@ -1,0 +1,13 @@
+.formulario {
+  background-color: var(--bg-lighter);
+  box-shadow: var(--default-shadow);
+  margin: var(--default-margin);
+  padding: var(--default-padding);
+  border-radius: var(--default-border-radius);
+  width: calc((100% - 2.4rem));
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}

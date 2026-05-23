@@ -7,6 +7,7 @@ import { Content } from './components/content/content';
 import { RouterOutlet } from '@angular/router';
 import { TransactionService, TypeTransaction } from './service/transaction.service';
 import { CategoryService, TypeCategoryGroup } from './service/category.service';
+import { NewCategory } from './components/new-category/new-category';
 
 export enum TIPO {
   SALDO = 0,
@@ -16,7 +17,7 @@ export enum TIPO {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, SummaryCards, Filter, NewRegister, Content],
+  imports: [RouterOutlet, FormsModule, SummaryCards, Filter, NewRegister, Content, NewCategory],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -101,15 +102,27 @@ export class App implements OnInit {
 
   personName = 'Carla Beatriz';
 
+  // ! ========== NOVA CATEGORIA ==========
+
+  showNewCategory = true;
+
+  onNewCategoryClick() {
+    this.showNewCategory = true;
+  }
+
+  offNewCategoryClick() {
+    this.showNewCategory = false;
+  }
+
   // ! ========== NOVO REGISTRO ==========
 
   showNewRegister = false;
 
-  onRegisterClick() {
+  onNewRegisterClick() {
     this.showNewRegister = true;
   }
 
-  offRegisterClick() {
+  offNewRegisterClick() {
     this.showNewRegister = false;
   }
 

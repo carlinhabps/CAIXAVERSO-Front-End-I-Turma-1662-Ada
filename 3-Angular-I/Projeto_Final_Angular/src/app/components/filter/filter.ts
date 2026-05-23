@@ -32,11 +32,17 @@ export class Filter {
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
-  // ! ========== LINK COM APP ========== ATIVAR O COMPONENTE NEW-REGISTER ==========
-  @Output() registerClicked = new EventEmitter<void>();
+  // ! ========== LINK COM APP ========== ATIVAR O COMPONENTE NEW-REGISTER e NEW-CATEGORY ==========
+  @Output() newRegisterClicked = new EventEmitter<void>();
 
-  onRegisterClick() {
-    return this.registerClicked.emit();
+  onNewRegisterClick() {
+    return this.newRegisterClicked.emit();
+  }
+
+  @Output() newCategoryClicked = new EventEmitter<void>();
+
+  onNewCategoryClick() {
+    return this.newCategoryClicked.emit();
   }
 
   // ! ========== LINK COM APP ========== RECEBER A LISTA DE CATEGORIAS ==========

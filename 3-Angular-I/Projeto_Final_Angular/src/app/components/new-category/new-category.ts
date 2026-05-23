@@ -4,35 +4,25 @@ import { TIPO } from '../../app';
 import { TypeCategoryGroup } from '../../service/category.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-new-register',
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatIconModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './new-register.html',
-  styleUrl: './new-register.css',
+  selector: 'app-new-category',
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule],
+  templateUrl: './new-category.html',
+  styleUrl: './new-category.css',
 })
-export class NewRegister {
+export class NewCategory {
   // ! ========== DEFAULT ========== TIPO TRANSAÇÃO ==========
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
   // ! ========== LINK COM APP ========== FECHAR O COMPONENTE NEW-REGISTER ==========
-  @Output() closeRegister = new EventEmitter();
+  @Output() closeCategory = new EventEmitter();
   value: any;
 
-  offNewRegisterClick() {
-    return this.closeRegister.emit();
+  offNewCategoryClick() {
+    return this.closeCategory.emit();
   }
 
   // ! ========== LINK COM APP ========== RECEBER A LISTA DE CATEGORIAS ==========
@@ -53,4 +43,7 @@ export class NewRegister {
   categoryControl = new FormControl('');
 
   // ! ========== EM CONSTRUÇÃO ==========
+  creatNewCategory() {
+    console.log('teste creatNewCategory');
+  }
 }

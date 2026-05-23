@@ -4,6 +4,7 @@
 
     <mat-select [formControl]="categoryControl">
       <mat-option>-- Opções --</mat-option>
+      <mat-option [value]="creatNewCategory()"> CRIAR NOVA CATEGORIA </mat-option>
 
       @for (type of categoriesNameList; track type.type) {
         <mat-optgroup [label]="type.type" [disabled]="false">
@@ -15,15 +16,9 @@
     </mat-select>
   </mat-form-field>
 
-  <div class="inputContainer">
-    <input class="new-register description" type="text" placeholder="Descrição" />
-
-    <input class="new-register value" type="number" placeholder="Valor" />
-  </div>
-
   <div class="buttonContainer">
     <button>Registrar</button>
 
-    <button (click)="offNewRegisterClick()">Fechar</button>
+    <button (click)="offNewCategoryClick()">Fechar</button>
   </div>
 </div>
