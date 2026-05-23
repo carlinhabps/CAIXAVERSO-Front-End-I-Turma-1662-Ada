@@ -12,7 +12,10 @@
   <app-filter [categoriesList]="categoryListApi" (registerClicked)="onRegisterClick()"></app-filter>
 
   @if (showNewRegister) {
-    <app-new-register (closeRegister)="offRegisterClick()"></app-new-register>
+    <app-new-register
+      [categoriesList]="categoryListApi"
+      (closeRegister)="offRegisterClick()"
+    ></app-new-register>
   }
 
   <app-content [transactionsList]="transactionListApi"> </app-content>

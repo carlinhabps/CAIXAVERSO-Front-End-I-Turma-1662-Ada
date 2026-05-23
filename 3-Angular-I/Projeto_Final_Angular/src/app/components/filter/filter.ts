@@ -51,7 +51,7 @@ export class Filter {
   private _categoriesList: TypeCategoryGroup[] = [];
   categoriesNameList: TypeCategoryGroup[] = [];
 
-  // ! ==========  CONSTRUCTOR ==========
+  // ! ========== CONSTRUCTOR, NG ON INIT e ON CHANGES ==========
 
   constructor(private _filterService: FilterService) {}
 
@@ -135,10 +135,12 @@ export class Filter {
   // ! ========== LIMPAR FILTROS ==========
 
   cleanFilteredContent() {
-    this.dateRange.reset();
-    this.categoryControl.reset();
     this.selectedIncomes = false;
     this.selectedExpenses = false;
+    this.categoryControl.reset();
+    this.dateRange.reset();
+
+    this.categoriesNameList = this.categoriesList;
 
     this.applyFilteredContent();
   }

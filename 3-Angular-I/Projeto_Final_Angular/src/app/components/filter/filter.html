@@ -31,7 +31,8 @@
           <mat-label>Categoria</mat-label>
 
           <mat-select [formControl]="categoryControl">
-            <mat-option>-- Não Selecionado --</mat-option>
+            <mat-option>-- Opções --</mat-option>
+
             @for (type of categoriesNameList; track type.type) {
               <mat-optgroup [label]="type.type" [disabled]="false">
                 @for (category of type.categories; track category.id) {

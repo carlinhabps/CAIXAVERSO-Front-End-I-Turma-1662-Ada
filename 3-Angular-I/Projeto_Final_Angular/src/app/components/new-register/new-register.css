@@ -1,4 +1,4 @@
-form {
+.formulario {
   background-color: var(--bg-lighter);
   box-shadow: var(--default-shadow);
   margin: var(--default-margin);
@@ -9,10 +9,15 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 /* ! ========== CATEGORIA ========== */
+
+.categoriesOptions {
+  min-width: 18rem;
+  width: 18rem;
+}
 
 .mat-mdc-option.mdc-list-item {
   color: var(--font);
@@ -30,8 +35,27 @@ form {
   color: var(--primary);
 }
 
+/* ! ========== INPUT ========== */
+
+.inputContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 /* ! ========== BOTÃO ========== */
 
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
 
 .new-register,
 button {
@@ -48,7 +72,7 @@ button {
   background-color: var(--bg);
   width: 30rem;
   &.description {
-    width: 100%;
+    width: 70%;
   }
 }
 
@@ -97,4 +121,28 @@ button:hover::after {
 
 button:hover {
   color: var(--bg-lighter);
+}
+
+/* ! ========== RESPONSIVIDADE ========== */
+
+@media screen and (max-width: 960px) {
+  .categoriesOptions {
+    min-width: 15rem;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .inputContainer input {
+    width: 100%;
+  }
+
+  .inputContainer,
+  .buttonContainer {
+    flex-direction: column;
+  }
+
+  .new-register,
+  button {
+    padding: 0.8rem;
+  }
 }

@@ -1,22 +1,29 @@
-<form action="">
-  <!-- <select name="category" id="category" class="new-register category">
-    <option value="0" selected disabled hidden>Categoria</option>
-    <option value="1">Receita</option>
-    <option value="2">Despesa</option>
-  </select> -->
-
-  <mat-form-field>
+<div class="formulario">
+  <mat-form-field class="categoriesOptions">
     <mat-label>Categoria</mat-label>
-    <mat-select>
-      <mat-option>-- None --</mat-option>
-      <mat-option value="1">Receita</mat-option>
-      <mat-option value="2">Despesa</mat-option>
+
+    <mat-select [formControl]="categoryControl">
+      <mat-option>-- Opções --</mat-option>
+
+      @for (type of categoriesNameList; track type.type) {
+        <mat-optgroup [label]="type.type" [disabled]="false">
+          @for (category of type.categories; track category.id) {
+            <mat-option [value]="category.id"> {{ category.name }} </mat-option>
+          }
+        </mat-optgroup>
+      }
     </mat-select>
   </mat-form-field>
 
-  <input class="new-register description" type="text" placeholder="Descrição" />
+  <div class="inputContainer">
+    <input class="new-register description" type="text" placeholder="Descrição" />
 
-  <input class="new-register value" type="number" placeholder="Valor" />
-  <button>Registrar</button>
-  <button (click)="offRegisterClick()">Fechar</button>
-</form>
+    <input class="new-register value" type="number" placeholder="Valor" />
+  </div>
+
+  <div class="buttonContainer">
+    <button>Registrar</button>
+
+    <button (click)="offRegisterClick()">Fechar</button>
+  </div>
+</div>
