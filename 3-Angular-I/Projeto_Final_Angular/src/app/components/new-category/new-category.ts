@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, model, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TIPO } from '../../app';
 import { CategoryService, TypeCategoryGroup } from '../../service/category.service';
@@ -30,14 +30,13 @@ export class NewCategory {
 
   // ! ========== LINK COM APP ========== FECHAR O COMPONENTE NEW-REGISTER ==========
   @Output() closeCategory = new EventEmitter();
-  value: any;
+  @Output() categoryCreated = new EventEmitter<void>();
 
   offNewCategoryClick() {
-    return this.closeCategory.emit();
+    this.closeCategory.emit();
   }
 
   // ! ========== LINK COM APP ========== RECEBER A LISTA DE CATEGORIAS ==========
-
   @Input()
   set categoriesList(value: TypeCategoryGroup[]) {
     this._categoriesList = value;
@@ -50,7 +49,6 @@ export class NewCategory {
   categoriesNameList: TypeCategoryGroup[] = [];
 
   // ! ========== CONSTRUCTOR, NG ON INIT e ON CHANGES ==========
-
   constructor(private _categoryService: CategoryService) {}
 
   ngOnInit() {
@@ -58,75 +56,97 @@ export class NewCategory {
       if (!value) return;
 
       if (value === 'newCategory') {
-        this.creatNewCategory();
+        this.typeCategoryControl.reset();
+        this.nameCategoryControl.reset();
         return;
       }
 
-      const selectedCategory = this._categoryService.findCategoryById(
-        value,
-        this.categoriesNameList,
-      );
-      if (selectedCategory) {
-        const typeValue =
-          selectedCategory.type === 'Receitas' ? this.tipoReceita : this.tipoDespesa;
-        this.typeCategoryControl.setValue(typeValue);
-        this.nameCategoryControl.setValue(selectedCategory.name);
+      const selectedCategory = this._categoryService.readCategoriesById(value);
+
+      if ('error' in selectedCategory) {
+        console.error(selectedCategory.error);
+        return;
       }
+
+      const typeValue = selectedCategory.type === 'Receitas' ? this.tipoReceita : this.tipoDespesa;
+
+      this.typeCategoryControl.setValue(typeValue);
+      this.nameCategoryControl.setValue(selectedCategory.name);
     });
   }
 
   // ! ========== CRIAR FORMULÁRIO COM LISTA DE CATEGORIAS e LISTA DE TIPO ==========
-
   categoryControl = new FormControl('');
   typeCategoryControl = new FormControl<number | null>(null);
   nameCategoryControl = new FormControl('');
 
   // ! ========== EM CONSTRUÇÃO ==========
-
-  actionSelected: 'creat' | 'update' | 'delete' | '' = '';
+  actionSelected: '' | 'creat' | 'update' | 'delete' = '';
 
   actions = [
-    { name: 'Criar', value: 'creat', action: () => this.creatNewCategory() },
-    { name: 'Editar', value: 'update', action: () => this.updateCategory() },
-    { name: 'Deletar', value: 'delete', action: () => this.deleteCategory() },
+    { name: 'Criar', value: 'creat' },
+    { name: 'Editar', value: 'update' },
+    { name: 'Deletar', value: 'delete' },
   ];
 
   creatNewCategory() {
-    this.typeCategoryControl.reset();
-    this.nameCategoryControl.reset();
-
     const id = uuidv4();
     const name = this.nameCategoryControl.value;
     const typeNumber = this.typeCategoryControl.value;
 
-    if (!name) return;
-
-    let typeName: string = '';
-
-    if (typeNumber === this.tipoReceita) {
-      typeName = 'Receitas';
+    if (!name || !typeNumber) {
+      console.log('Preencha nome e tipo');
+      return;
     }
 
-    if (typeNumber === this.tipoDespesa) {
-      typeName = 'Despesas';
+    const typeName = typeNumber === this.tipoReceita ? 'Receitas' : 'Despesas';
+
+    const result = this._categoryService.creatCategory(id, name, typeName);
+
+    if ('error' in result) {
+      console.error(result.error);
+      return;
     }
 
-    this._categoryService.creatCategory(id, name, typeName);
-
-    console.log('categoria criada');
+    this.categoryCreated.emit();
+    console.log('Categoria CRIADA');
   }
 
-  updateCategory() {
-    console.log('teste updateCategory');
+  updateCategory(id: string, newName: string) {
+    this._categoryService.updateCategory(id, newName);
+    console.log('Categoria ATUALIZADA');
   }
 
-  deleteCategory() {
-    console.log('teste deleteCategory');
+  deleteCategory(id: string) {
+    this._categoryService.deleteCategory(id);
+    console.log('Categoria DELETADA');
   }
 
-  categoryAction(actionSelected: string) {
-    const action = this.actions.find((a) => a.value === actionSelected);
+  categoryAction(actionSelected: '' | 'creat' | 'update' | 'delete') {
+    this.actionSelected = actionSelected;
+    this.save();
+  }
 
-    if (action) action.action();
+  save() {
+    const id = this.categoryControl.value;
+    const name = this.nameCategoryControl.value;
+    const type = this.typeCategoryControl.value;
+
+    if (this.actionSelected === 'creat') {
+      if (!name || !type) return console.log('Preencha nome e tipo');
+      this.creatNewCategory();
+      return;
+    }
+
+    if (!id) return console.log('Selecione uma categoria');
+
+    if (this.actionSelected === 'update') {
+      if (!name) return console.log('Nome obrigatório');
+      this.updateCategory(id, name);
+    }
+
+    if (this.actionSelected === 'delete') {
+      this.deleteCategory(id);
+    }
   }
 }

@@ -73,17 +73,8 @@ export class App implements OnInit {
   categoryListApi: TypeCategoryGroup[] = [];
 
   loadCategories() {
-    this._categoryService.readCategory().subscribe({
-      next: (data: TypeCategoryGroup[]) => {
-        this.categoryListApi = data;
-
-        this._cdr.detectChanges();
-      },
-
-      error: (err) => {
-        console.error('Erro ao carregar a lista das categorias:', err);
-      },
-    });
+    this.categoryListApi = this._categoryService.readAllCategories();
+    this._cdr.detectChanges();
   }
 
   // ! ========== TEMA DA TELA ==========

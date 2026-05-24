@@ -19,6 +19,7 @@
     <app-new-category
       [categoriesList]="categoryListApi"
       (closeCategory)="offNewCategoryClick()"
+      (categoryCreated)="loadCategories()"
     ></app-new-category>
   }
 
