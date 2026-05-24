@@ -16,9 +16,19 @@
   </mat-form-field>
 
   <div class="inputContainer">
-    <input class="new-register description" type="text" placeholder="Descrição" />
+    <input
+      class="new-register description"
+      type="text"
+      placeholder="Descrição"
+      [formControl]="descriptionCategoryControl"
+    />
 
-    <input class="new-register value" type="number" placeholder="Valor" />
+    <input
+      class="new-register value"
+      type="number"
+      placeholder="Valor"
+      [formControl]="valueCategoryControl"
+    />
   </div>
 
   <div class="buttonContainer">

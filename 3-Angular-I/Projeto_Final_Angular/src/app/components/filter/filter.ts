@@ -72,7 +72,7 @@ export class Filter {
     end: new FormControl<Date | null>(null),
   });
 
-  // ! ========== CRIAR LISTA DE CATEGORIAS ==========
+  // ! ========== CRIAR FORMULÁRIO COM LISTA DE CATEGORIAS ==========
 
   categoryControl = new FormControl('');
 

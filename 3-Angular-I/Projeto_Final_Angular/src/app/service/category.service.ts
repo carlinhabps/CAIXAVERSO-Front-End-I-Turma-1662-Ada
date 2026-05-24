@@ -16,14 +16,20 @@ export interface TypeCategoryGroup {
   providedIn: 'root',
 })
 export class CategoryService {
-  private _url = 'assets/mocks/categories.json';
+  // private _url = 'assets/mocks/categories.json';
+    private _url = 'https://crudcrud.com/api/1432da1dbf5d4080a9f790a1d1858646';
+
 
   constructor(private _http: HttpClient) {}
 
   // ! --------------- CREAT ---------------
 
-  creatCategory(category: TypeCategoryGroup): Observable<TypeCategoryGroup> {
-    return this._http.post<TypeCategoryGroup>(this._url, category);
+  creatCategory(id: string, name: string, type: string): Observable<TypeCategoryGroup> {
+    const newCategory: TypeCategory = {
+      id,
+      name,
+    };
+    return this._http.post<TypeCategoryGroup>(`${this._url}/${type}`, newCategory);
   }
 
   // ! --------------- READ ---------------
@@ -32,18 +38,28 @@ export class CategoryService {
     return this._http.get<TypeCategoryGroup[]>(this._url);
   }
 
-  readIdCategory(type: number, id: string): Observable<TypeCategoryGroup> {
+  readIdTypeCategory(type: number, id: string): Observable<TypeCategoryGroup> {
     return this._http.get<TypeCategoryGroup>(`${this._url}/${type}/${id}`);
+  }
+
+  findCategoryById(id: string, categories: TypeCategoryGroup[]) {
+    for (const group of categories) {
+      const found = group.categories.find((category) => category.id === id);
+
+      if (found) {
+        return {
+          ...found,
+          type: group.type,
+        };
+      }
+    }
+    return null;
   }
 
   // ! --------------- UPDATE ---------------
 
-  updateCategory(
-    type: number,
-    id: string,
-    category: TypeCategoryGroup,
-  ): Observable<TypeCategoryGroup> {
-    return this._http.put<TypeCategoryGroup>(`${this._url}/${type}/${id}`, category);
+  updateCategory(type: number, id: string, name: TypeCategoryGroup): Observable<TypeCategoryGroup> {
+    return this._http.put<TypeCategoryGroup>(`${this._url}/${type}/${id}`, name);
   }
 
   // ! --------------- DELETE ---------------

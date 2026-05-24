@@ -48,9 +48,11 @@ export class NewRegister {
   private _categoriesList: TypeCategoryGroup[] = [];
   categoriesNameList: TypeCategoryGroup[] = [];
 
-  // ! ========== CRIAR LISTA DE CATEGORIAS ==========
+  // ! ========== CRIAR FORMULÁRIO COM LISTA DE CATEGORIAS ==========
 
   categoryControl = new FormControl('');
+  descriptionCategoryControl = new FormControl('');
+  valueCategoryControl = new FormControl('');
 
   // ! ========== EM CONSTRUÇÃO ==========
 }

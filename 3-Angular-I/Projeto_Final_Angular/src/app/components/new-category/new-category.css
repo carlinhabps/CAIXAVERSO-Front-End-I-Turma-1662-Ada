@@ -11,3 +11,94 @@
   align-items: center;
   gap: 1rem;
 }
+
+/* ! ========== OPÇÕES CATEGORIA ========== */
+
+.mat-mdc-option.mdc-list-item {
+  color: var(--font);
+}
+
+.mat-mdc-optgroup {
+  color: var(--primary);
+}
+
+.mat-mdc-option.mdc-list-item:hover {
+  background: var(--bg-lighter);
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+  color: var(--primary);
+}
+
+/* ! ========== NOME CATEGORIA ========== */
+
+.categoryName {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font: inherit;
+  border: none;
+  color: var(--font);
+  font-weight: 500;
+  background-color: var(--bg);
+  width: 30rem;
+  /* width: 70%; */
+}
+
+/* ! ========== BOTÕES AÇÃO ========== */
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionsName {
+  color: var(--primary);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.buttonContainer button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font: inherit;
+}
+
+.buttonContainer button {
+  max-width: 10rem;
+  font-weight: 600;
+  background-color: transparent;
+  border: 1.6px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.buttonContainer button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.buttonContainer button:hover::after {
+  width: 100%;
+}
+
+.buttonContainer button:hover {
+  color: var(--bg-lighter);
+}

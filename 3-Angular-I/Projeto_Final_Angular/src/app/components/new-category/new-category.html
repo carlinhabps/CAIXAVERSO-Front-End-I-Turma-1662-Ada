@@ -3,11 +3,10 @@
     <mat-label>Categoria</mat-label>
 
     <mat-select [formControl]="categoryControl">
-      <mat-option>-- Opções --</mat-option>
-      <mat-option [value]="creatNewCategory()"> CRIAR NOVA CATEGORIA </mat-option>
+      <mat-option value="newCategory">-- Criar Nova --</mat-option>
 
       @for (type of categoriesNameList; track type.type) {
-        <mat-optgroup [label]="type.type" [disabled]="false">
+        <mat-optgroup [label]="type.type">
           @for (category of type.categories; track category.id) {
             <mat-option [value]="category.id"> {{ category.name }} </mat-option>
           }
@@ -16,8 +15,36 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field class="categoriesOptions">
+    <mat-label>Tipo do Registro</mat-label>
+
+    <mat-select [formControl]="typeCategoryControl">
+      <mat-optgroup label="-- Opções --">
+        <mat-option [value]="tipoReceita" [disabled]="">Receita</mat-option>
+        <mat-option [value]="tipoDespesa">Despesa</mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+
+  <input
+    class="categoryName"
+    type="text"
+    placeholder="Nome da Categoria"
+    [formControl]="nameCategoryControl"
+  />
+
+  <section class="optionsContainer">
+    <h3 class="optionsName">Ação:</h3>
+
+    <mat-radio-group [(ngModel)]="actionSelected">
+      @for (a of actions; track a.value) {
+        <mat-radio-button class="options" [value]="a.value"> {{ a.name }} </mat-radio-button>
+      }
+    </mat-radio-group>
+  </section>
+
   <div class="buttonContainer">
-    <button>Registrar</button>
+    <button (click)="categoryAction(actionSelected)">Registrar</button>
 
     <button (click)="offNewCategoryClick()">Fechar</button>
   </div>
