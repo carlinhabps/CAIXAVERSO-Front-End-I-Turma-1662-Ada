@@ -49,6 +49,8 @@ export class Filter {
   constructor(private _filterService: FilterService) {}
 
   ngOnInit() {
+    this.setCurrentMonthRange();
+    this.dateRange.valueChanges.subscribe(() => this.applyFilteredContent());
     this.cleanFilteredContent();
   }
 
@@ -59,6 +61,14 @@ export class Filter {
   });
 
   categoryControl = new FormControl('');
+
+  setCurrentMonthRange() {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), today.getMonth(), 1);
+    const end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    this.dateRange.setValue({ start, end }, { emitEvent: false });
+  }
 
   // ! ========== ABRIR COMPONENTS - NEW REGISTER E NEW CATEGORY ==========
   onNewRegisterClick() {
@@ -137,7 +147,7 @@ export class Filter {
     this.selectedIncomes = false;
     this.selectedExpenses = false;
     this.categoryControl.reset();
-    this.dateRange.reset();
+    this.setCurrentMonthRange();
 
     this.categoriesNameList = this.categoriesList;
 

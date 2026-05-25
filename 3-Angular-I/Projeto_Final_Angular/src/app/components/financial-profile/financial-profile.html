@@ -1,8 +1,26 @@
-<div class="financial-profile">
-  <h2>Perfil Financeiro</h2>
+<section class="financial-profile">
+  <div class="navContainer">
+    <h2>Perfil Financeiro</h2>
+    <div class="boxContainer">
+      @for (item of profile; track item.name) {
+        <button
+          [ngClass]="{ boxCard: true, selected: selectedProfile === item.name }"
+          (click)="selectProfile(item.name)"
+        >
+          <h2>{{ item.name }}</h2>
+          <p>Prevê a utilização de até {{ item.range }}% do valor das receitas.</p>
+        </button>
+      }
+    </div>
+  </div>
 
-  @for (item of profile; track item.name) {
-    <h2>{{ item.name | currency: 'BRL' }}</h2>
-    <p>Prevê a utilização de até {{ item.range * 100 }}% do valor das receitas.</p>
-  }
-</div>
+  <div class="message">
+    <h3>
+      Perfil selecionado: <span>{{ selectedProfile }}</span>
+    </h3>
+
+    <p>
+      {{ message[2].message }}
+    </p>
+  </div>
+</section>

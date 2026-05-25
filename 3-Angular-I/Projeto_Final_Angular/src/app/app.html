@@ -15,6 +15,8 @@
     (newRegisterClicked)="onNewRegisterClick()"
   ></app-filter>
 
+  <app-financial-profile></app-financial-profile>
+
   @if (showNewCategory) {
     <app-new-category
       [categoriesList]="categoryListApi"
@@ -32,8 +34,6 @@
     ></app-new-register>
   }
 
-  <app-financial-profile></app-financial-profile>
-
   <app-content
     [transactionsList]="transactionListApi"
     (editTransaction)="onEditTransaction($event)"
@@ -42,6 +42,7 @@
 
   <router-outlet />
 </main>
+
 <footer class="footer">
   <p>2026 | Controle Financeiro</p>
   <p>© Carla Beatriz | CAIXAVERSO | Dev Front-end</p>
