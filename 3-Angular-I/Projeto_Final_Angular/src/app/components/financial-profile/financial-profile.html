@@ -1,4 +1,4 @@
-<section class="financial-profile">
+<section class="financial-profile" [ngClass]="messageId">
   <div class="navContainer">
     <h2>Perfil Financeiro</h2>
     <div class="boxContainer">
@@ -19,8 +19,6 @@
       Perfil selecionado: <span>{{ selectedProfile }}</span>
     </h3>
 
-    <p>
-      {{ message[2].message }}
-    </p>
+    <p [innerHTML]="messageHtml"></p>
   </div>
 </section>

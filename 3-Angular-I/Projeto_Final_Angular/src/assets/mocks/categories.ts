@@ -13,6 +13,10 @@ export const CATEGORIES: TypeCategoryGroup[] = [
         id: uuidv4(),
         name: 'Receita Extra',
       },
+      {
+        id: uuidv4(),
+        name: 'Resgate do Investimento',
+      },
     ],
   },
   {
@@ -33,6 +37,10 @@ export const CATEGORIES: TypeCategoryGroup[] = [
       {
         id: uuidv4(),
         name: 'Lazer',
+      },
+      {
+        id: uuidv4(),
+        name: 'Investimento',
       },
     ],
   },

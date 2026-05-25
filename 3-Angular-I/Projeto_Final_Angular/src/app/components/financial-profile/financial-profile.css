@@ -98,6 +98,11 @@
   text-transform: uppercase;
 }
 
+span.messageValue {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
 .success {
   background-color: var(--green);
   color: var(--bg);

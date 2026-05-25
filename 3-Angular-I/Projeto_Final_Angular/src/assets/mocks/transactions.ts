@@ -12,7 +12,7 @@ export const TRANSACTIONS: TypeTransaction[] = [
   },
   {
     id: uuidv4(),
-    description: 'Aluguel',
+    description: 'Investimento',
     type: 2,
     category: 'Moradia',
     date: new Date('2026-01-10'),

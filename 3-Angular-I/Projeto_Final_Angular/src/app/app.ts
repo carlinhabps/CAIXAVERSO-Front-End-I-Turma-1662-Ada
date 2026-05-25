@@ -11,6 +11,7 @@ import { TypeTransaction } from './models/transaction.types';
 import { TypeCategoryGroup } from './models/category.types';
 import { NewCategory } from './components/new-category/new-category';
 import { FinancialProfile } from './components/financial-profile/financial-profile';
+import { FilterService } from './service/filter.service';
 
 export enum TIPO {
   SALDO = 0,
@@ -39,28 +40,22 @@ export class App implements OnInit {
     private _transactionService: TransactionService,
     private _categoryService: CategoryService,
     private _cdr: ChangeDetectorRef,
+    private _filterService: FilterService,
   ) {
     this._applyTheme();
   }
+
+  private _currentFilters: any = null;
 
   ngOnInit(): void {
     this.loadTransactions();
     this.loadCategories();
     this._applyTheme();
-  }
 
-  private _applyTheme(): void {
-    if (typeof localStorage === 'undefined') {
-      return;
-    }
-
-    const theme = localStorage.getItem('tema');
-    const isDark = theme === 'dark';
-
-    document.body.classList.toggle('dark', isDark);
-    this.buttonTheme = isDark
-      ? 'assets/icons/day-and-night-2.png'
-      : 'assets/icons/day-and-night-1.png';
+    this._filterService.filters$.subscribe((filters) => {
+      this._currentFilters = filters ?? {};
+      this.updateSummaryTotals();
+    });
   }
 
   // ! ========== PERFIL DE CONSULTA e TEMA DA TELA ==========
@@ -80,9 +75,47 @@ export class App implements OnInit {
       : 'assets/icons/day-and-night-1.png';
   }
 
+  private _applyTheme(): void {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+
+    const theme = localStorage.getItem('tema');
+    const isDark = theme === 'dark';
+
+    document.body.classList.toggle('dark', isDark);
+    this.buttonTheme = isDark
+      ? 'assets/icons/day-and-night-2.png'
+      : 'assets/icons/day-and-night-1.png';
+  }
+
   // ! ========== SALDOS ==========
   incomeTotal = 0;
   expensesTotal = 0;
+
+  updateSummaryTotals() {
+    const filters = this._currentFilters ?? {};
+
+    const filteredTransactions = this.transactionListApi.filter((t) => {
+      if (filters.incomes && t.type !== TIPO.RECEITA) return false;
+      if (filters.expenses && t.type !== TIPO.DESPESA) return false;
+      if (filters.category && t.category !== filters.category) return false;
+      if (filters.startDate && new Date(t.date) < filters.startDate) return false;
+      if (filters.endDate && new Date(t.date) > filters.endDate) return false;
+
+      return true;
+    });
+
+    this.incomeTotal = filteredTransactions
+      .filter((t) => t.type === TIPO.RECEITA)
+      .reduce((acc, t) => acc + Number(t.value ?? 0), 0);
+
+    this.expensesTotal = filteredTransactions
+      .filter((t) => t.type === TIPO.DESPESA)
+      .reduce((acc, t) => acc + Number(t.value ?? 0), 0);
+
+    this._cdr.detectChanges();
+  }
 
   // ! ========== CATEGORIAS ==========
   categoryListApi: TypeCategoryGroup[] = [];
@@ -100,15 +133,7 @@ export class App implements OnInit {
     this._transactionService.readTransaction().subscribe({
       next: (data: TypeTransaction[]) => {
         this.transactionListApi = data;
-
-        this.incomeTotal = data
-          .filter((t) => t.type === TIPO.RECEITA)
-          .reduce((acc, t) => acc + t.value, 0);
-
-        this.expensesTotal = data
-          .filter((t) => t.type === TIPO.DESPESA)
-          .reduce((acc, t) => acc + t.value, 0);
-
+        this.updateSummaryTotals();
         this._cdr.detectChanges();
       },
       error: (err: unknown) => {

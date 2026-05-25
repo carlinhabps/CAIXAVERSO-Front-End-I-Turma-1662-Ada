@@ -39,6 +39,7 @@ export class NewRegister implements OnChanges, OnInit {
 
   @Input() categoriesList: TypeCategoryGroup[] = [];
   @Input() transactionToEdit: TypeTransaction | null = null;
+  @Input() currentTransactions: TypeTransaction[] = [];
 
   // ! ========== CONSTRUCTOR, NG ON INIT e ON CHANGES ==========
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class NewRegister implements OnChanges, OnInit {
 
   selectedType: number | null = null;
   valueText = 'R$ 0,00';
+  rawValue = '0';
   maxDate = new Date();
 
   // ! ========== SALVAR TRANSAÇÕES - NOVA OU ALTERAÇÕES ==========
@@ -97,11 +99,30 @@ export class NewRegister implements OnChanges, OnInit {
       value,
     };
 
+    if (this._negativeBalance(transaction)) {
+      alert('Saldo insuficiente para realizar a operação.');
+      return;
+    }
+
     this.saveTransaction.emit({
       mode: this.transactionToEdit ? 'update' : 'create',
       transaction,
     });
     this.closeRegister.emit();
+  }
+
+  private _negativeBalance(transaction: TypeTransaction): boolean {
+    const balance = this.currentTransactions
+      .filter((item) => item.id !== this.transactionToEdit?.id)
+      .reduce((acc, item) => {
+        const value = Number(item.value);
+
+        return acc + (item.type === this.tipoReceita ? value : -value);
+      }, 0);
+
+    const nextValue = Number(transaction.value);
+
+    return balance + (transaction.type === this.tipoReceita ? nextValue : -nextValue) < 0;
   }
 
   // ! ========== PREENCHER CAMPOS DO NEW-REGISTER ==========
@@ -115,7 +136,8 @@ export class NewRegister implements OnChanges, OnInit {
 
       this.descriptionControl.setValue(this.transactionToEdit.description, { emitEvent: false });
 
-      this.valueText = this._formatCurrencyInput(String(this.transactionToEdit.value));
+      this.rawValue = String(this.transactionToEdit.value ?? 0);
+      this.valueText = this._formatCurrencyInput(this.rawValue);
 
       this.dateControl.setValue(
         typeof this.transactionToEdit.date === 'string'
@@ -130,15 +152,23 @@ export class NewRegister implements OnChanges, OnInit {
     this.categoryControl.reset('', { emitEvent: false });
     this.selectedType = null;
     this.descriptionControl.reset('', { emitEvent: false });
+    this.rawValue = '0';
     this.valueText = 'R$ 0,00';
     this.dateControl.setValue(new Date(), { emitEvent: false });
   }
 
   onValueInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    const formatted = this._formatCurrencyInput(input.value);
-    this.valueText = formatted;
-    input.value = formatted;
+    const digits = input.value.replace(/\D/g, '');
+
+    this.rawValue = digits || '0';
+    this.valueText = this.rawValue;
+    input.value = this.rawValue;
+  }
+
+  onValueBlur() {
+    const numericValue = Number(this.rawValue || 0);
+    this.valueText = this._formatCurrencyInput(numericValue);
   }
 
   // ! ========== PADRONIZAÇÃO ==========
@@ -162,29 +192,49 @@ export class NewRegister implements OnChanges, OnInit {
           : null;
   }
 
-  private _formatCurrencyInput(value: string): string {
-    const digits = value.replace(/\D/g, '');
-
-    if (!digits) {
+  private _formatCurrencyInput(value: string | number): string {
+    if (value === null || value === undefined || value === '') {
       return 'R$ 0,00';
     }
 
-    const normalized = Number(digits) / 100;
+    const numericValue = typeof value === 'number' ? value : this._extractNumberFromInput(value);
 
-    return normalized.toLocaleString('pt-BR', {
+    if (!Number.isFinite(numericValue)) {
+      return 'R$ 0,00';
+    }
+
+    return numericValue.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     });
   }
 
   private _parseCurrency(value: string): number {
-    const digits = value.replace(/\D/g, '');
+    const numericValue = this._extractNumberFromInput(value);
 
-    if (!digits) {
+    return Number.isFinite(numericValue) ? numericValue : 0;
+  }
+
+  private _extractNumberFromInput(value: string): number {
+    const trimmed = value.trim();
+
+    if (!trimmed) {
       return 0;
     }
 
-    return Number(digits) / 100;
+    if (trimmed.includes(',') || trimmed.includes('.')) {
+      const normalized = trimmed
+        .replace(/\./g, '')
+        .replace(',', '.')
+        .replace(/[^\d.-]/g, '');
+
+      const parsedValue = Number(normalized);
+      return Number.isFinite(parsedValue) ? parsedValue : 0;
+    }
+
+    const digits = trimmed.replace(/\D/g, '');
+
+    return Number(digits || 0);
   }
 
   private _formatDateForSave(date: Date): string {

@@ -15,7 +15,7 @@
     (newRegisterClicked)="onNewRegisterClick()"
   ></app-filter>
 
-  <app-financial-profile></app-financial-profile>
+  <app-financial-profile [transactionsList]="transactionListApi"></app-financial-profile>
 
   @if (showNewCategory) {
     <app-new-category
@@ -29,6 +29,7 @@
     <app-new-register
       [categoriesList]="categoryListApi"
       [transactionToEdit]="transactionToEdit"
+      [currentTransactions]="transactionListApi"
       (saveTransaction)="onTransactionSubmit($event)"
       (closeRegister)="offNewRegisterClick()"
     ></app-new-register>
