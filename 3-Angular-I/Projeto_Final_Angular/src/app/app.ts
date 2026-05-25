@@ -10,6 +10,7 @@ import { CategoryService } from './service/category.service';
 import { TypeTransaction } from './models/transaction.types';
 import { TypeCategoryGroup } from './models/category.types';
 import { NewCategory } from './components/new-category/new-category';
+import { FinancialProfile } from './components/financial-profile/financial-profile';
 
 export enum TIPO {
   SALDO = 0,
@@ -19,28 +20,48 @@ export enum TIPO {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, SummaryCards, Filter, NewRegister, Content, NewCategory],
+  imports: [
+    RouterOutlet,
+    FormsModule,
+    SummaryCards,
+    Filter,
+    NewRegister,
+    Content,
+    NewCategory,
+    FinancialProfile,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
   // ! ========== CARREGAMENTO DA PÁGINA E CONSTRUCTOR ==========
-  ngOnInit(): void {
-    this.loadTransactions();
-    this.loadCategories();
-
-    const theme = localStorage.getItem('tema');
-    if (theme === 'dark') {
-      document.body.classList.add('dark');
-      this.buttonTheme = 'assets/icons/day-and-night-2.png';
-    }
-  }
-
   constructor(
     private _transactionService: TransactionService,
     private _categoryService: CategoryService,
     private _cdr: ChangeDetectorRef,
-  ) {}
+  ) {
+    this._applyTheme();
+  }
+
+  ngOnInit(): void {
+    this.loadTransactions();
+    this.loadCategories();
+    this._applyTheme();
+  }
+
+  private _applyTheme(): void {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+
+    const theme = localStorage.getItem('tema');
+    const isDark = theme === 'dark';
+
+    document.body.classList.toggle('dark', isDark);
+    this.buttonTheme = isDark
+      ? 'assets/icons/day-and-night-2.png'
+      : 'assets/icons/day-and-night-1.png';
+  }
 
   // ! ========== PERFIL DE CONSULTA e TEMA DA TELA ==========
   personName = 'Carla Beatriz';
@@ -49,7 +70,11 @@ export class App implements OnInit {
 
   toggleTheme() {
     const isDark = document.body.classList.toggle('dark');
-    localStorage.setItem('tema', isDark ? 'dark' : 'light');
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('tema', isDark ? 'dark' : 'light');
+    }
+
     this.buttonTheme = isDark
       ? 'assets/icons/day-and-night-2.png'
       : 'assets/icons/day-and-night-1.png';

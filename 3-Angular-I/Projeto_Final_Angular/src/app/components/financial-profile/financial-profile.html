@@ -1,0 +1,8 @@
+<div class="financial-profile">
+  <h2>Perfil Financeiro</h2>
+
+  @for (item of profile; track item.name) {
+    <h2>{{ item.name | currency: 'BRL' }}</h2>
+    <p>Prevê a utilização de até {{ item.range * 100 }}% do valor das receitas.</p>
+  }
+</div>
