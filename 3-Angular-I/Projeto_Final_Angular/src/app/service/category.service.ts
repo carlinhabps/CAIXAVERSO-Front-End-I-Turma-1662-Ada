@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
-
-export interface TypeCategory {
-  id: string;
-  name: string;
-}
-
-export interface TypeCategoryGroup {
-  type: string;
-  categories: TypeCategory[];
-}
+import { TypeCategoryGroup } from '../models/category.types';
+import { CATEGORIES } from '../../assets/mocks/categories';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +9,20 @@ export class CategoryService {
   private _STORAGE_KEY = 'categories';
 
   // ! ==================== BASE ====================
-
   private _loadCategories(): TypeCategoryGroup[] {
     const data = localStorage.getItem(this._STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+
+    if (!data) {
+      this._saveCategories(CATEGORIES);
+      return CATEGORIES;
+    }
+
+    try {
+      return JSON.parse(data) as TypeCategoryGroup[];
+    } catch {
+      this._saveCategories(CATEGORIES);
+      return CATEGORIES;
+    }
   }
 
   private _saveCategories(categories: TypeCategoryGroup[]): void {
@@ -51,7 +53,6 @@ export class CategoryService {
   }
 
   // ! ==================== CREAT ====================
-
   creatCategory(id: string, name: string, type: string) {
     const allCategories = this._loadCategories();
 
@@ -78,7 +79,6 @@ export class CategoryService {
   }
 
   // ! ==================== READ ====================
-
   readAllCategories(): TypeCategoryGroup[] {
     return this._loadCategories();
   }
@@ -104,7 +104,6 @@ export class CategoryService {
   }
 
   // ! ==================== UPDATE ====================
-
   updateCategory(id: string, newName: string) {
     const result = this._findCategoryById(id);
 
@@ -118,7 +117,6 @@ export class CategoryService {
   }
 
   // ! ==================== DELETE ====================
-
   deleteCategory(id: string) {
     const result = this._findCategoryById(id);
 

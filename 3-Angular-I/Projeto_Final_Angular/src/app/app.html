@@ -19,18 +19,24 @@
     <app-new-category
       [categoriesList]="categoryListApi"
       (closeCategory)="offNewCategoryClick()"
-      (categoryCreated)="loadCategories()"
+      (categoryChanged)="onCategoryChanged()"
     ></app-new-category>
   }
 
   @if (showNewRegister) {
     <app-new-register
       [categoriesList]="categoryListApi"
+      [transactionToEdit]="transactionToEdit"
+      (saveTransaction)="onTransactionSubmit($event)"
       (closeRegister)="offNewRegisterClick()"
     ></app-new-register>
   }
 
-  <app-content [transactionsList]="transactionListApi"> </app-content>
+  <app-content
+    [transactionsList]="transactionListApi"
+    (editTransaction)="onEditTransaction($event)"
+    (deleteTransaction)="onDeleteTransaction($event)"
+  ></app-content>
 
   <router-outlet />
 </main>

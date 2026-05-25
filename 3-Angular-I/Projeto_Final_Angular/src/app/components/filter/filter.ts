@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TIPO } from '../../app';
-import { TypeCategoryGroup } from '../../service/category.service';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { TypeCategoryGroup } from '../../models/category.types';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -15,7 +14,6 @@ import { FilterService } from '../../service/filter.service';
   selector: 'app-filter',
   imports: [
     CommonModule,
-    MatMomentDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
@@ -32,20 +30,10 @@ export class Filter {
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
-  // ! ========== LINK COM APP ========== ATIVAR O COMPONENTE NEW-REGISTER e NEW-CATEGORY ==========
+  // ! ========== LINK COM APP COMPONENT ==========
   @Output() newRegisterClicked = new EventEmitter<void>();
-
-  onNewRegisterClick() {
-    return this.newRegisterClicked.emit();
-  }
-
   @Output() newCategoryClicked = new EventEmitter<void>();
 
-  onNewCategoryClick() {
-    return this.newCategoryClicked.emit();
-  }
-
-  // ! ========== LINK COM APP ========== RECEBER A LISTA DE CATEGORIAS ==========
   @Input()
   set categoriesList(value: TypeCategoryGroup[]) {
     this._categoriesList = value;
@@ -58,23 +46,28 @@ export class Filter {
   categoriesNameList: TypeCategoryGroup[] = [];
 
   // ! ========== CONSTRUCTOR, NG ON INIT e ON CHANGES ==========
-
   constructor(private _filterService: FilterService) {}
 
   ngOnInit() {
     this.cleanFilteredContent();
   }
 
-  // ! ========== CRIAR CALENDÁRIO ==========
-
+  // ! ========== FORMULÁRIOS E CONSTANTES ==========
   dateRange = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
-  // ! ========== CRIAR FORMULÁRIO COM LISTA DE CATEGORIAS ==========
-
   categoryControl = new FormControl('');
+
+  // ! ========== ABRIR COMPONENTS - NEW REGISTER E NEW CATEGORY ==========
+  onNewRegisterClick() {
+    return this.newRegisterClicked.emit();
+  }
+
+  onNewCategoryClick() {
+    return this.newCategoryClicked.emit();
+  }
 
   // ! ========== APLICAR FILTROS ==========
 

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TIPO } from '../../app';
-import { CategoryService, TypeCategoryGroup } from '../../service/category.service';
+import { TypeCategoryGroup } from '../../models/category.types';
+import { CategoryService } from '../../service/category.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,15 +29,10 @@ export class NewCategory {
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
-  // ! ========== LINK COM APP ========== FECHAR O COMPONENTE NEW-REGISTER ==========
-  @Output() closeCategory = new EventEmitter();
-  @Output() categoryCreated = new EventEmitter<void>();
+  // ! ========== LINK COM APP COMPONENT ==========
+  @Output() closeCategory = new EventEmitter<void>();
+  @Output() categoryChanged = new EventEmitter<void>();
 
-  offNewCategoryClick() {
-    this.closeCategory.emit();
-  }
-
-  // ! ========== LINK COM APP ========== RECEBER A LISTA DE CATEGORIAS ==========
   @Input()
   set categoriesList(value: TypeCategoryGroup[]) {
     this._categoriesList = value;
@@ -75,12 +71,11 @@ export class NewCategory {
     });
   }
 
-  // ! ========== CRIAR FORMULÁRIO COM LISTA DE CATEGORIAS e LISTA DE TIPO ==========
+  // ! ========== FORMULÁRIOS E CONSTANTES ==========
   categoryControl = new FormControl('');
   typeCategoryControl = new FormControl<number | null>(null);
   nameCategoryControl = new FormControl('');
 
-  // ! ========== EM CONSTRUÇÃO ==========
   actionSelected: '' | 'creat' | 'update' | 'delete' = '';
 
   actions = [
@@ -89,39 +84,56 @@ export class NewCategory {
     { name: 'Deletar', value: 'delete' },
   ];
 
+  // ! ========== CRIAR NOVA CATEGORIA ==========
   creatNewCategory() {
     const id = uuidv4();
     const name = this.nameCategoryControl.value;
     const typeNumber = this.typeCategoryControl.value;
 
     if (!name || !typeNumber) {
-      console.log('Preencha nome e tipo');
+      alert('Preencha nome e tipo');
       return;
     }
 
     const typeName = typeNumber === this.tipoReceita ? 'Receitas' : 'Despesas';
 
     const result = this._categoryService.creatCategory(id, name, typeName);
+    if ('error' in result) {
+      console.error(result.error);
+      return;
+    }
+
+    this.categoryChanged.emit();
+    this.offNewCategoryClick();
+  }
+
+  // ! ========== EDITAR CATEGORIA ==========
+  updateCategory(id: string, newName: string) {
+    const result = this._categoryService.updateCategory(id, newName);
 
     if ('error' in result) {
       console.error(result.error);
       return;
     }
 
-    this.categoryCreated.emit();
-    console.log('Categoria CRIADA');
+    this.categoryChanged.emit();
+    this.offNewCategoryClick();
   }
 
-  updateCategory(id: string, newName: string) {
-    this._categoryService.updateCategory(id, newName);
-    console.log('Categoria ATUALIZADA');
-  }
-
+  // ! ========== DELETAR CATEGORIA ==========
   deleteCategory(id: string) {
-    this._categoryService.deleteCategory(id);
-    console.log('Categoria DELETADA');
+    const result = this._categoryService.deleteCategory(id);
+
+    if ('error' in result) {
+      console.error(result.error);
+      return;
+    }
+
+    this.categoryChanged.emit();
+    this.offNewCategoryClick();
   }
 
+  // ! ========== IDENTIFICA QUAL AÇÃO DO CRUD CHAMAR ==========
   categoryAction(actionSelected: '' | 'creat' | 'update' | 'delete') {
     this.actionSelected = actionSelected;
     this.save();
@@ -132,21 +144,34 @@ export class NewCategory {
     const name = this.nameCategoryControl.value;
     const type = this.typeCategoryControl.value;
 
+    const typeName = type === this.tipoReceita ? 'Receitas' : 'Despesas';
+
     if (this.actionSelected === 'creat') {
-      if (!name || !type) return console.log('Preencha nome e tipo');
+      if (!name || !type) return alert('Preenchimento do NOME e TIPO obrigatórios.');
+
       this.creatNewCategory();
+      alert(
+        `Categoria ${name?.toUpperCase()}, do tipo ${typeName.toUpperCase()}, criada com sucesso. `,
+      );
       return;
     }
 
-    if (!id) return console.log('Selecione uma categoria');
+    if (!id) return alert('Selecione uma categoria');
 
     if (this.actionSelected === 'update') {
-      if (!name) return console.log('Nome obrigatório');
+      if (!name) return alert('Preenchimento do NOME obrigatório');
       this.updateCategory(id, name);
+      alert(`Categoria ${name?.toUpperCase()} atualizada com sucesso. `);
     }
 
     if (this.actionSelected === 'delete') {
       this.deleteCategory(id);
+      alert(`Categoria ${name?.toUpperCase()} deletada com sucesso. `);
     }
+  }
+
+  // ! ========== FECHAR COMPONENT ==========
+  offNewCategoryClick() {
+    this.closeCategory.emit();
   }
 }

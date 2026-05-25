@@ -1,12 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SummaryCards } from './components/summary-cards/summary-cards';
 import { Filter } from './components/filter/filter';
 import { NewRegister } from './components/new-register/new-register';
 import { Content } from './components/content/content';
 import { RouterOutlet } from '@angular/router';
-import { TransactionService, TypeTransaction } from './service/transaction.service';
-import { CategoryService, TypeCategoryGroup } from './service/category.service';
+import { TransactionService } from './service/transaction.service';
+import { CategoryService } from './service/category.service';
+import { TypeTransaction } from './models/transaction.types';
+import { TypeCategoryGroup } from './models/category.types';
 import { NewCategory } from './components/new-category/new-category';
 
 export enum TIPO {
@@ -23,7 +25,6 @@ export enum TIPO {
 })
 export class App implements OnInit {
   // ! ========== CARREGAMENTO DA PÁGINA E CONSTRUCTOR ==========
-
   ngOnInit(): void {
     this.loadTransactions();
     this.loadCategories();
@@ -41,11 +42,34 @@ export class App implements OnInit {
     private _cdr: ChangeDetectorRef,
   ) {}
 
-  // ! ========== TRANSAÇÕES ==========
+  // ! ========== PERFIL DE CONSULTA e TEMA DA TELA ==========
+  personName = 'Carla Beatriz';
 
-  transactionListApi: TypeTransaction[] = [];
+  buttonTheme = 'assets/icons/day-and-night-1.png';
+
+  toggleTheme() {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('tema', isDark ? 'dark' : 'light');
+    this.buttonTheme = isDark
+      ? 'assets/icons/day-and-night-2.png'
+      : 'assets/icons/day-and-night-1.png';
+  }
+
+  // ! ========== SALDOS ==========
   incomeTotal = 0;
   expensesTotal = 0;
+
+  // ! ========== CATEGORIAS ==========
+  categoryListApi: TypeCategoryGroup[] = [];
+
+  loadCategories() {
+    this.categoryListApi = this._categoryService.readAllCategories();
+    this._cdr.detectChanges();
+  }
+
+  // ! ========== TRANSAÇÕES ==========
+  transactionListApi: TypeTransaction[] = [];
+  transactionToEdit: TypeTransaction | null = null;
 
   loadTransactions() {
     this._transactionService.readTransaction().subscribe({
@@ -62,40 +86,46 @@ export class App implements OnInit {
 
         this._cdr.detectChanges();
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.error('Erro ao carregar a lista de transações:', err);
       },
     });
   }
 
-  // ! ========== CATEGORIAS ==========
-
-  categoryListApi: TypeCategoryGroup[] = [];
-
-  loadCategories() {
-    this.categoryListApi = this._categoryService.readAllCategories();
-    this._cdr.detectChanges();
+  onEditTransaction(transaction: TypeTransaction) {
+    this.transactionToEdit = transaction;
+    this.showNewRegister = true;
   }
 
-  // ! ========== TEMA DA TELA ==========
-
-  buttonTheme = 'assets/icons/day-and-night-1.png';
-
-  toggleTheme() {
-    const isDark = document.body.classList.toggle('dark');
-    localStorage.setItem('tema', isDark ? 'dark' : 'light');
-    this.buttonTheme = isDark
-      ? 'assets/icons/day-and-night-2.png'
-      : 'assets/icons/day-and-night-1.png';
+  onDeleteTransaction(id: string) {
+    this._transactionService.deleteTransaction(id).subscribe({
+      next: () => this.loadTransactions(),
+      error: (err: unknown) => {
+        console.error('Erro ao excluir transação:', err);
+      },
+    });
   }
 
-  // ! ========== PERFIL DE CONSULTA ==========
+  onTransactionSubmit(submit: { mode: 'create' | 'update'; transaction: TypeTransaction }) {
+    const request =
+      submit.mode === 'create'
+        ? this._transactionService.creatTransaction(submit.transaction)
+        : this._transactionService.updateTransaction(submit.transaction.id, submit.transaction);
 
-  personName = 'Carla Beatriz';
+    request.subscribe({
+      next: () => {
+        this.showNewRegister = false;
+        this.transactionToEdit = null;
+        this.loadTransactions();
+      },
+      error: (err: unknown) => {
+        console.error('Erro ao salvar transação:', err);
+      },
+    });
+  }
 
-  // ! ========== NOVA CATEGORIA ==========
-
-  showNewCategory = true;
+  // ! ========== ABRIR FECHAR NEW-CATEGORY NEW-REGISTER ==========
+  showNewCategory = false;
 
   onNewCategoryClick() {
     this.showNewCategory = true;
@@ -105,17 +135,19 @@ export class App implements OnInit {
     this.showNewCategory = false;
   }
 
-  // ! ========== NOVO REGISTRO ==========
+  onCategoryChanged() {
+    this.loadCategories();
+  }
 
   showNewRegister = false;
 
   onNewRegisterClick() {
+    this.transactionToEdit = null;
     this.showNewRegister = true;
   }
 
   offNewRegisterClick() {
     this.showNewRegister = false;
+    this.transactionToEdit = null;
   }
-
-  // ! ========== EM CONSTRUÇÃO ==========
 }

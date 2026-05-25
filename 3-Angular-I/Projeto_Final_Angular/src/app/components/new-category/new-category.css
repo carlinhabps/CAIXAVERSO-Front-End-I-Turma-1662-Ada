@@ -42,7 +42,8 @@
   font-weight: 500;
   background-color: var(--bg);
   width: 30rem;
-  /* width: 70%; */
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* ! ========== BOTÕES AÇÃO ========== */

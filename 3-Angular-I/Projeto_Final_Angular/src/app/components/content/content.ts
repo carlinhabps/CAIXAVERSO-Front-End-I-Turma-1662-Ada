@@ -1,11 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import moment from 'moment/min/moment-with-locales';
 import { TIPO } from '../../app';
-import { TypeTransaction } from '../../service/transaction.service';
+import { TypeTransaction } from '../../models/transaction.types';
 import { FilterService } from '../../service/filter.service';
-
-moment.locale('pt-br');
 
 @Component({
   selector: 'app-content',
@@ -13,17 +10,15 @@ moment.locale('pt-br');
   templateUrl: './content.html',
   styleUrl: './content.css',
 })
-export class Content {
-  // ! ========== DEFAULT ========== TIPO TRANSAÇÃO e BIBLIOTECA DATA ==========
+export class Content implements OnInit, OnChanges {
+  // ! ========== DEFAULT ========== TIPO TRANSAÇÃO ==========
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
-  moment = moment;
-
-  // ! ========== LINK COM APP ========== LISTA DE TRANSAÇÕES ==========
-
+  // ! ========== LINK COM APP COMPONENT ==========
   @Input() transactionsList: TypeTransaction[] = [];
-  transactionsListFiltered: TypeTransaction[] = [];
+  @Output() editTransaction = new EventEmitter<TypeTransaction>();
+  @Output() deleteTransaction = new EventEmitter<string>();
 
   // ! ========== CONSTRUCTOR, NG ON INIT e ON CHANGES ==========
 
@@ -33,48 +28,60 @@ export class Content {
     this.transactionsListFiltered = [...this.transactionsList];
 
     this._filterService.filters$.subscribe((filters) => {
-      if (filters) this.applyFilters(filters);
+      this._currentFilters = filters;
+
+      if (filters) {
+        this.applyFilters(filters);
+        return;
+      }
+
+      this.transactionsListFiltered = [...this.transactionsList];
     });
   }
 
   ngOnChanges() {
-    if (this.transactionsList?.length) {
-      this.transactionsListFiltered = [...this.transactionsList];
+    this.transactionsListFiltered = [...this.transactionsList];
+
+    if (this._currentFilters) {
+      this.applyFilters(this._currentFilters);
     }
   }
 
+  // ! ========== FORMULÁRIOS E CONSTANTES ==========
+  transactionsListFiltered: TypeTransaction[] = [];
+
+  private _currentFilters: any = null;
+
   // ! ========== APLICANDO OS FILTROS ==========
-
   applyFilters(filtros: any) {
-    console.log(filtros);
-
-    const filter: any = filtros;
-
-    // startDate: this.dateRange.value.start,
-    // endDate: this.dateRange.value.end,
-    // category: this.categoryControl.value,
-    // incomes: this.selectedIncomes,
-    // expenses: this.selectedExpenses,
+    const filter = filtros ?? {};
 
     this.transactionsListFiltered = this.transactionsList.filter((t) => {
-      // "id": "3",
-      // "description": "Supermercado",
-      // "type": 2,
-      // "category": "1c",
-      // "date": "2026-01-15",
-      // "value": 420
-
       if (filter.incomes && t.type !== this.tipoReceita) return false;
 
       if (filter.expenses && t.type !== this.tipoDespesa) return false;
 
-      if (filter.category !== null && t.category !== filter.category) return false;
+      if (filter.category && t.category !== filter.category) return false;
 
-      if (filter.startDate !== null && new Date(t.date) < filter.startDate) return false;
+      if (filter.startDate && new Date(t.date) < filter.startDate) return false;
 
-      if (filter.endDate !== null && new Date(t.date) > filter.endDate) return false;
+      if (filter.endDate && new Date(t.date) > filter.endDate) return false;
 
       return true;
     });
+  }
+
+  // ! ========== AÇÕES DA TABELA ==========
+  onEdit(transaction: TypeTransaction) {
+    this.editTransaction.emit(transaction);
+  }
+
+  onDelete(id: string) {
+    this.deleteTransaction.emit(id);
+  }
+
+  // ! ========== PADRONIZAÇÃO ==========
+  formatDate(date: string | Date) {
+    return new Date(date).toLocaleDateString('pt-BR');
   }
 }

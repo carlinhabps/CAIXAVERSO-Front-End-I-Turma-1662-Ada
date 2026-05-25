@@ -20,12 +20,12 @@
           }"
         >
           <td>
-            {{ moment(item.date).format('L') }}
+            {{ formatDate(item.date) }}
           </td>
           <td class="left">{{ item.category }}</td>
           <td class="left">{{ item.description }}</td>
           <td class="right">
-            @if (item.type === 1) {
+            @if (item.type === tipoReceita) {
               {{ item.value | currency: 'BRL' }}
             } @else {
               {{ -1 * item.value | currency: 'BRL' }}
@@ -39,8 +39,8 @@
             }
           </td>
           <td class="action">
-            <button>Alterar</button>
-            <button>Excluir</button>
+            <button (click)="onEdit(item)">Alterar</button>
+            <button (click)="onDelete(item.id)">Excluir</button>
           </td>
         </tr>
       }

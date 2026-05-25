@@ -13,7 +13,7 @@ export class SummaryCards {
   tipoReceita = TIPO.RECEITA;
   tipoDespesa = TIPO.DESPESA;
 
-  // ! ========== LINK COM APP ========== VALORES TOTAIS ==========
+  // ! ========== LINK COM APP COMPONENT ==========
   @Input() income = 0;
   @Input() expenses = 0;
 
